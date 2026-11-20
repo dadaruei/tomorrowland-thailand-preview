@@ -112,30 +112,27 @@
             Tomorrowland Thailand 2026 · <span class="text-amber-300 font-semibold">9 Days, 8 Nights</span> · Bangkok · Rayong · Wisdom Valley
           </p>
 
-          <!-- Quick Overview Pills -->
-          <div class="flex flex-wrap gap-2 pt-1">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs sm:text-sm text-slate-200">
+          <!-- Quick Overview Pills (2x2 symmetric grid on mobile, inline wrap on desktop) -->
+          <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 pt-1">
+            <span class="inline-flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs sm:text-sm text-slate-200">
               <span>👥</span> 8 Crew Members
             </span>
-            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs sm:text-sm text-slate-200">
+            <span class="inline-flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs sm:text-sm text-slate-200">
               <span>🚐</span> VIP 8-Seater Van
             </span>
-            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-400/30 text-xs sm:text-sm text-amber-200 font-medium">
+            <span class="inline-flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl bg-amber-500/15 border border-amber-400/30 text-xs sm:text-sm text-amber-200 font-medium">
               <span>🎡</span> Full Madness Pass
             </span>
-            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs sm:text-sm text-slate-200">
+            <span class="inline-flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs sm:text-sm text-slate-200">
               <span>🏨</span> 4 Stays
             </span>
           </div>
 
-          <!-- Quick Field Action Buttons -->
-          <div class="flex flex-wrap gap-2.5 pt-2">
-            <button type="button" onclick="jumpToToday()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 text-xs sm:text-sm font-bold shadow-md shadow-amber-500/20 hover:opacity-95 transition">
+          <!-- Primary Field Action Button -->
+          <div class="pt-1">
+            <button type="button" onclick="jumpToToday()" class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 text-xs sm:text-sm font-bold shadow-md shadow-amber-500/20 hover:opacity-95 transition">
               <span>⚡</span> 今天行程 (Today)
             </button>
-            <a href="./tera_rex_bangkok_guide.html" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/40 text-amber-200 text-xs sm:text-sm font-semibold transition">
-              <span>🇹🇭</span> 12/9 曼谷自由活動攻略（Tara / Rex / 豪億組）
-            </a>
           </div>
         </div>
 
@@ -188,18 +185,18 @@
   <nav class="sticky top-0 z-30 bg-[#090A10]/90 backdrop-blur-xl border-y border-amber-500/15 shadow-2xl">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 space-y-2.5">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-2.5">
-        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5">
-          <button type="button" data-view="itinerary" class="view-tab active px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition flex items-center gap-1.5 bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 shadow-md shadow-amber-500/20">
-            <span>📅</span> 每日行程 (Itinerary)
+        <div class="grid grid-cols-2 md:flex md:items-center gap-1.5 pb-0.5">
+          <button type="button" data-view="itinerary" class="view-tab active w-full md:w-auto min-h-[42px] px-2.5 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold text-center leading-tight transition flex items-center justify-center gap-1.5 bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 shadow-md shadow-amber-500/20">
+            <span>📅</span> <span>每日行程<span class="hidden sm:inline"> (Itinerary)</span></span>
           </button>
-          <button type="button" data-view="logistics" class="view-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition flex items-center gap-1.5 bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10">
-            <span>🏨</span> 住宿、航班與包車 (Stays & Van)
+          <button type="button" data-view="logistics" class="view-tab w-full md:w-auto min-h-[42px] px-2.5 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium text-center leading-tight transition flex items-center justify-center gap-1.5 bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10">
+            <span>🏨</span> <span>住宿・航班・包車</span>
           </button>
-          <button type="button" data-view="dining" class="view-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition flex items-center gap-1.5 bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10">
-            <span>🍽️</span> 美食與動線攻略 (Dining & Routes)
+          <button type="button" data-view="dining" class="view-tab w-full md:w-auto min-h-[42px] px-2.5 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium text-center leading-tight transition flex items-center justify-center gap-1.5 bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10">
+            <span>🍽️</span> <span>美食與動線攻略</span>
           </button>
-          <button type="button" data-view="lineup" class="view-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition flex items-center gap-1.5 bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10">
-            <span>🎧</span> 音樂節陣容 (Lineup)
+          <button type="button" data-view="lineup" class="view-tab w-full md:w-auto min-h-[42px] px-2.5 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium text-center leading-tight transition flex items-center justify-center gap-1.5 bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10">
+            <span>🎧</span> <span>音樂節陣容<span class="hidden sm:inline"> (Lineup)</span></span>
           </button>
         </div>
 
@@ -424,15 +421,15 @@
           </div>
         </div>
 
-        <!-- Day 3 Early Departure Notice -->
-        <div class="p-3.5 rounded-2xl bg-rose-500/10 border border-rose-400/30 text-xs text-rose-100 leading-relaxed">
-          <strong class="text-rose-300">閉幕夜散場提醒 (12/13 週日)：</strong>
-          Swedish House Mafia 壓軸時段為 22:50–23:50，官方活動至 23:59；團隊預計於 <strong>23:30 左右主動提早離場</strong>前往官方接駁乘車處，避開閉幕萬人散場車潮（可依現場氣氛與 DJ 演出彈性調整）。
-        </div>
-
         <!-- Lineup Cards List -->
         <div id="lineup-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <!-- Populated dynamically from data.json lineup -->
+        </div>
+
+        <!-- Day 3 Early Departure Notice (Shown only on All Days or Day 3) -->
+        <div id="day3-closing-notice" class="p-4 rounded-2xl bg-rose-500/10 border border-rose-400/30 text-xs text-rose-100 leading-relaxed">
+          <strong class="text-rose-300">閉幕夜散場提醒 (12/13 週日)：</strong>
+          Swedish House Mafia 壓軸時段為 22:50–23:50，官方活動至 23:59；團隊預計於 <strong>23:30 左右主動提早離場</strong>前往官方接駁乘車處，避開閉幕萬人散場車潮（可依現場氣氛與 DJ 演出彈性調整）。
         </div>
       </div>
     </section>
@@ -474,13 +471,17 @@
   <div id="driver-card-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md">
     <div class="glass-card rounded-3xl max-w-lg w-full p-6 sm:p-8 border-amber-400/50 shadow-2xl space-y-5 text-center">
       <div class="flex items-center justify-between border-b border-white/10 pb-3">
-        <span class="text-xs uppercase tracking-widest text-amber-300 font-bold">🚕 SHOW TO DRIVER / GRAB</span>
+        <span class="text-xs tracking-wider text-amber-300 font-bold">🚕 司機／Grab 導航大字卡</span>
         <button type="button" onclick="closeDriverCard()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 flex items-center justify-center">✕</button>
       </div>
       <div class="space-y-3 py-2">
         <div id="dc-title-zh" class="text-sm text-slate-300 font-medium"></div>
         <div id="dc-local-name" class="text-2xl sm:text-3xl font-bold text-amber-300 leading-snug select-all"></div>
-        <div id="dc-local-addr" class="text-base sm:text-lg text-white/90 leading-relaxed bg-white/5 rounded-2xl p-4 border border-white/10 select-all"></div>
+        <div id="dc-local-sub" class="text-xs text-slate-400"></div>
+        <div class="bg-white/5 rounded-2xl p-4 border border-white/10 space-y-1">
+          <div class="text-[11px] text-slate-400">地址（可直接長按複製貼給 Grab 司機）</div>
+          <div id="dc-local-addr" class="text-base sm:text-lg text-white/90 leading-relaxed select-all"></div>
+        </div>
         <div id="dc-phone" class="text-sm text-emerald-300 font-semibold"></div>
       </div>
       <div class="flex flex-wrap justify-center gap-3 pt-2">
@@ -811,6 +812,11 @@
 
     function renderLineup() {
       const container = document.getElementById('lineup-list');
+      const closingNotice = document.getElementById('day3-closing-notice');
+      if (closingNotice) {
+        const showClosing = (selectedFestivalDay === 'all' || String(selectedFestivalDay) === '3');
+        closingNotice.classList.toggle('hidden', !showClosing);
+      }
       if (!lineupData.length) {
         container.innerHTML = `<div class="text-sm text-slate-400">尚無 DJ 陣容資料。</div>`;
         return;
@@ -961,9 +967,19 @@
       const dayObj = itineraryData.find(d => d.day === Number(dayNum));
       const ev = dayObj && dayObj.events[Number(eventIdx)];
       if (!ev) return;
+      const rawLocal = ev.local_name || ev.location || ev.title || '';
+      // If local_name contains Thai characters + parenthetical English/Chinese like "ร้านอาหารชมอรุณ (Chom Arun Restaurant)",
+      // display the Thai script prominently on top and the secondary name underneath
+      const thaiMatch = rawLocal.match(/^([\u0E00-\u0E7F\s＆&0-9.-]+)\s*[（(]([^)）]+)[)）]$/);
+      if (thaiMatch) {
+        document.getElementById('dc-local-name').textContent = thaiMatch[1].trim();
+        document.getElementById('dc-local-sub').textContent = thaiMatch[2].trim();
+      } else {
+        document.getElementById('dc-local-name').textContent = rawLocal;
+        document.getElementById('dc-local-sub').textContent = '';
+      }
       document.getElementById('dc-title-zh').textContent = ev.title || '';
-      document.getElementById('dc-local-name').textContent = ev.local_name || ev.location || ev.title || '';
-      document.getElementById('dc-local-addr').textContent = ev.local_address || ev.location || '';
+      document.getElementById('dc-local-addr').textContent = ev.local_address || ev.location || '（暫無詳細街道地址，請點下方開啟 Google Maps 導航）';
       document.getElementById('dc-phone').textContent = ev.contact_phone ? `📞 店家電話：${ev.contact_phone}` : '';
       const mapUrl = buildMapLink(ev);
       const mapEl = document.getElementById('dc-map-link');
@@ -1017,7 +1033,6 @@
 
         btn.classList.remove("bg-white/5", "text-slate-300", "font-medium", "border", "border-white/10");
         btn.classList.add("bg-gradient-to-r", "from-amber-500", "to-yellow-600", "text-slate-950", "font-semibold", "shadow-md", "shadow-amber-500/20");
-        btn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
 
         ["itinerary", "logistics", "dining", "lineup"].forEach(v => {
           const el = document.getElementById(`view-${v}`);
