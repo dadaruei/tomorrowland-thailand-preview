@@ -1,0 +1,33 @@
+name: Sync Preview Priority Lists
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
+permissions:
+  contents: write
+jobs:
+  update-lists:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch sanitized list feed
+        env:
+          LISTS_ENDPOINT: ${{ secrets.LISTS_ENDPOINT }}
+        run: |
+          test -n "$LISTS_ENDPOINT" || { echo 'Missing LISTS_ENDPOINT secret'; exit 1; }
+          curl --fail --location --retry 3 --max-time 45 --silent --show-error "$LISTS_ENDPOINT" -o lists.new.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('lists.new.json').read_text())
+          assert isinstance(d.get('restaurants'),list) and isinstance(d.get('shopping'),list)
+          allowed={'schema_version','updated','restaurants','shopping'}
+          assert set(d).issubset(allowed)
+          Path('lists.json').write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+          PY
+      - name: Commit only list data
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add lists.json
+          if ! git diff --cached --quiet; then git commit -m 'Sync preview priority lists'; git push; fi
