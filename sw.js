@@ -1,5 +1,5 @@
-// Tomorrowland Thailand — offline shell v6
-const CACHE = 'tml-journey-offline-v6';
+// Tomorrowland Thailand — offline shell v7
+const CACHE = 'tml-journey-offline-v7';
 const APP_SHELL = ['./', './index.html', './tailwind.css', './data.json', './tera_rex_bangkok_guide.html'];
 self.addEventListener('install', event => {
   event.waitUntil((async () => {

@@ -9,32 +9,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-obsidian: #090A10;
+      --bg-obsidian: #08090F;
       --gold-primary: #D4AF37;
+      --gold-light: #FFF3C4;
       --amber-accent: #F59E0B;
     }
 
     body {
-      background-color: #090A10;
+      background-color: #08090F;
       color: #F3F4F6;
       font-family: 'Inter', 'Noto Sans TC', sans-serif;
       overflow-x: hidden;
       background-image:
         radial-gradient(circle at 18% 8%, rgba(212, 175, 55, 0.13) 0%, transparent 42%),
         radial-gradient(circle at 85% 22%, rgba(245, 158, 11, 0.09) 0%, transparent 40%),
-        radial-gradient(circle at 50% 85%, rgba(99, 102, 241, 0.08) 0%, transparent 50%);
+        radial-gradient(circle at 50% 85%, rgba(99, 102, 241, 0.07) 0%, transparent 50%);
       background-attachment: fixed;
     }
 
     .cosmic-grid {
       background-size: 36px 36px;
       background-image:
-        linear-gradient(to right, rgba(212, 175, 55, 0.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(212, 175, 55, 0.04) 1px, transparent 1px);
+        linear-gradient(to right, rgba(212, 175, 55, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(212, 175, 55, 0.035) 1px, transparent 1px);
     }
 
     .glass-card {
-      background: linear-gradient(145deg, rgba(20, 23, 38, 0.78), rgba(11, 13, 22, 0.88));
+      background: linear-gradient(145deg, rgba(20, 23, 38, 0.8), rgba(11, 13, 22, 0.9));
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(212, 175, 55, 0.18);
@@ -47,408 +48,614 @@
       box-shadow: 0 18px 40px -10px rgba(0, 0, 0, 0.75), 0 0 24px -6px rgba(212, 175, 55, 0.14);
     }
 
-    .gold-gradient-text {
-      background: linear-gradient(135deg, #FFF3C4 0%, #D4AF37 45%, #F59E0B 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* =========================================================
+       LAYER 1: VIP INVITATION COVER (黑金精品 VIP 邀請函封面)
+       ========================================================= */
+    #vip-cover {
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 16px;
+      position: relative;
+      z-index: 20;
+      transition: opacity 0.35s ease, transform 0.35s ease;
     }
 
-    .gold-border-glow {
-      box-shadow: 0 0 25px rgba(212, 175, 55, 0.16);
-    }
-
-    .no-scrollbar::-webkit-scrollbar {
+    #vip-cover.cover-hidden {
       display: none;
     }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
+
+    .vip-invitation-card {
+      position: relative;
+      width: 100%;
+      max-width: 540px;
+      border-radius: 30px;
+      padding: 36px 24px 28px;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.18) 0%, transparent 62%),
+        radial-gradient(circle at 85% 92%, rgba(180, 131, 39, 0.12) 0%, transparent 45%),
+        linear-gradient(165deg, rgba(18, 21, 35, 0.95), rgba(8, 9, 15, 0.98));
+      border: 1px solid rgba(212, 175, 55, 0.42);
+      box-shadow:
+        0 28px 70px -15px rgba(0, 0, 0, 0.92),
+        0 0 40px -12px rgba(212, 175, 55, 0.18),
+        inset 0 0 0 1px rgba(255, 243, 196, 0.07);
+      overflow: hidden;
+      text-align: center;
     }
 
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 0.7; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.03); }
+    /* Inner Double Hairline Frame */
+    .vip-invitation-card::before {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border-radius: 21px;
+      border: 1px solid rgba(212, 175, 55, 0.18);
+      pointer-events: none;
     }
-    .emblem-glow {
-      animation: pulseGlow 5s ease-in-out infinite;
+
+    /* Corner Filigree Accents */
+    .vip-corner {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-color: rgba(212, 175, 55, 0.62);
+      border-style: solid;
+      pointer-events: none;
+    }
+    .vip-corner.tl { top: 10px; left: 10px; border-width: 1.5px 0 0 1.5px; border-top-left-radius: 13px; }
+    .vip-corner.tr { top: 10px; right: 10px; border-width: 1.5px 1.5px 0 0; border-top-right-radius: 13px; }
+    .vip-corner.bl { bottom: 10px; left: 10px; border-width: 0 0 1.5px 1.5px; border-bottom-left-radius: 13px; }
+    .vip-corner.br { bottom: 10px; right: 10px; border-width: 0 1.5px 1.5px 0; border-bottom-right-radius: 13px; }
+
+    /* Astrolabe Rotating Rings & Starlight */
+    .vip-astrolabe {
+      position: absolute;
+      top: -75px;
+      left: 50%;
+      width: 310px;
+      height: 310px;
+      margin-left: -155px;
+      border-radius: 50%;
+      border: 1px dashed rgba(212, 175, 55, 0.22);
+      animation: astrolabeSpin 55s linear infinite;
+      pointer-events: none;
+    }
+    .vip-astrolabe::after {
+      content: "";
+      position: absolute;
+      inset: 28px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 243, 196, 0.08);
+    }
+
+    .vip-starlight {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1.5px 1.5px at 16% 18%, rgba(255, 243, 196, 0.75) 50%, transparent 100%),
+        radial-gradient(1px 1px at 84% 22%, rgba(212, 175, 55, 0.85) 50%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 82% 76%, rgba(255, 243, 196, 0.55) 50%, transparent 100%),
+        radial-gradient(1px 1px at 18% 78%, rgba(212, 175, 55, 0.7) 50%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 50% 10%, rgba(253, 230, 138, 0.85) 50%, transparent 100%);
+      animation: starBreath 4.5s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes astrolabeSpin { to { transform: rotate(360deg); } }
+    @keyframes starBreath { 0% { opacity: 0.4; } 100% { opacity: 0.95; } }
+
+    .vip-folio-title {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: clamp(34px, 9vw, 54px);
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      line-height: 1.12;
+      background: linear-gradient(
+        110deg,
+        #B88924 0%,
+        #FFF7D6 28%,
+        #D4AF37 50%,
+        #FFF7D6 72%,
+        #B88924 100%
+      );
+      background-size: 220% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: foilShimmer 6.5s linear infinite;
+    }
+
+    @keyframes foilShimmer {
+      to { background-position: 220% center; }
+    }
+
+    .vip-enter-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 310px;
+      padding: 14px 24px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #F59E0B 0%, #D4AF37 55%, #EAB308 100%);
+      color: #090A10;
+      font-family: 'Cinzel', 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      box-shadow: 0 10px 28px -4px rgba(212, 175, 55, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+      cursor: pointer;
+    }
+    .vip-enter-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      box-shadow: 0 14px 32px -4px rgba(212, 175, 55, 0.52);
+    }
+    .vip-enter-btn:active {
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .vip-astrolabe, .vip-starlight, .vip-folio-title, .animate-ping, .animate-pulse {
+        animation: none !important;
+      }
+      .vip-folio-title {
+        background: linear-gradient(135deg, #FFF3C4 0%, #D4AF37 50%, #F59E0B 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
     }
 
     .footer-signature { font-family: 'Noto Serif TC', serif; font-weight: 500; letter-spacing: .14em; color: #EBD49F; text-shadow: 0 1px 16px rgba(212,175,55,.12); }
     .footer-motto { font-family: 'Cinzel', Georgia, serif; font-style: italic; font-weight: 600; letter-spacing: .095em; color: #CDBB96; line-height: 1.9; }
     .footer-rule { height: 1px; width: min(210px, 65%); background: linear-gradient(90deg, transparent, rgba(212,175,55,.6), transparent); }
-    @media (max-width: 420px) { .footer-signature { letter-spacing: .08em; } .footer-motto { letter-spacing: .045em; } }
+    @media (max-width: 420px) {
+      .footer-signature { letter-spacing: .08em; }
+      .footer-motto { letter-spacing: .045em; }
+      .vip-invitation-card { padding: 30px 18px 24px; }
+    }
   </style>
 </head>
 <body class="min-h-screen antialiased selection:bg-amber-500/30 selection:text-amber-200">
 
   <div class="fixed inset-0 pointer-events-none cosmic-grid opacity-60 z-0"></div>
 
-  <!-- HERO HEADER -->
-  <header class="relative z-10 pt-8 pb-6 sm:pt-12 sm:pb-10 px-4 sm:px-6 max-w-6xl mx-auto">
-    <div class="glass-card rounded-3xl p-6 sm:p-10 relative overflow-hidden gold-border-glow">
-      <div class="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
-      <div class="absolute -bottom-24 -left-24 w-64 h-64 rounded-full bg-yellow-600/10 blur-3xl pointer-events-none"></div>
+  <!-- =========================================================
+       LAYER 1: VIP INVITATION COVER (黑金 VIP 邀請函封面)
+       ========================================================= -->
+  <section id="vip-cover" aria-label="VIP Invitation Cover">
+    <div class="vip-invitation-card">
+      <span class="vip-corner tl" aria-hidden="true"></span>
+      <span class="vip-corner tr" aria-hidden="true"></span>
+      <span class="vip-corner bl" aria-hidden="true"></span>
+      <span class="vip-corner br" aria-hidden="true"></span>
+      <div class="vip-astrolabe" aria-hidden="true"></div>
+      <div class="vip-starlight" aria-hidden="true"></div>
 
-      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 relative z-10">
-        <!-- Left Title & Intro -->
-        <div class="space-y-4 max-w-2xl">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-400/30 text-amber-300 text-xs sm:text-sm font-semibold tracking-widest uppercase">
-            <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-            THAILAND · DEC 09 — 17, 2026
+      <div class="relative z-10 flex flex-col items-center">
+        <!-- Top Eyebrow -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-400/30 text-amber-300 text-[11px] font-display font-bold tracking-[0.2em] uppercase">
+          <span>✦</span>
+          <span>VIP PRIVATE INVITATION</span>
+          <span>✦</span>
+        </div>
+
+        <!-- Astrolabe / Star Compass Emblem -->
+        <svg class="w-12 h-12 sm:w-14 sm:h-14 text-amber-400 mt-5 mb-3 drop-shadow-[0_0_14px_rgba(212,175,55,0.4)]" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <circle cx="24" cy="24" r="21" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2.5 3" opacity="0.7"/>
+          <circle cx="24" cy="24" r="15.5" stroke="currentColor" stroke-width="0.8" opacity="0.35"/>
+          <path d="M24 6L27.5 18.5L40 13.5L30.5 24L40 34.5L27.5 29.5L24 42L20.5 29.5L8 34.5L17.5 24L8 13.5L20.5 18.5L24 6Z" stroke="currentColor" stroke-width="1.5" fill="rgba(212,175,55,0.12)"/>
+          <circle cx="24" cy="24" r="3" fill="#FFF3C4"/>
+        </svg>
+
+        <!-- Main Centerpiece Title -->
+        <h1 class="vip-folio-title">OUR JOURNEY</h1>
+
+        <p class="mt-3 text-xs sm:text-sm font-medium tracking-[0.14em] text-amber-200/90 uppercase">
+          Tomorrowland Thailand 2026
+        </p>
+        <p class="mt-1 text-xs text-slate-300 tracking-[0.18em] font-display">
+          DEC 09 — 17, 2026 · 9D8N
+        </p>
+
+        <!-- Hairline Divider -->
+        <div class="w-48 h-px my-5 bg-gradient-to-r from-transparent via-amber-400/50 to-transparent" aria-hidden="true"></div>
+
+        <!-- Compact Live Countdown Capsule -->
+        <div class="w-full max-w-xs rounded-2xl bg-black/45 border border-amber-400/30 px-4 py-3 backdrop-blur-md">
+          <div class="text-[10px] font-display uppercase tracking-[0.2em] text-amber-300/85 mb-2" id="cover-cd-caption">
+            DEPARTURE · DEC 09 · 07:40 TPE
           </div>
+          <div id="cover-cd-grid" class="grid grid-cols-4 gap-1.5 text-center">
+            <div class="rounded-xl bg-white/[0.04] border border-white/10 py-1.5">
+              <div id="cov-days" class="font-display text-lg sm:text-xl font-bold text-amber-300">00</div>
+              <div class="text-[9px] uppercase tracking-wider text-slate-400">Days</div>
+            </div>
+            <div class="rounded-xl bg-white/[0.04] border border-white/10 py-1.5">
+              <div id="cov-hours" class="font-display text-lg sm:text-xl font-bold text-white">00</div>
+              <div class="text-[9px] uppercase tracking-wider text-slate-400">Hrs</div>
+            </div>
+            <div class="rounded-xl bg-white/[0.04] border border-white/10 py-1.5">
+              <div id="cov-mins" class="font-display text-lg sm:text-xl font-bold text-white">00</div>
+              <div class="text-[9px] uppercase tracking-wider text-slate-400">Mins</div>
+            </div>
+            <div class="rounded-xl bg-white/[0.04] border border-white/10 py-1.5">
+              <div id="cov-secs" class="font-display text-lg sm:text-xl font-bold text-amber-400">00</div>
+              <div class="text-[9px] uppercase tracking-wider text-slate-400">Secs</div>
+            </div>
+          </div>
+          <div id="cover-cd-live" class="hidden py-1.5 text-xs sm:text-sm font-display font-bold tracking-widest text-amber-200">
+            ✦ LIVE IN THAILAND ✦
+          </div>
+        </div>
 
-          <div class="flex items-center gap-3">
-            <svg class="w-9 h-9 sm:w-11 sm:h-11 text-amber-400 emblem-glow shrink-0" viewBox="0 0 48 48" fill="none">
-              <circle cx="24" cy="24" r="21" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.6"/>
-              <path d="M24 8L28 19L39 14L31 24L39 34L28 29L24 40L20 29L9 34L17 24L9 14L20 19L24 8Z" stroke="currentColor" stroke-width="1.8" fill="rgba(212,175,55,0.12)"/>
-              <circle cx="24" cy="24" r="3.5" fill="#F59E0B"/>
+        <!-- Primary Entry CTA -->
+        <div class="w-full mt-6 flex flex-col items-center gap-3">
+          <button type="button" id="enter-journey-btn" class="vip-enter-btn">
+            <span>ENTER OUR JOURNEY</span>
+            <span aria-hidden="true">→</span>
+          </button>
+
+          <!-- Compact Checklist Entry (Synced with Inner Page) -->
+          <button type="button" onclick="openChecklistModal()" class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/10 border border-amber-400/25 text-xs text-amber-200/90 font-medium transition cursor-pointer">
+            <span>🎒</span>
+            <span>個人行前清單</span>
+            <span class="checklist-badge-sync px-1.5 py-0.5 text-[10px] rounded-full bg-amber-500/20 text-amber-300 font-bold">0/8</span>
+          </button>
+        </div>
+
+        <!-- Cover Signature -->
+        <div class="mt-6 pt-4 border-t border-white/10 w-full">
+          <p class="footer-signature text-sm sm:text-base">睿睿出品・必屬精品</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       LAYER 2: PRACTICAL ITINERARY INNER SITE (精品黑金行程內頁)
+       ========================================================= -->
+  <div id="inner-app" class="hidden relative z-10">
+
+    <!-- COMPACT STICKY TOP BAR & NAVIGATION -->
+    <nav id="main-sticky-nav" class="sticky top-0 z-30 bg-[#08090F]/92 backdrop-blur-xl border-b border-amber-500/20 shadow-2xl">
+      <div class="max-w-6xl mx-auto px-3.5 sm:px-6 py-2.5 space-y-2.5">
+        <!-- Row 1: Compact Brand Header + Checklist + Replay Cover Button -->
+        <div class="flex items-center justify-between gap-2 pb-2 border-b border-white/10">
+          <div class="flex items-center gap-2 min-w-0">
+            <svg class="w-6 h-6 text-amber-400 shrink-0" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.65"/>
+              <path d="M24 8L28 19L39 14L31 24L39 34L28 29L24 40L20 29L9 34L17 24L9 14L20.5 19L24 8Z" stroke="currentColor" stroke-width="1.8" fill="rgba(212,175,55,0.14)"/>
             </svg>
-            <h1 class="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-wider gold-gradient-text leading-tight">
-              OUR JOURNEY
-            </h1>
+            <div class="min-w-0">
+              <div class="font-display text-sm sm:text-base font-extrabold tracking-widest text-amber-300 leading-none truncate">OUR JOURNEY</div>
+              <div id="inner-trip-badge" class="text-[10px] text-slate-400 mt-0.5 truncate">Tomorrowland Thailand 2026 · 9D8N</div>
+            </div>
           </div>
 
-          <p class="text-sm sm:text-base md:text-lg text-slate-300 font-medium leading-relaxed">
-            Tomorrowland Thailand 2026 · <span class="text-amber-300 font-semibold">9 Days, 8 Nights</span> · Bangkok · Rayong · Wisdom Valley
-          </p>
-
-          <!-- Quick Overview Pills (2x2 symmetric grid on mobile, inline wrap on desktop) -->
-          <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 pt-1">
-            <span class="inline-flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs sm:text-sm text-slate-200">
-              <span>👥</span> 8 Crew Members
-            </span>
-            <span class="inline-flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs sm:text-sm text-slate-200">
-              <span>🚐</span> VIP 8-Seater Van
-            </span>
-            <span class="inline-flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl bg-amber-500/15 border border-amber-400/30 text-xs sm:text-sm text-amber-200 font-medium">
-              <span>🎡</span> Full Madness Pass
-            </span>
-            <span class="inline-flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs sm:text-sm text-slate-200">
-              <span>🏨</span> 4 Stays
-            </span>
-          </div>
-
-          <!-- Primary Field Action Button -->
-          <div class="pt-1">
-            <button type="button" onclick="jumpToToday()" class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 text-xs sm:text-sm font-bold shadow-md shadow-amber-500/20 hover:opacity-95 transition">
-              <span>⚡</span> 今天行程 (Today)
+          <div class="flex items-center gap-1.5 shrink-0">
+            <button type="button" onclick="jumpToToday()" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/35 text-amber-200 text-xs font-semibold transition cursor-pointer" title="跳至今天行程">
+              <span>⚡</span><span class="hidden sm:inline">今天</span>
+            </button>
+            <button type="button" onclick="openChecklistModal()" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-slate-200 text-xs font-medium transition cursor-pointer" title="個人行前清單">
+              <span>🎒</span>
+              <span class="checklist-badge-sync text-amber-300 font-semibold">0/8</span>
+            </button>
+            <button type="button" id="reopen-cover-btn" onclick="openCover()" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500/20 to-yellow-500/15 hover:from-amber-500/30 hover:to-yellow-500/25 border border-amber-400/45 text-amber-200 text-xs font-bold transition cursor-pointer">
+              <span>✦</span><span>重看封面</span>
             </button>
           </div>
         </div>
 
-        <!-- Right Live Real-Time Countdown Widget -->
-        <div class="bg-black/45 border border-amber-400/25 rounded-2xl p-4 sm:p-5 lg:min-w-[320px] backdrop-blur-md">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-semibold uppercase tracking-widest text-amber-300/90 flex items-center gap-1.5">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              Departure Countdown
-            </span>
-            <span class="text-[11px] text-slate-400">DEC 09 · 07:40 TPE</span>
-          </div>
-
-          <div id="countdown-grid" class="grid grid-cols-4 gap-2 text-center">
-            <div class="bg-white/5 border border-white/10 rounded-xl py-2.5 px-1">
-              <div id="cd-days" class="font-display text-xl sm:text-2xl font-bold text-amber-300">00</div>
-              <div class="text-[10px] uppercase tracking-wider text-slate-400 mt-0.5">Days</div>
-            </div>
-            <div class="bg-white/5 border border-white/10 rounded-xl py-2.5 px-1">
-              <div id="cd-hours" class="font-display text-xl sm:text-2xl font-bold text-white">00</div>
-              <div class="text-[10px] uppercase tracking-wider text-slate-400 mt-0.5">Hours</div>
-            </div>
-            <div class="bg-white/5 border border-white/10 rounded-xl py-2.5 px-1">
-              <div id="cd-mins" class="font-display text-xl sm:text-2xl font-bold text-white">00</div>
-              <div class="text-[10px] uppercase tracking-wider text-slate-400 mt-0.5">Mins</div>
-            </div>
-            <div class="bg-white/5 border border-white/10 rounded-xl py-2.5 px-1">
-              <div id="cd-secs" class="font-display text-xl sm:text-2xl font-bold text-amber-400">00</div>
-              <div class="text-[10px] uppercase tracking-wider text-slate-400 mt-0.5">Secs</div>
-            </div>
-          </div>
-
-          <div id="cd-live-banner" class="hidden text-center py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500/20 via-yellow-500/30 to-amber-500/20 border border-amber-400/50 text-amber-200 font-bold tracking-widest text-sm animate-pulse">
-            ✦ LIVE NOW · LIVE TODAY, LOVE TOMORROW ✦
-          </div>
-
-          <div class="mt-3 pt-2.5 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
-            <span>Bangkok ➔ Rayong ➔ Pattaya</span>
-            <button type="button" onclick="openChecklistModal()" class="text-amber-300 hover:text-amber-200 font-medium inline-flex items-center gap-1 transition">
-              <span>🎒 行前清單</span>
-              <span id="checklist-badge" class="px-1.5 py-0.5 text-[10px] rounded-full bg-amber-500/20 text-amber-300">0/8</span>
+        <!-- Row 2: 4 Primary Tabs + Search -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+          <div class="grid grid-cols-2 md:flex md:items-center gap-1.5">
+            <button type="button" data-view="itinerary" class="view-tab active w-full md:w-auto min-h-[40px] px-2.5 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold text-center leading-tight transition flex items-center justify-center gap-1.5 bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 shadow-md shadow-amber-500/20 cursor-pointer">
+              <span>📅</span> <span>每日行程<span class="hidden sm:inline"> (Itinerary)</span></span>
+            </button>
+            <button type="button" data-view="logistics" class="view-tab w-full md:w-auto min-h-[40px] px-2.5 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium text-center leading-tight transition flex items-center justify-center gap-1.5 bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10 cursor-pointer">
+              <span>🏨</span> <span>住宿・航班・包車</span>
+            </button>
+            <button type="button" data-view="dining" class="view-tab w-full md:w-auto min-h-[40px] px-2.5 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium text-center leading-tight transition flex items-center justify-center gap-1.5 bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10 cursor-pointer">
+              <span>🍽️</span> <span>美食與動線攻略</span>
+            </button>
+            <button type="button" data-view="lineup" class="view-tab w-full md:w-auto min-h-[40px] px-2.5 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium text-center leading-tight transition flex items-center justify-center gap-1.5 bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10 cursor-pointer">
+              <span>🎧</span> <span>音樂節陣容<span class="hidden sm:inline"> (Lineup)</span></span>
             </button>
           </div>
+
+          <div class="relative w-full md:w-72 shrink-0">
+            <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <input
+              id="search-input"
+              type="text"
+              placeholder="搜尋行程、餐廳、飯店、DJ..."
+              class="w-full pl-9 pr-8 py-1.5 rounded-xl bg-white/5 border border-white/15 text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none focus:border-amber-400/60 focus:bg-white/10 transition"
+            />
+            <button type="button" id="clear-search" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs px-1">✕</button>
+          </div>
+        </div>
+
+        <!-- Row 3: Day Pills Bar (Visible on Itinerary tab) -->
+        <div id="day-pills-bar" class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-0.5">
+          <!-- Populated dynamically via JS -->
         </div>
       </div>
-    </div>
-  </header>
+    </nav>
 
-  <!-- STICKY NAVIGATION & VIEW CONTROLS -->
-  <nav class="sticky top-0 z-30 bg-[#090A10]/90 backdrop-blur-xl border-y border-amber-500/15 shadow-2xl">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 space-y-2.5">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-2.5">
-        <div class="grid grid-cols-2 md:flex md:items-center gap-1.5 pb-0.5">
-          <button type="button" data-view="itinerary" class="view-tab active w-full md:w-auto min-h-[42px] px-2.5 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold text-center leading-tight transition flex items-center justify-center gap-1.5 bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 shadow-md shadow-amber-500/20">
-            <span>📅</span> <span>每日行程<span class="hidden sm:inline"> (Itinerary)</span></span>
+    <!-- MAIN CONTENT AREA -->
+    <main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-5 sm:py-7">
+
+      <!-- Memorial Banner (Shown automatically >= 2026-12-18 without blocking content) -->
+      <div id="memorial-banner" class="hidden mb-5 px-4 py-3 rounded-2xl bg-gradient-to-r from-amber-500/15 via-yellow-500/20 to-amber-500/15 border border-amber-400/40 text-center text-xs sm:text-sm text-amber-200 font-semibold tracking-wider">
+        ✦ MEMORIES FOREVER · TOMORROWLAND THAILAND 2026 完整旅程紀錄 ✦
+      </div>
+
+      <!-- VIEW 1: DAILY ITINERARY -->
+      <section id="view-itinerary" class="space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-2.5 text-xs sm:text-sm text-slate-400">
+          <div id="filter-status-text">顯示 <span class="text-amber-300 font-semibold">Day 1</span> 行程（泰國時間）</div>
+          <div class="flex items-center gap-1.5 text-xs">
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border border-emerald-400/30 bg-emerald-400/10 text-emerald-300">已確認</span>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border border-amber-400/30 bg-amber-400/10 text-amber-200">待確認／暫定</span>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border border-white/15 bg-white/5 text-slate-300">自由探索／免訂位</span>
+          </div>
+        </div>
+
+        <p id="sync-indicator" class="text-xs text-slate-400">讀取最新行程中…</p>
+        <div id="itinerary-list" class="space-y-6">
+          <!-- Rendered by JS -->
+        </div>
+
+        <div id="empty-search-state" class="hidden glass-card rounded-3xl p-10 text-center space-y-3">
+          <div class="text-4xl">🔍</div>
+          <h3 class="text-lg font-semibold text-white">找不到符合的行程關鍵字</h3>
+          <p class="text-sm text-slate-400">試試搜尋「Chom Arun」、「符德興」、「MRT」、「Martin Garrix」或「按摩」</p>
+          <button type="button" onclick="resetFilters()" class="mt-2 px-4 py-2 rounded-xl bg-amber-500 text-slate-950 text-sm font-semibold hover:bg-amber-400 transition">
+            重置搜尋與篩選
           </button>
-          <button type="button" data-view="logistics" class="view-tab w-full md:w-auto min-h-[42px] px-2.5 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium text-center leading-tight transition flex items-center justify-center gap-1.5 bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10">
-            <span>🏨</span> <span>住宿・航班・包車</span>
+        </div>
+      </section>
+
+      <!-- VIEW 2: STAYS, CREW FLIGHTS & VIP VAN LOGISTICS (WITH 3 SUB-TABS) -->
+      <section id="view-logistics" class="hidden space-y-5">
+        <!-- Sub-tabs Bar: 🏨 住宿 | ✈️ 航班 | 🚐 包車 -->
+        <div class="grid grid-cols-3 gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-amber-400/20" role="tablist" aria-label="住宿航班包車子分頁">
+          <button type="button" data-logistics-sub="stays" class="logistics-sub-btn active min-h-[42px] px-2 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 bg-amber-500 text-slate-950 shadow-sm cursor-pointer">
+            <span>🏨</span><span>住宿</span>
           </button>
-          <button type="button" data-view="dining" class="view-tab w-full md:w-auto min-h-[42px] px-2.5 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium text-center leading-tight transition flex items-center justify-center gap-1.5 bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10">
-            <span>🍽️</span> <span>美食與動線攻略</span>
+          <button type="button" data-logistics-sub="flights" class="logistics-sub-btn min-h-[42px] px-2 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center justify-center gap-1.5 bg-transparent text-slate-300 hover:bg-white/5 cursor-pointer">
+            <span>✈️</span><span>航班</span>
           </button>
-          <button type="button" data-view="lineup" class="view-tab w-full md:w-auto min-h-[42px] px-2.5 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium text-center leading-tight transition flex items-center justify-center gap-1.5 bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10">
-            <span>🎧</span> <span>音樂節陣容<span class="hidden sm:inline"> (Lineup)</span></span>
+          <button type="button" data-logistics-sub="van" class="logistics-sub-btn min-h-[42px] px-2 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center justify-center gap-1.5 bg-transparent text-slate-300 hover:bg-white/5 cursor-pointer">
+            <span>🚐</span><span>包車</span>
           </button>
         </div>
 
-        <div class="relative w-full md:w-72 shrink-0">
-          <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-          </svg>
-          <input
-            id="search-input"
-            type="text"
-            placeholder="搜尋行程、餐廳、飯店、DJ..."
-            class="w-full pl-9 pr-8 py-2 rounded-xl bg-white/5 border border-white/15 text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none focus:border-amber-400/60 focus:bg-white/10 transition"
-          />
-          <button type="button" id="clear-search" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs px-1">✕</button>
+        <!-- Sub-panel 2A: 🏨 住宿 -->
+        <div id="logistics-panel-stays" class="space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2 px-1">
+            <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+              <span>🏨</span> 全程 4 段精選住宿總覽 (4 Stays)
+            </h2>
+            <span class="text-xs text-slate-400">12/14 起依返台梯次分住兩處（不影響日間泰服行程）</span>
+          </div>
+          <div id="hotels-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Populated from data.json accommodations (merged by hotel) -->
+          </div>
         </div>
-      </div>
 
-      <div id="day-pills-bar" class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-0.5">
-        <!-- Populated dynamically via JS -->
-      </div>
-    </div>
-  </nav>
-
-  <!-- MAIN CONTENT AREA -->
-  <main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
-
-    <!-- VIEW 1: DAILY ITINERARY -->
-    <section id="view-itinerary" class="space-y-6">
-      <div class="flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-slate-400">
-        <div id="filter-status-text">顯示全部 <span class="text-amber-300 font-semibold">9 天</span> 完整行程（泰國時間）</div>
-        <div class="flex items-center gap-2 text-xs">
-          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border border-emerald-400/30 bg-emerald-400/10 text-emerald-300">已確認</span>
-          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border border-amber-400/30 bg-amber-400/10 text-amber-200">待確認／暫定</span>
-          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border border-white/15 bg-white/5 text-slate-300">自由探索／免訂位</span>
-        </div>
-      </div>
-
-      <p id="sync-indicator" class="text-xs text-slate-400">讀取最新行程中…</p>
-      <div id="itinerary-list" class="space-y-6">
-        <!-- Rendered by JS -->
-      </div>
-
-      <div id="empty-search-state" class="hidden glass-card rounded-3xl p-10 text-center space-y-3">
-        <div class="text-4xl">🔍</div>
-        <h3 class="text-lg font-semibold text-white">找不到符合的行程關鍵字</h3>
-        <p class="text-sm text-slate-400">試試搜尋「Chom Arun」、「符德興」、「MRT」、「Martin Garrix」或「按摩」</p>
-        <button type="button" onclick="resetFilters()" class="mt-2 px-4 py-2 rounded-xl bg-amber-500 text-slate-950 text-sm font-semibold hover:bg-amber-400 transition">
-          重置搜尋與篩選
-        </button>
-      </div>
-    </section>
-
-    <!-- VIEW 2: STAYS, CREW FLIGHTS & VIP VAN LOGISTICS -->
-    <section id="view-logistics" class="hidden space-y-6">
-      <!-- Dedicated Accommodations Grid (Merged 4 Stays Cards) -->
-      <div class="space-y-3">
-        <div class="flex flex-wrap items-center justify-between gap-2 px-1">
-          <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-            <span>🏨</span> 全程 4 段精選住宿總覽 (4 Stays)
-          </h2>
-          <span class="text-xs text-slate-400">12/14 起依返台梯次分住兩處（不影響日間泰服行程）</span>
-        </div>
-        <div id="hotels-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <!-- Populated from data.json accommodations (merged by hotel) -->
-        </div>
-      </div>
-
-      <!-- Crew Flights & Departure Tiers -->
-      <div class="glass-card rounded-3xl p-6 sm:p-8 border-amber-400/25 space-y-4">
-        <div>
-          <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">FLIGHT & DEPARTURE TIERS</span>
-          <h3 class="text-lg sm:text-xl font-bold text-white mt-1 flex items-center gap-2">
-            <span>✈️</span> 8 位團員航班與分批返台梯次
-          </h3>
-        </div>
-        <div id="crew-flights-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          <!-- Populated from data.json crew_flights -->
-        </div>
-      </div>
-
-      <!-- VIP 8-Seater Van Rules Banner -->
-      <div class="glass-card rounded-3xl p-6 sm:p-8 border-amber-400/30">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/10">
+        <!-- Sub-panel 2B: ✈️ 航班 -->
+        <div id="logistics-panel-flights" class="hidden glass-card rounded-3xl p-5 sm:p-8 border-amber-400/25 space-y-4">
           <div>
-            <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">PRIVATE FLEET PROTOCOL (12/09 — 12/14)</span>
-            <h3 class="text-xl sm:text-2xl font-bold text-white mt-1 flex items-center gap-2">
-              <span>🚐</span> VIP 8人座豪華廂型車調度總覽
+            <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">FLIGHT & DEPARTURE TIERS</span>
+            <h3 class="text-lg sm:text-xl font-bold text-white mt-1 flex items-center gap-2">
+              <span>✈️</span> 8 位團員航班與分批返台梯次
             </h3>
           </div>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 text-xs font-medium">每日工時 10 小時</span>
-            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs">超時 300 THB / hr</span>
-            <span class="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs">12/14 14:00 送抵 OK Shop 後全約結束</span>
+          <div id="crew-flights-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <!-- Populated from data.json crew_flights -->
           </div>
         </div>
 
-        <div id="van-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5 text-sm">
-          <!-- Populated from data.json sub_tags=van -->
-        </div>
+        <!-- Sub-panel 2C: 🚐 包車 -->
+        <div id="logistics-panel-van" class="hidden glass-card rounded-3xl p-5 sm:p-8 border-amber-400/30">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/10">
+            <div>
+              <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">PRIVATE FLEET PROTOCOL (12/09 — 12/14)</span>
+              <h3 class="text-xl sm:text-2xl font-bold text-white mt-1 flex items-center gap-2">
+                <span>🚐</span> VIP 8人座豪華廂型車調度總覽
+              </h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 text-xs font-medium">每日工時 10 小時</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs">超時 300 THB / hr</span>
+              <span class="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs">12/14 14:00 送抵 OK Shop 後全約結束</span>
+            </div>
+          </div>
 
-        <div class="mt-5 p-4 rounded-2xl bg-amber-500/10 border border-amber-400/30 flex flex-col sm:flex-row items-start sm:items-center gap-3">
-          <span class="text-2xl">🚇</span>
-          <div class="text-xs sm:text-sm text-amber-100 leading-relaxed">
-            <strong class="text-amber-300">Day 1 傍晚進城動線提醒：</strong>
-            星宇與華航組於 BKK 2F 3號出口將大件托運行李交給包車司機後，輕裝下樓搭 <strong>機場快線 (ARL) 至 Makkasan 站</strong>，轉乘 <strong>MRT 藍線（可直接刷 Visa / Mastercard 感應進站）</strong>直達 <strong>Sanam Chai 站 1號出口</strong>，步行 8–10 分鐘抵達 Chom Arun 餐廳。
+          <div id="van-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5 text-sm">
+            <!-- Populated from data.json sub_tags=van -->
+          </div>
+
+          <div class="mt-5 p-4 rounded-2xl bg-amber-500/10 border border-amber-400/30 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            <span class="text-2xl">🚇</span>
+            <div class="text-xs sm:text-sm text-amber-100 leading-relaxed">
+              <strong class="text-amber-300">Day 1 傍晚進城動線提醒：</strong>
+              星宇與華航組於 BKK 2F 3號出口將大件托運行李交給包車司機後，輕裝下樓搭 <strong>機場快線 (ARL) 至 Makkasan 站</strong>，轉乘 <strong>MRT 藍線（可直接刷 Visa / Mastercard 感應進站）</strong>直達 <strong>Sanam Chai 站 1號出口</strong>，步行 8–10 分鐘抵達 Chom Arun 餐廳。
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- VIEW 3: DINING & ROUTES -->
-    <section id="view-dining" class="hidden space-y-6">
-      <div class="glass-card rounded-3xl p-6 sm:p-8">
-        <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">CURATED GASTRONOMY</span>
-        <h2 class="text-xl sm:text-2xl font-bold text-white mt-1 flex items-center gap-2">
-          <span>🍽️</span> 精選餐廳預約與在地美食卡
-        </h2>
-        <p class="text-xs sm:text-sm text-slate-400 mt-1">點擊地圖即可導航，點擊「🚕 泰文大字卡」可全螢幕顯示泰文店名與地址給司機看。</p>
-
-        <div id="dining-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-          <!-- Populated from data.json featured_food -->
-        </div>
-      </div>
-
-      <!-- Updated Day 6 Afternoon & Evening Route Card -->
-      <div class="glass-card rounded-3xl p-6 sm:p-8 border-amber-400/25">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-          <div>
-            <span class="text-xs uppercase tracking-wider text-amber-300 font-semibold">DAY 6 · 12/14 (週一) 曼谷河畔文化與百年老街動線</span>
-            <h3 class="text-lg sm:text-xl font-bold text-white mt-0.5">👘 鄭王廟泰服體驗 ➔ ICONSIAM 水舞秀 ➔ Talat Phlu 符德興與鐵道夜市</h3>
-          </div>
-          <span class="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-200 text-xs font-medium self-start">
-            ✓ 14:00 OK Shop 6人泰服已預約
-          </span>
+      <!-- VIEW 3: DINING & ROUTES (WITH 3 SUB-TABS) -->
+      <section id="view-dining" class="hidden space-y-5">
+        <!-- Sub-tabs Bar: 🍽️ 精選美食 | 🗺️ 分日動線 | ✦ 行前提醒 -->
+        <div class="grid grid-cols-3 gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-amber-400/20" role="tablist" aria-label="美食動線提醒子分頁">
+          <button type="button" data-dining-sub="food" class="dining-sub-btn active min-h-[42px] px-2 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 bg-amber-500 text-slate-950 shadow-sm cursor-pointer">
+            <span>🍽️</span><span>精選美食</span>
+          </button>
+          <button type="button" data-dining-sub="routes" class="dining-sub-btn min-h-[42px] px-2 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center justify-center gap-1.5 bg-transparent text-slate-300 hover:bg-white/5 cursor-pointer">
+            <span>🗺️</span><span>分日動線</span>
+          </button>
+          <button type="button" data-dining-sub="tips" class="dining-sub-btn min-h-[42px] px-2 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center justify-center gap-1.5 bg-transparent text-slate-300 hover:bg-white/5 cursor-pointer">
+            <span>✦</span><span>行前提醒</span>
+          </button>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
-          <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
-            <div class="text-xs font-bold text-amber-300">STEP 1 · 12:00 — 13:30</div>
-            <div class="font-semibold text-white mt-1">寄放行李 ＆ 鄭王廟午餐</div>
-            <p class="text-xs text-slate-300 mt-1">12:00 先至 83 Siam Fandee Cafe 寄放行李，隨後包車載往鄭王廟周邊吃船麵或泰式炒河粉。</p>
-          </div>
-          <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
-            <div class="text-xs font-bold text-amber-300">STEP 2 · 14:00 — 17:00</div>
-            <div class="font-semibold text-white mt-1">OK Shop 泰服 ＆ 鄭王廟拍照</div>
-            <p class="text-xs text-slate-300 mt-1">14:00 準時抵達 OK Shop（司機全約結束下班），換裝後於鄭王廟悠閒取景拍照。</p>
-          </div>
-          <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
-            <div class="text-xs font-bold text-amber-300">STEP 3 · 17:00 — 19:15</div>
-            <div class="font-semibold text-white mt-1">搭船赴 ICONSIAM 水舞秀</div>
-            <p class="text-xs text-slate-300 mt-1">自行搭船前往暹羅天地，欣賞 18:30 聖誕樹燈光音樂秀與 19:00 水舞秀。</p>
-          </div>
-          <div class="p-4 rounded-2xl bg-amber-500/15 border border-amber-400/35">
-            <div class="text-xs font-bold text-amber-300">STEP 4 · 19:15 — 22:30</div>
-            <div class="font-semibold text-white mt-1">Talat Phlu 晚餐夜市 ➔ BTS 回市區</div>
-            <p class="text-xs text-slate-200 mt-1">2 台 Grab 赴符德興晚餐與 First One 夜市；回程步行約 450m 至 BTS Talat Phlu (S10) 搭往 National Stadium 方向進市區（逛太晚備案分兩台 Grab）。</p>
-          </div>
-        </div>
-      </div>
+        <!-- Sub-panel 3A: 🍽️ 精選美食 -->
+        <div id="dining-panel-food" class="glass-card rounded-3xl p-5 sm:p-8">
+          <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">CURATED GASTRONOMY</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-white mt-1 flex items-center gap-2">
+            <span>🍽️</span> 精選餐廳預約與在地美食卡
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">點擊地圖即可導航，點擊「🚕 泰文大字卡」可全螢幕顯示泰文店名與地址給司機看。</p>
 
-      <!-- Day 7 & Day 8 City Exploration Highlights -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="glass-card rounded-2xl p-5 space-y-2">
-          <div class="text-xs font-bold text-amber-300">DAY 7 · 12/15 (週二) 4人留泰組路線</div>
-          <h4 class="font-bold text-white text-base">🎄 Siam 商圈 ➔ CentralWorld 聖誕樹 ➔ 朱拉隆功宵夜</h4>
-          <p class="text-xs text-slate-300 leading-relaxed">上午送別 Tara & Rex 後，四人逛 Siam Square / Siam Paragon 午餐，下午重頭戲前往 <strong>CentralWorld 聖誕活動</strong>拍照購物；18:45 先回民宿放戰利品，19:30 搭機車計程車衝 <strong>Banthat Thong 商圈</strong>吃 Jimjoom99 泰式陶鍋！</p>
-        </div>
-        <div class="glass-card rounded-2xl p-5 space-y-2">
-          <div class="text-xs font-bold text-amber-300">DAY 8 · 12/16 (週三) 達睿＆承宏雙人老城漫步</div>
-          <h4 class="font-bold text-white text-base">🦢 松瓦路 Urai 滷鵝 ➔ Talat Noi 噠叻仔 ➔ 中國城</h4>
-          <p class="text-xs text-slate-300 leading-relaxed">10:30 首站先吃米其林必比登 <strong>Urai 潮州滷鵝</strong>（僅收現金、售完為止），漫步 Talat Noi 老巷弄塗鴉與 <strong>KHIRI 精品泰奶</strong>，中午探索蘇坤1巷蚵仔煎與炭火咖啡。（留意當日泰國皇家火葬大典國定假日交通管制）</p>
-        </div>
-      </div>
-
-      <!-- Essential Thailand & Festival Survival Tips -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="glass-card rounded-2xl p-5 space-y-2">
-          <div class="text-2xl">👟</div>
-          <h4 class="font-bold text-white">The Gathering 步行提醒</h4>
-          <p class="text-xs text-slate-300 leading-relaxed">Day 2 搭乘大會官方接駁車抵達主入口下車後，需步行約 <strong class="text-amber-300">25 分鐘（含上坡路段）</strong> 才能抵達 The Gathering 舞台，務必穿著好走舒適的鞋款。</p>
-        </div>
-        <div class="glass-card rounded-2xl p-5 space-y-2">
-          <div class="text-2xl">💳</div>
-          <h4 class="font-bold text-white">手環儲值 & 感應乘車</h4>
-          <p class="text-xs text-slate-300 leading-relaxed">會場內全採 <strong class="text-amber-300">Tomorrowland 電子手環 Pearls</strong> 感應消費；曼谷 MRT 藍線可直接刷 <strong class="text-amber-300">Visa / Mastercard 實體或手機感應</strong> 進出閘門免排隊買票。</p>
-        </div>
-        <div class="glass-card rounded-2xl p-5 space-y-2">
-          <div class="text-2xl">🧾</div>
-          <h4 class="font-bold text-white">VAT 退稅與行李托運</h4>
-          <p class="text-xs text-slate-300 leading-relaxed">百貨退稅單據 (<strong class="text-amber-300">P.P.10</strong>) 集中收好放隨身包；液體伴手禮全數裝箱托運；返台日提早 <strong class="text-amber-300">3 小時</strong> 抵達 BKK 機場先蓋海關章再掛行李。</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- VIEW 4: TOMORROWLAND LINEUP (DYNAMIC FROM DATA.JSON) -->
-    <section id="view-lineup" class="hidden space-y-6">
-      <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-5">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-white/10">
-          <div>
-            <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">WISDOM VALLEY · PATTAYA / RAYONG · OFFICIAL TIMETABLE</span>
-            <h2 class="text-xl sm:text-2xl font-bold text-white mt-1 flex items-center gap-2">
-              <span>🎧</span> Tomorrowland Thailand 2026 演出時間表與轉場攻略
-            </h2>
-          </div>
-          <a href="https://www.google.com/maps/search/?api=1&query=Wisdom+Valley+Pattaya" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 text-xs sm:text-sm font-semibold transition self-start">
-            <span>📍</span> Wisdom Valley 會場地圖
-          </a>
-        </div>
-
-        <!-- Lineup Filter Controls -->
-        <div class="flex flex-wrap items-center justify-between gap-3">
-          <div class="flex flex-wrap items-center gap-1.5" id="lineup-day-filters">
-            <button type="button" data-fday="all" class="fday-btn active px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-500 text-slate-950">全部 3 天</button>
-            <button type="button" data-fday="1" class="fday-btn px-3 py-1.5 rounded-xl text-xs font-medium bg-white/5 text-slate-300 border border-white/10 hover:bg-white/10">Day 1 · 12/11 (五)</button>
-            <button type="button" data-fday="2" class="fday-btn px-3 py-1.5 rounded-xl text-xs font-medium bg-white/5 text-slate-300 border border-white/10 hover:bg-white/10">Day 2 · 12/12 (六)</button>
-            <button type="button" data-fday="3" class="fday-btn px-3 py-1.5 rounded-xl text-xs font-medium bg-white/5 text-slate-300 border border-white/10 hover:bg-white/10">Day 3 · 12/13 (日)</button>
-          </div>
-          <div class="flex items-center gap-2">
-            <button type="button" id="must-hear-toggle" onclick="toggleMustHearOnly()" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold border border-amber-400/35 bg-amber-500/10 text-amber-200 hover:bg-amber-500/20 transition">
-              🔥 只看必聽 / 高優先 / B2B
-            </button>
+          <div id="dining-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
+            <!-- Populated from data.json featured_food -->
           </div>
         </div>
 
-        <!-- Lineup Cards List -->
-        <div id="lineup-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <!-- Populated dynamically from data.json lineup -->
+        <!-- Sub-panel 3B: 🗺️ 分日動線 -->
+        <div id="dining-panel-routes" class="hidden space-y-5">
+          <!-- Day 6 Afternoon & Evening Route Card -->
+          <div class="glass-card rounded-3xl p-5 sm:p-8 border-amber-400/25">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+              <div>
+                <span class="text-xs uppercase tracking-wider text-amber-300 font-semibold">DAY 6 · 12/14 (週一) 曼谷河畔文化與百年老街動線</span>
+                <h3 class="text-lg sm:text-xl font-bold text-white mt-0.5">👘 鄭王廟泰服體驗 ➔ ICONSIAM 水舞秀 ➔ Talat Phlu 符德興與鐵道夜市</h3>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-200 text-xs font-medium self-start">
+                ✓ 14:00 OK Shop 6人泰服已預約
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+              <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+                <div class="text-xs font-bold text-amber-300">STEP 1 · 12:00 — 13:30</div>
+                <div class="font-semibold text-white mt-1">寄放行李 ＆ 鄭王廟午餐</div>
+                <p class="text-xs text-slate-300 mt-1">12:00 先至 83 Siam Fandee Cafe 寄放行李，隨後包車載往鄭王廟周邊吃船麵或泰式炒河粉。</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+                <div class="text-xs font-bold text-amber-300">STEP 2 · 14:00 — 17:00</div>
+                <div class="font-semibold text-white mt-1">OK Shop 泰服 ＆ 鄭王廟拍照</div>
+                <p class="text-xs text-slate-300 mt-1">14:00 準時抵達 OK Shop（司機全約結束下班），換裝後於鄭王廟悠閒取景拍照。</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+                <div class="text-xs font-bold text-amber-300">STEP 3 · 17:00 — 19:15</div>
+                <div class="font-semibold text-white mt-1">搭船赴 ICONSIAM 水舞秀</div>
+                <p class="text-xs text-slate-300 mt-1">自行搭船前往暹羅天地，欣賞 18:30 聖誕樹燈光音樂秀與 19:00 水舞秀。</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-amber-500/15 border border-amber-400/35">
+                <div class="text-xs font-bold text-amber-300">STEP 4 · 19:15 — 22:30</div>
+                <div class="font-semibold text-white mt-1">Talat Phlu 晚餐夜市 ➔ BTS 回市區</div>
+                <p class="text-xs text-slate-200 mt-1">2 台 Grab 赴符德興晚餐與 First One 夜市；回程步行約 450m 至 BTS Talat Phlu (S10) 搭往 National Stadium 方向進市區（逛太晚備案分兩台 Grab）。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Day 7 & Day 8 City Exploration Highlights -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="glass-card rounded-2xl p-5 space-y-2">
+              <div class="text-xs font-bold text-amber-300">DAY 7 · 12/15 (週二) 4人留泰組路線</div>
+              <h4 class="font-bold text-white text-base">🎄 Siam 商圈 ➔ CentralWorld 聖誕樹 ➔ 朱拉隆功宵夜</h4>
+              <p class="text-xs text-slate-300 leading-relaxed">上午送別 Tara & Rex 後，四人逛 Siam Square / Siam Paragon 午餐，下午重頭戲前往 <strong>CentralWorld 聖誕活動</strong>拍照購物；18:45 先回民宿放戰利品，19:30 搭機車計程車衝 <strong>Banthat Thong 商圈</strong>吃 Jimjoom99 泰式陶鍋！</p>
+            </div>
+            <div class="glass-card rounded-2xl p-5 space-y-2">
+              <div class="text-xs font-bold text-amber-300">DAY 8 · 12/16 (週三) 達睿＆承宏雙人老城漫步</div>
+              <h4 class="font-bold text-white text-base">🦢 松瓦路 Urai 滷鵝 ➔ Talat Noi 噠叻仔 ➔ 中國城</h4>
+              <p class="text-xs text-slate-300 leading-relaxed">10:30 首站先吃米其林必比登 <strong>Urai 潮州滷鵝</strong>（僅收現金、售完為止），漫步 Talat Noi 老巷弄塗鴉與 <strong>KHIRI 精品泰奶</strong>，中午探索蘇坤1巷蚵仔煎與炭火咖啡。（留意當日泰國皇家火葬大典國定假日交通管制）</p>
+            </div>
+          </div>
         </div>
 
-        <!-- Day 3 Early Departure Notice (Shown only on All Days or Day 3) -->
-        <div id="day3-closing-notice" class="p-4 rounded-2xl bg-rose-500/10 border border-rose-400/30 text-xs text-rose-100 leading-relaxed">
-          <strong class="text-rose-300">閉幕夜散場提醒 (12/13 週日)：</strong>
-          Swedish House Mafia 壓軸時段為 22:50–23:50，官方活動至 23:59；團隊預計於 <strong>23:30 左右主動提早離場</strong>前往官方接駁乘車處，避開閉幕萬人散場車潮（可依現場氣氛與 DJ 演出彈性調整）。
+        <!-- Sub-panel 3C: ✦ 行前提醒 -->
+        <div id="dining-panel-tips" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="glass-card rounded-2xl p-5 space-y-2">
+            <div class="text-2xl">👟</div>
+            <h4 class="font-bold text-white">The Gathering 步行提醒</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">Day 2 搭乘大會官方接駁車抵達主入口下車後，需步行約 <strong class="text-amber-300">25 分鐘（含上坡路段）</strong> 才能抵達 The Gathering 舞台，務必穿著好走舒適的鞋款。</p>
+          </div>
+          <div class="glass-card rounded-2xl p-5 space-y-2">
+            <div class="text-2xl">💳</div>
+            <h4 class="font-bold text-white">手環儲值 & 感應乘車</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">會場內全採 <strong class="text-amber-300">Tomorrowland 電子手環 Pearls</strong> 感應消費；曼谷 MRT 藍線可直接刷 <strong class="text-amber-300">Visa / Mastercard 實體或手機感應</strong> 進出閘門免排隊買票。</p>
+          </div>
+          <div class="glass-card rounded-2xl p-5 space-y-2">
+            <div class="text-2xl">🧾</div>
+            <h4 class="font-bold text-white">VAT 退稅與行李托運</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">百貨退稅單據 (<strong class="text-amber-300">P.P.10</strong>) 集中收好放隨身包；液體伴手禮全數裝箱托運；返台日提早 <strong class="text-amber-300">3 小時</strong> 抵達 BKK 機場先蓋海關章再掛行李。</p>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-  </main>
+      <!-- VIEW 4: TOMORROWLAND LINEUP (DYNAMIC FROM DATA.JSON) -->
+      <section id="view-lineup" class="hidden space-y-6">
+        <div class="glass-card rounded-3xl p-5 sm:p-8 space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-white/10">
+            <div>
+              <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">WISDOM VALLEY · PATTAYA / RAYONG · OFFICIAL TIMETABLE</span>
+              <h2 class="text-xl sm:text-2xl font-bold text-white mt-1 flex items-center gap-2">
+                <span>🎧</span> Tomorrowland Thailand 2026 演出時間表與轉場攻略
+              </h2>
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Wisdom+Valley+Pattaya" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 text-xs sm:text-sm font-semibold transition self-start">
+              <span>📍</span> Wisdom Valley 會場地圖
+            </a>
+          </div>
 
-  <!-- FOOTER -->
-  <footer class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-5 pb-9 text-center border-t border-white/10 mt-0">
-    <p class="font-display text-sm sm:text-base tracking-widest text-amber-300 font-semibold uppercase">
-      Made for our Tomorrowland crew ✦
-    </p>
-    <div class="footer-rule mx-auto mt-3 mb-3" aria-hidden="true"></div>
-    <p class="footer-signature text-lg sm:text-2xl leading-relaxed">睿睿出品・必屬精品</p>
-    <p class="footer-motto text-[10px] sm:text-xs mt-2 max-w-xl mx-auto">
-      LIVE TODAY, LOVE TOMORROW, UNITE FOREVER
-    </p>
-  </footer>
+          <!-- Lineup Filter Controls -->
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex flex-wrap items-center gap-1.5" id="lineup-day-filters">
+              <button type="button" data-fday="all" class="fday-btn active px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 cursor-pointer">全部 3 天</button>
+              <button type="button" data-fday="1" class="fday-btn px-3 py-1.5 rounded-xl text-xs font-medium bg-white/5 text-slate-300 border border-white/10 hover:bg-white/10 cursor-pointer">Day 1 · 12/11 (五)</button>
+              <button type="button" data-fday="2" class="fday-btn px-3 py-1.5 rounded-xl text-xs font-medium bg-white/5 text-slate-300 border border-white/10 hover:bg-white/10 cursor-pointer">Day 2 · 12/12 (六)</button>
+              <button type="button" data-fday="3" class="fday-btn px-3 py-1.5 rounded-xl text-xs font-medium bg-white/5 text-slate-300 border border-white/10 hover:bg-white/10 cursor-pointer">Day 3 · 12/13 (日)</button>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" id="must-hear-toggle" onclick="toggleMustHearOnly()" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold border border-amber-400/35 bg-amber-500/10 text-amber-200 hover:bg-amber-500/20 transition cursor-pointer">
+                🔥 只看必聽 / 高優先 / B2B
+              </button>
+            </div>
+          </div>
 
-  <!-- PACKING CHECKLIST MODAL -->
+          <!-- Lineup Cards List -->
+          <div id="lineup-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Populated dynamically from data.json lineup -->
+          </div>
+
+          <!-- Day 3 Early Departure Notice (Shown only on All Days or Day 3) -->
+          <div id="day3-closing-notice" class="p-4 rounded-2xl bg-rose-500/10 border border-rose-400/30 text-xs text-rose-100 leading-relaxed">
+            <strong class="text-rose-300">閉幕夜散場提醒 (12/13 週日)：</strong>
+            Swedish House Mafia 壓軸時段為 22:50–23:50，官方活動至 23:59；團隊預計於 <strong>23:30 左右主動提早離場</strong>前往官方接駁乘車處，避開閉幕萬人散場車潮（可依現場氣氛與 DJ 演出彈性調整）。
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-5 pb-9 text-center border-t border-white/10 mt-0">
+      <p class="font-display text-sm sm:text-base tracking-widest text-amber-300 font-semibold uppercase">
+        Made for our Tomorrowland crew ✦
+      </p>
+      <div class="footer-rule mx-auto mt-3 mb-3" aria-hidden="true"></div>
+      <p class="footer-signature text-lg sm:text-2xl leading-relaxed">睿睿出品・必屬精品</p>
+      <p class="footer-motto text-[10px] sm:text-xs mt-2 max-w-xl mx-auto">
+        ✦ LIVE TODAY, LOVE TOMORROW, UNITE FOREVER ✦
+      </p>
+    </footer>
+  </div>
+
+  <!-- PACKING CHECKLIST MODAL (SHARED BY COVER & INNER SITE) -->
   <div id="checklist-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
     <div class="glass-card rounded-3xl max-w-md w-full p-6 border-amber-400/35 shadow-2xl space-y-4">
       <div class="flex items-center justify-between border-b border-white/10 pb-3">
@@ -458,7 +665,7 @@
         </div>
         <button type="button" onclick="closeChecklistModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 flex items-center justify-center">✕</button>
       </div>
-      <p class="text-xs text-slate-400">勾選狀態將自動儲存在您的手機瀏覽器中：</p>
+      <p class="text-xs text-slate-400">勾選狀態將自動儲存在您的手機瀏覽器中（封面與內頁同步）：</p>
       <div id="checklist-items" class="space-y-2 max-h-72 overflow-y-auto pr-1"></div>
       <div class="pt-2 border-t border-white/10 flex items-center justify-between">
         <button type="button" onclick="resetChecklist()" class="text-xs text-slate-400 hover:text-rose-300 transition">全部清除</button>
@@ -493,19 +700,29 @@
 
   <script>
     // ==========================================
-    // 1. STATE & CONSTANTS
+    // 1. STATE, TIMEZONE & NAVIGATION CONSTANTS
     // ==========================================
     let itineraryData = [];
     let accommodationsData = [];
     let crewFlightsData = [];
     let lineupData = [];
     const ITINERARY_CACHE_KEY = "tml2026_public_feed_v4";
+    const NAV_STATE_KEY = "tml2026_nav_state_v221";
 
-    let selectedDay = "all";
+    // Departure & Trip End in Taiwan Time (UTC+8)
+    const DEPARTURE_TPE_MS = new Date("2026-12-09T07:40:00+08:00").getTime();
+    const TRIP_END_TPE_MS = new Date("2026-12-17T23:59:59+08:00").getTime();
+
+    let isCoverVisible = true;
+    let hasEnteredInnerOnce = false;
+    let selectedDay = 1;
     let searchQuery = "";
     let currentView = "itinerary";
+    let currentLogisticsSub = "stays";
+    let currentDiningSub = "food";
     let selectedFestivalDay = "all";
     let mustHearOnly = false;
+    let lastInnerScrollY = 0;
 
     const defaultChecklist = [
       { id: "passport", label: "護照正本（效期 6 個月以上）＆ 泰國電子入境卡 (TDAC) / 保險資料", checked: false },
@@ -517,6 +734,39 @@
       { id: "powerbank", label: "大容量行動電源 ＆ 充電線（登機務必放隨身行李）", checked: false },
       { id: "electrolytes", label: "電解質發泡錠 / 維他命 C ＆ 個人常備藥品", checked: false }
     ];
+
+    function getBangkokIsoDate() {
+      const nowBkk = new Date(Date.now() + 7 * 3600 * 1000);
+      return nowBkk.toISOString().slice(0, 10);
+    }
+
+    function getTripPhase() {
+      const now = Date.now();
+      if (now < DEPARTURE_TPE_MS) return "before";
+      if (now <= TRIP_END_TPE_MS) return "during";
+      return "after";
+    }
+
+    function saveNavState() {
+      try {
+        sessionStorage.setItem(NAV_STATE_KEY, JSON.stringify({
+          hasEnteredInnerOnce,
+          currentView,
+          currentLogisticsSub,
+          currentDiningSub,
+          selectedDay,
+          lastInnerScrollY
+        }));
+      } catch (_) {}
+    }
+
+    function loadSavedNavState() {
+      try {
+        return JSON.parse(sessionStorage.getItem(NAV_STATE_KEY) || "null");
+      } catch (_) {
+        return null;
+      }
+    }
 
     function tripCity(day) {
       const n = Number(day);
@@ -548,7 +798,7 @@
       catch { return ''; }
     }
 
-    // Strict eligibility rules for Daily Itinerary action buttons (V2.1.4)
+    // Strict eligibility rules for Daily Itinerary action buttons (V2.1.4 preserved)
     const NON_NAV_TITLE_PATTERNS = [
       /航班抵達/, /起飛返抵/, /退房上車/, /休息站/, /接駁專車/,
       /晨間自然醒/, /晨間補眠/, /晨間悠閒/, /沖澡吹整/, /自由活動/,
@@ -561,13 +811,10 @@
     function isSpecificVenueEvent(ev) {
       const type = String(ev.type || '').toLowerCase();
       const title = String(ev.title || '');
-      // 1. Exclude flights, pure transport/transfers, and in-hotel routines / generic free time
       if (type === 'flight' || type === 'transport') return false;
       if (NON_NAV_TITLE_PATTERNS.some(rx => rx.test(title))) return false;
-      // 2. Must belong to an actual destination category
       const allowedTypes = new Set(['food', 'accommodation', 'sightseeing', 'shopping', 'festival', 'activity']);
       if (!allowedTypes.has(type)) return false;
-      // 3. Must have a concrete place target (direct map_url, or concrete local_name/location without generic/route words)
       if (safeMapUrl(ev.map_url)) return true;
       const target = String(ev.local_name || ev.location || '').trim();
       if (!target) return false;
@@ -582,9 +829,7 @@
     function shouldShowDriverCard(ev) {
       if (!isSpecificVenueEvent(ev)) return false;
       const title = String(ev.title || '');
-      // Exclude walk-only / boat-only / internal hotel check-in-out routines that do not need a taxi/Grab card
       if (/全員大團聚|返回.*休息|自行搭船/.test(title)) return false;
-      // Require an explicit venue name or street address belonging to this exact event
       const hasVenueName = Boolean(String(ev.local_name || '').trim());
       const hasStreetAddr = Boolean(String(ev.local_address || '').trim());
       return hasVenueName || hasStreetAddr;
@@ -610,12 +855,218 @@
     }
 
     // ==========================================
-    // 2. RENDER DAY PILLS & DAILY ITINERARY
+    // 2. COVER <-> INNER SITE LAYER CONTROLLER
+    // ==========================================
+    function syncHistoryState(push = true) {
+      const stateObj = {
+        layer: isCoverVisible ? 'cover' : 'inner',
+        view: currentView,
+        logisticsSub: currentLogisticsSub,
+        diningSub: currentDiningSub,
+        day: selectedDay
+      };
+      const targetHash = isCoverVisible ? '#cover' : `#${currentView}`;
+      try {
+        if (push) {
+          history.pushState(stateObj, '', targetHash);
+        } else {
+          history.replaceState(stateObj, '', targetHash);
+        }
+      } catch (_) {}
+    }
+
+    function openCover(options = {}) {
+      const { pushHistory = true } = options;
+      if (!isCoverVisible) {
+        lastInnerScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+        saveNavState();
+      }
+      isCoverVisible = true;
+      document.getElementById('vip-cover').classList.remove('cover-hidden');
+      document.getElementById('inner-app').classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      syncHistoryState(pushHistory);
+    }
+
+    function enterInnerSite(options = {}) {
+      const {
+        pushHistory = true,
+        restorePrevious = true,
+        targetView = null,
+        targetDay = null,
+        scrollToTarget = false
+      } = options;
+
+      const phase = getTripPhase();
+      const saved = loadSavedNavState();
+
+      const isFirstEntry = !restorePrevious || !hasEnteredInnerOnce || !saved;
+      if (targetView) {
+        currentView = targetView;
+        if (currentView === 'itinerary' && targetDay === null && phase === 'during' && isFirstEntry && !window.__manualDaySelected) {
+          const isoBkk = getBangkokIsoDate();
+          const match = itineraryData.find(d => d.date === isoBkk);
+          selectedDay = match ? match.day : 1;
+        }
+      } else if (!isFirstEntry) {
+        currentView = saved.currentView || currentView;
+        currentLogisticsSub = saved.currentLogisticsSub || currentLogisticsSub;
+        currentDiningSub = saved.currentDiningSub || currentDiningSub;
+        selectedDay = saved.selectedDay ?? selectedDay;
+      } else if (phase === 'during') {
+        currentView = 'itinerary';
+        const isoBkk = getBangkokIsoDate();
+        const match = itineraryData.find(d => d.date === isoBkk);
+        selectedDay = match ? match.day : 1;
+      } else {
+        // First time entering before departure (or post-trip memorial): Day 1 default (not all 76 items)
+        currentView = 'itinerary';
+        selectedDay = 1;
+      }
+
+      if (targetDay !== null) {
+        selectedDay = targetDay === 'all' ? 'all' : Number(targetDay);
+      }
+
+      isCoverVisible = false;
+      hasEnteredInnerOnce = true;
+
+      document.getElementById('vip-cover').classList.add('cover-hidden');
+      document.getElementById('inner-app').classList.remove('hidden');
+
+      setActiveMainView(currentView, { pushHistory: false, resetScroll: false });
+      setLogisticsSubTab(currentLogisticsSub, { scrollToSection: false });
+      setDiningSubTab(currentDiningSub, { scrollToSection: false });
+      renderDayPills();
+      renderItinerary();
+
+      saveNavState();
+      syncHistoryState(pushHistory);
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (scrollToTarget && currentView === 'itinerary') {
+            scrollToDayHeading(selectedDay);
+          } else if (restorePrevious && saved && typeof saved.lastInnerScrollY === 'number' && saved.lastInnerScrollY > 0) {
+            window.scrollTo({ top: saved.lastInnerScrollY, behavior: 'auto' });
+          } else {
+            window.scrollTo({ top: 0, behavior: 'auto' });
+          }
+        });
+      });
+    }
+
+    function setActiveMainView(targetView, options = {}) {
+      const { pushHistory = true, resetScroll = true } = options;
+      if (!["itinerary", "logistics", "dining", "lineup"].includes(targetView)) {
+        targetView = "itinerary";
+      }
+      currentView = targetView;
+
+      document.querySelectorAll(".view-tab").forEach(b => {
+        const isActive = b.dataset.view === targetView;
+        if (isActive) {
+          b.classList.remove("bg-white/5", "text-slate-300", "font-medium", "border", "border-white/10");
+          b.classList.add("bg-gradient-to-r", "from-amber-500", "to-yellow-600", "text-slate-950", "font-semibold", "shadow-md", "shadow-amber-500/20");
+        } else {
+          b.classList.remove("bg-gradient-to-r", "from-amber-500", "to-yellow-600", "text-slate-950", "font-semibold", "shadow-md", "shadow-amber-500/20");
+          b.classList.add("bg-white/5", "text-slate-300", "font-medium", "border", "border-white/10");
+        }
+      });
+
+      ["itinerary", "logistics", "dining", "lineup"].forEach(v => {
+        const el = document.getElementById(`view-${v}`);
+        if (el) el.classList.toggle("hidden", v !== targetView);
+      });
+
+      const dayPillsBar = document.getElementById("day-pills-bar");
+      if (dayPillsBar) {
+        dayPillsBar.classList.toggle("hidden", targetView !== "itinerary");
+      }
+
+      if (resetScroll) {
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      }
+      saveNavState();
+      if (!isCoverVisible && pushHistory) {
+        syncHistoryState(true);
+      }
+    }
+
+    function setLogisticsSubTab(sub, options = {}) {
+      const { scrollToSection = true } = options;
+      if (!["stays", "flights", "van"].includes(sub)) sub = "stays";
+      currentLogisticsSub = sub;
+
+      document.querySelectorAll(".logistics-sub-btn").forEach(btn => {
+        const active = btn.dataset.logisticsSub === sub;
+        if (active) {
+          btn.classList.remove("bg-transparent", "text-slate-300", "hover:bg-white/5", "font-medium");
+          btn.classList.add("bg-amber-500", "text-slate-950", "font-bold", "shadow-sm");
+        } else {
+          btn.classList.remove("bg-amber-500", "text-slate-950", "font-bold", "shadow-sm");
+          btn.classList.add("bg-transparent", "text-slate-300", "hover:bg-white/5", "font-medium");
+        }
+      });
+
+      ["stays", "flights", "van"].forEach(k => {
+        const panel = document.getElementById(`logistics-panel-${k}`);
+        if (panel) panel.classList.toggle("hidden", k !== sub);
+      });
+
+      saveNavState();
+      if (scrollToSection) {
+        scrollToSectionTop('view-logistics');
+      }
+    }
+
+    function setDiningSubTab(sub, options = {}) {
+      const { scrollToSection = true } = options;
+      if (!["food", "routes", "tips"].includes(sub)) sub = "food";
+      currentDiningSub = sub;
+
+      document.querySelectorAll(".dining-sub-btn").forEach(btn => {
+        const active = btn.dataset.diningSub === sub;
+        if (active) {
+          btn.classList.remove("bg-transparent", "text-slate-300", "hover:bg-white/5", "font-medium");
+          btn.classList.add("bg-amber-500", "text-slate-950", "font-bold", "shadow-sm");
+        } else {
+          btn.classList.remove("bg-amber-500", "text-slate-950", "font-bold", "shadow-sm");
+          btn.classList.add("bg-transparent", "text-slate-300", "hover:bg-white/5", "font-medium");
+        }
+      });
+
+      ["food", "routes", "tips"].forEach(k => {
+        const panel = document.getElementById(`dining-panel-${k}`);
+        if (panel) panel.classList.toggle("hidden", k !== sub);
+      });
+
+      saveNavState();
+      if (scrollToSection) {
+        scrollToSectionTop('view-dining');
+      }
+    }
+
+    function scrollToSectionTop(sectionId) {
+      requestAnimationFrame(() => {
+        const el = document.getElementById(sectionId);
+        if (!el) return;
+        const navEl = document.getElementById('main-sticky-nav');
+        const navHeight = navEl ? navEl.getBoundingClientRect().height : 0;
+        const top = Math.max(0, window.pageYOffset + el.getBoundingClientRect().top - navHeight - 10);
+        const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top, behavior: prefersReduced ? 'auto' : 'smooth' });
+      });
+    }
+
+    // ==========================================
+    // 3. RENDER DAY PILLS & DAILY ITINERARY
     // ==========================================
     function renderDayPills() {
       const container = document.getElementById("day-pills-bar");
+      if (!container) return;
       let html = `
-        <button type="button" data-select-day="all" class="day-pill shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition border ${
+        <button type="button" data-select-day="all" class="day-pill shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition border cursor-pointer ${
           selectedDay === "all"
             ? "bg-amber-400/20 border-amber-400 text-amber-200 shadow-sm shadow-amber-400/20"
             : "bg-white/5 border-white/10 text-slate-300 hover:bg-white/10"
@@ -627,7 +1078,7 @@
       itineraryData.forEach(item => {
         const isActive = selectedDay === item.day;
         html += `
-          <button type="button" data-select-day="${item.day}" class="day-pill shrink-0 px-3 py-1.5 rounded-xl text-left transition border flex items-center gap-2 ${
+          <button type="button" data-select-day="${item.day}" class="day-pill shrink-0 px-3 py-1.5 rounded-xl text-left transition border flex items-center gap-2 cursor-pointer ${
             isActive
               ? "bg-gradient-to-r from-amber-500/25 to-yellow-500/15 border-amber-400 text-white shadow-md shadow-amber-500/15"
               : "bg-white/[0.03] border-white/10 text-slate-300 hover:bg-white/10"
@@ -667,8 +1118,9 @@
       const empty = document.getElementById('empty-search-state');
       const q = searchQuery.trim().toLowerCase();
 
+      // When searching, search across all days unless a specific day filter is kept; if searching on single day yields 0, still filter cleanly
       const days = itineraryData
-        .filter(d => selectedDay === 'all' || selectedDay === d.day)
+        .filter(d => q ? true : (selectedDay === 'all' || selectedDay === d.day))
         .map(d => ({
           ...d,
           events: d.events
@@ -678,7 +1130,9 @@
         .filter(d => d.events.length || (!q && !d.events.length));
 
       const count = days.reduce((n, d) => n + d.events.length, 0);
-      document.getElementById('filter-status-text').innerHTML = `顯示 <span class="text-amber-300 font-semibold">${days.length} 天</span>・<span class="text-amber-300 font-semibold">${count} 筆</span>行程（泰國時間）`;
+      const labelPrefix = q ? '搜尋結果：' : (selectedDay === 'all' ? '顯示全部 ' : `顯示 Day ${selectedDay}（`);
+      const labelSuffix = q ? '行程（泰國時間）' : (selectedDay === 'all' ? '行程（泰國時間）' : '，泰國時間）');
+      document.getElementById('filter-status-text').innerHTML = `${labelPrefix}<span class="text-amber-300 font-semibold">${days.length} 天</span>・<span class="text-amber-300 font-semibold">${count} 筆</span>${labelSuffix}`;
       empty.classList.toggle('hidden', days.length > 0);
 
       container.innerHTML = days.map(d => `
@@ -712,7 +1166,7 @@
                   <div class="flex flex-wrap gap-2 mt-3">
                     ${extraMaps.map(m => `<a href="${escapeHtml(m.url)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-amber-400/30 text-amber-200 bg-amber-500/10 text-xs hover:bg-amber-500/20 transition">${escapeHtml(m.label)}</a>`).join('')}
                     ${map ? `<a href="${escapeHtml(map)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-amber-400/30 text-amber-200 bg-amber-500/10 text-xs hover:bg-amber-500/20 transition">📍 Google Maps 導航</a>` : ''}
-                    ${showDriver ? `<button type="button" data-driver-day="${d.day}" data-driver-idx="${e._origIdx}" class="driver-card-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-white/15 text-slate-200 bg-white/5 text-xs hover:bg-white/10 transition">🚕 給司機看泰文</button>` : ''}
+                    ${showDriver ? `<button type="button" data-driver-day="${d.day}" data-driver-idx="${e._origIdx}" class="driver-card-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-white/15 text-slate-200 bg-white/5 text-xs hover:bg-white/10 transition cursor-pointer">🚕 給司機看泰文</button>` : ''}
                   </div>
                 ` : ''}
               </div>
@@ -723,7 +1177,7 @@
     }
 
     // ==========================================
-    // 3. MERGE ACCOMMODATIONS & RENDER LOGISTICS / DINING / LINEUP
+    // 4. MERGE ACCOMMODATIONS & RENDER LOGISTICS / DINING / LINEUP
     // ==========================================
     function getMergedAccommodations(rawList) {
       if (!Array.isArray(rawList)) return [];
@@ -738,7 +1192,6 @@
           byName.set(key, clone);
           merged.push(clone);
         } else {
-          // Merge consecutive/split periods for the same property (e.g. 83 Siamfandee Suites 12/14-12/17)
           const existing = byName.get(key);
           if (!existing.sub_periods.length) {
             existing.sub_periods.push(`${existing.period}：${existing.guests_summary}`);
@@ -753,13 +1206,27 @@
       return merged;
     }
 
+    function buildStayMapUrl(h) {
+      const name = String(h.name || '').trim();
+      const addr = String(h.address || '').trim();
+      // Normalize 12/09 Asoke & 12/14 Siamfandee Suites street addresses for accurate Google Maps pinpointing
+      if (/Bangkok Family trip BTS Asoke/i.test(name) || /Sukhumvit 19 Alley/i.test(addr)) {
+        return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('13 Sukhumvit 19 Alley, Lane 2, Bangkok 10110');
+      }
+      if (/83 Siamfandee Suites/i.test(name) || /83 Sap Road/i.test(addr)) {
+        return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('83 Siamfandee Suites 83 Sap Road, Bang Rak, Bangkok 10500');
+      }
+      const cleanQuery = (name + ' ' + addr.replace(/^曼谷\s*/, '')).trim();
+      return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(cleanQuery);
+    }
+
     function renderLogisticsAndDining() {
-      // A. Dedicated Accommodations Grid (Merged into 4 Stays Cards)
+      // A. Dedicated Accommodations Grid (Merged into 4 Stays Cards + Fixed Map Links + Driver Card)
       const hotelsGrid = document.getElementById('hotels-grid');
       const stays = getMergedAccommodations(accommodationsData);
       if (stays.length) {
-        hotelsGrid.innerHTML = stays.map(h => {
-          const map = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent((h.name + ' ' + h.address).trim());
+        hotelsGrid.innerHTML = stays.map((h, stayIdx) => {
+          const map = buildStayMapUrl(h);
           const hostPending = h.host_status && h.host_status.includes('待確認');
           const subPeriodsHtml = (h.sub_periods || []).length
             ? `<div class="pt-2 border-t border-white/10 space-y-1">
@@ -785,10 +1252,13 @@
                 </div>
                 ${subPeriodsHtml}
               </div>
-              <div class="pt-1">
-                <a href="${escapeHtml(map)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/5 hover:bg-amber-500/20 border border-white/15 hover:border-amber-400/40 text-xs font-semibold text-amber-200 transition">
+              <div class="flex flex-wrap gap-2 pt-1">
+                <a href="${escapeHtml(map)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/35 text-xs font-semibold text-amber-200 transition">
                   <span>📍</span> 開啟 Google Maps
                 </a>
+                <button type="button" data-stay-driver="${stayIdx}" class="stay-driver-btn inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-xs font-semibold text-slate-200 transition cursor-pointer">
+                  <span>🚕</span> 給司機看泰文
+                </button>
               </div>
             </div>
           `;
@@ -856,7 +1326,7 @@
               <div class="flex flex-wrap gap-2 pt-1">
                 ${extraMaps.map(m => `<a href="${escapeHtml(m.url)}" target="_blank" rel="noopener noreferrer" class="text-xs text-amber-200 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/30 rounded-xl px-3 py-1.5 font-semibold transition">${escapeHtml(m.label)}</a>`).join('')}
                 ${map ? `<a href="${escapeHtml(map)}" target="_blank" rel="noopener noreferrer" class="text-xs text-amber-200 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/30 rounded-xl px-3 py-1.5 font-semibold transition">📍 地圖</a>` : ''}
-                ${hasThaiCard ? `<button type="button" data-driver-day="${e.dayNum}" data-driver-idx="${e._origIdx}" class="driver-card-btn text-xs text-slate-200 bg-white/5 hover:bg-white/10 border border-white/15 rounded-xl px-3 py-1.5 font-semibold transition">🚕 泰文大字卡</button>` : ''}
+                ${hasThaiCard ? `<button type="button" data-driver-day="${e.dayNum}" data-driver-idx="${e._origIdx}" class="driver-card-btn text-xs text-slate-200 bg-white/5 hover:bg-white/10 border border-white/15 rounded-xl px-3 py-1.5 font-semibold transition cursor-pointer">🚕 泰文大字卡</button>` : ''}
                 ${dial ? `<a href="tel:${escapeHtml(dial)}" class="text-xs text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-400/30 rounded-xl px-3 py-1.5 font-semibold transition">📞 撥號</a>` : ''}
               </div>
             </div>
@@ -890,7 +1360,7 @@
         return;
       }
 
-      container.innerHTML = filtered.map((item, idx) => {
+      container.innerHTML = filtered.map(item => {
         const isMust = item.priority === '必聽';
         const isHigh = item.priority === '高優先候選' || item.priority === 'B2B 加碼';
         const badgeCls = isMust
@@ -902,9 +1372,7 @@
         const rawConflict = String(item.conflict_note || '').trim();
         const hasConflict = rawConflict.includes('⚠️');
         const conflictSummary = rawConflict
-          ? (hasConflict
-              ? rawConflict.split(/[：:（(]/)[0].trim()
-              : '✓ 無衝突')
+          ? (hasConflict ? rawConflict.split(/[：:（(]/)[0].trim() : '✓ 無衝突')
           : '';
         const rawTime = String(item.time || '');
         const midnightMatch = rawTime.match(/^(.*?)（(跨午夜[^）]+)）$/);
@@ -931,7 +1399,7 @@
                 <span class="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-black/50 border border-amber-400/25 text-amber-200">🎪 ${escapeHtml(item.stage)}</span>
                 ${conflictSummary ? `<span class="text-[11px] font-medium px-2 py-1 rounded-lg border ${hasConflict ? 'bg-rose-500/15 border-rose-400/30 text-rose-200' : 'bg-emerald-500/10 border-emerald-400/25 text-emerald-300'}">${escapeHtml(conflictSummary)}</span>` : ''}
               </div>
-              <button type="button" class="dj-toggle-btn inline-flex items-center gap-1 text-[11px] font-semibold text-amber-300 hover:text-amber-200 px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition" aria-expanded="${autoExpand ? 'true' : 'false'}">
+              <button type="button" class="dj-toggle-btn inline-flex items-center gap-1 text-[11px] font-semibold text-amber-300 hover:text-amber-200 px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition cursor-pointer" aria-expanded="${autoExpand ? 'true' : 'false'}">
                 <span class="dj-toggle-label">${autoExpand ? '收合' : '詳情'}</span>
                 <span class="dj-toggle-chevron transition-transform duration-200 ${autoExpand ? 'rotate-180' : ''}">▾</span>
               </button>
@@ -952,7 +1420,7 @@
     }
 
     // ==========================================
-    // 4. DATA LOADING & PAYLOAD APPLICATION
+    // 5. DATA LOADING & INITIAL ROUTE RESOLUTION
     // ==========================================
     function applyItineraryPayload(payload, source) {
       if (payload.error || !Array.isArray(payload.days) || payload.days.length !== 9) {
@@ -975,6 +1443,13 @@
       accommodationsData = Array.isArray(payload.accommodations) ? payload.accommodations : [];
       crewFlightsData = Array.isArray(payload.crew_flights) ? payload.crew_flights : [];
       lineupData = Array.isArray(payload.lineup) ? payload.lineup : [];
+
+      // If currently during trip and user hasn't manually picked a day, align to Bangkok local day
+      if (getTripPhase() === 'during' && !window.__manualDaySelected) {
+        const isoBkk = getBangkokIsoDate();
+        const match = itineraryData.find(d => d.date === isoBkk);
+        if (match) selectedDay = match.day;
+      }
 
       renderDayPills();
       renderItinerary();
@@ -1015,7 +1490,7 @@
     }
 
     // ==========================================
-    // 5. EVENT DELEGATION & INTERACTIVE CONTROLS
+    // 6. EVENT DELEGATION & INTERACTIVE CONTROLS
     // ==========================================
     function scrollToDayHeading(targetDay) {
       requestAnimationFrame(() => {
@@ -1024,7 +1499,7 @@
             ? document.getElementById('view-itinerary')
             : document.getElementById(`day-card-${targetDay}`);
           if (!targetEl) return;
-          const navEl = document.querySelector('nav.sticky');
+          const navEl = document.getElementById('main-sticky-nav');
           const navHeight = navEl ? navEl.getBoundingClientRect().height : 0;
           const offset = navHeight + 12;
           const top = Math.max(0, window.pageYOffset + targetEl.getBoundingClientRect().top - offset);
@@ -1039,9 +1514,11 @@
 
     function selectDay(day, options = {}) {
       const { userInitiated = false } = options;
+      if (userInitiated) window.__manualDaySelected = true;
       selectedDay = day === 'all' ? 'all' : Number(day);
       renderDayPills();
       renderItinerary();
+      saveNavState();
       const activePill = document.querySelector(`[data-select-day="${selectedDay}"]`);
       if (activePill) {
         const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1053,31 +1530,29 @@
     }
 
     function jumpToToday() {
-      document.querySelector('[data-view="itinerary"]').click();
-      const nowBkk = new Date(Date.now() + 7 * 3600 * 1000);
-      const isoBkk = nowBkk.toISOString().slice(0, 10);
+      const isoBkk = getBangkokIsoDate();
       const match = itineraryData.find(d => d.date === isoBkk);
       const targetDay = match ? match.day : 1;
-      selectDay(targetDay, { userInitiated: true });
+      if (isCoverVisible) {
+        enterInnerSite({ pushHistory: true, restorePrevious: false, targetView: 'itinerary', targetDay, scrollToTarget: true });
+      } else {
+        setActiveMainView('itinerary', { pushHistory: true, resetScroll: false });
+        selectDay(targetDay, { userInitiated: true });
+      }
     }
 
     function resetFilters() {
-      selectedDay = "all";
+      selectedDay = 1;
       searchQuery = "";
       document.getElementById("search-input").value = "";
       document.getElementById("clear-search").classList.add("hidden");
       renderDayPills();
       renderItinerary();
       renderLineup();
+      saveNavState();
     }
 
-    function openDriverCard(dayNum, eventIdx) {
-      const dayObj = itineraryData.find(d => d.day === Number(dayNum));
-      const ev = dayObj && dayObj.events[Number(eventIdx)];
-      if (!ev) return;
-      const rawLocal = ev.local_name || ev.location || ev.title || '';
-      // If local_name contains Thai characters + parenthetical English/Chinese like "ร้านอาหารชมอรุณ (Chom Arun Restaurant)",
-      // display the Thai script prominently on top and the secondary name underneath
+    function showDriverModalWithData({ titleZh, rawLocal, localAddr, contactPhone, mapUrl }) {
       const thaiMatch = rawLocal.match(/^([\u0E00-\u0E7F\s＆&0-9.-]+)\s*[（(]([^)）]+)[)）]$/);
       if (thaiMatch) {
         document.getElementById('dc-local-name').textContent = thaiMatch[1].trim();
@@ -1086,10 +1561,9 @@
         document.getElementById('dc-local-name').textContent = rawLocal;
         document.getElementById('dc-local-sub').textContent = '';
       }
-      document.getElementById('dc-title-zh').textContent = ev.title || '';
-      document.getElementById('dc-local-addr').textContent = ev.local_address || ev.location || '（暫無詳細街道地址，請點下方開啟 Google Maps 導航）';
-      document.getElementById('dc-phone').textContent = ev.contact_phone ? `📞 店家電話：${ev.contact_phone}` : '';
-      const mapUrl = buildMapLink(ev);
+      document.getElementById('dc-title-zh').textContent = titleZh || '';
+      document.getElementById('dc-local-addr').textContent = localAddr || '（暫無詳細街道地址，請點下方開啟 Google Maps 導航）';
+      document.getElementById('dc-phone').textContent = contactPhone ? `📞 店家電話：${contactPhone}` : '';
       const mapEl = document.getElementById('dc-map-link');
       if (mapUrl) {
         mapEl.href = mapUrl;
@@ -1102,17 +1576,53 @@
       modal.classList.add('flex');
     }
 
+    function openDriverCard(dayNum, eventIdx) {
+      const dayObj = itineraryData.find(d => d.day === Number(dayNum));
+      const ev = dayObj && dayObj.events[Number(eventIdx)];
+      if (!ev) return;
+      showDriverModalWithData({
+        titleZh: ev.title || '',
+        rawLocal: ev.local_name || ev.location || ev.title || '',
+        localAddr: ev.local_address || ev.location || '',
+        contactPhone: ev.contact_phone || '',
+        mapUrl: buildMapLink(ev)
+      });
+    }
+
+    function openStayDriverCard(stayIdx) {
+      const stays = getMergedAccommodations(accommodationsData);
+      const h = stays[Number(stayIdx)];
+      if (!h) return;
+      showDriverModalWithData({
+        titleZh: `${h.period} 住宿地點`,
+        rawLocal: h.name || '',
+        localAddr: h.address || '',
+        contactPhone: '',
+        mapUrl: buildStayMapUrl(h)
+      });
+    }
+
     function closeDriverCard() {
       const modal = document.getElementById('driver-card-modal');
       modal.classList.add('hidden');
       modal.classList.remove('flex');
     }
 
-    // Delegated click listener for day pills, DJ card expand & driver big cards
+    // Delegated click listener for day pills, sub-tabs, DJ card expand & driver big cards
     document.addEventListener('click', e => {
       const pillBtn = e.target.closest('[data-select-day]');
       if (pillBtn) {
         selectDay(pillBtn.dataset.selectDay, { userInitiated: true });
+        return;
+      }
+      const logSubBtn = e.target.closest('[data-logistics-sub]');
+      if (logSubBtn) {
+        setLogisticsSubTab(logSubBtn.dataset.logisticsSub, { scrollToSection: true });
+        return;
+      }
+      const dinSubBtn = e.target.closest('[data-dining-sub]');
+      if (dinSubBtn) {
+        setDiningSubTab(dinSubBtn.dataset.diningSub, { scrollToSection: true });
         return;
       }
       const djToggle = e.target.closest('.dj-toggle-btn');
@@ -1134,6 +1644,11 @@
         openDriverCard(driverBtn.dataset.driverDay, driverBtn.dataset.driverIdx);
         return;
       }
+      const stayDriverBtn = e.target.closest('.stay-driver-btn');
+      if (stayDriverBtn) {
+        openStayDriverCard(stayDriverBtn.dataset.stayDriver);
+        return;
+      }
       if (e.target.id === 'driver-card-modal') {
         closeDriverCard();
       }
@@ -1142,29 +1657,15 @@
       }
     });
 
+    // Cover Enter Button
+    document.getElementById('enter-journey-btn').addEventListener('click', () => {
+      enterInnerSite({ pushHistory: true, restorePrevious: true });
+    });
+
     // View Tabs Switching
     document.querySelectorAll(".view-tab").forEach(btn => {
       btn.addEventListener("click", () => {
-        const targetView = btn.dataset.view;
-        currentView = targetView;
-
-        document.querySelectorAll(".view-tab").forEach(b => {
-          b.classList.remove("bg-gradient-to-r", "from-amber-500", "to-yellow-600", "text-slate-950", "font-semibold", "shadow-md", "shadow-amber-500/20");
-          b.classList.add("bg-white/5", "text-slate-300", "font-medium", "border", "border-white/10");
-        });
-
-        btn.classList.remove("bg-white/5", "text-slate-300", "font-medium", "border", "border-white/10");
-        btn.classList.add("bg-gradient-to-r", "from-amber-500", "to-yellow-600", "text-slate-950", "font-semibold", "shadow-md", "shadow-amber-500/20");
-
-        ["itinerary", "logistics", "dining", "lineup"].forEach(v => {
-          const el = document.getElementById(`view-${v}`);
-          if (v === targetView) el.classList.remove("hidden");
-          else el.classList.add("hidden");
-        });
-
-        const dayPillsBar = document.getElementById("day-pills-bar");
-        if (targetView === "itinerary") dayPillsBar.classList.remove("hidden");
-        else dayPillsBar.classList.add("hidden");
+        setActiveMainView(btn.dataset.view, { pushHistory: true, resetScroll: true });
       });
     });
 
@@ -1201,11 +1702,7 @@
 
     searchInput.addEventListener("input", e => {
       searchQuery = e.target.value;
-      if (searchQuery.trim()) {
-        clearSearchBtn.classList.remove("hidden");
-      } else {
-        clearSearchBtn.classList.add("hidden");
-      }
+      clearSearchBtn.classList.toggle("hidden", !searchQuery.trim());
       renderItinerary();
       renderLineup();
     });
@@ -1218,39 +1715,80 @@
       renderLineup();
     });
 
+    // Browser Back / Forward / Hash Change Support (iPhone Safari & Desktop)
+    window.addEventListener("popstate", e => {
+      const st = e.state;
+      const h = location.hash.replace('#', '');
+      if (st && st.layer === 'cover') {
+        openCover({ pushHistory: false });
+        return;
+      }
+      if (st && st.layer === 'inner') {
+        currentView = st.view || currentView;
+        currentLogisticsSub = st.logisticsSub || currentLogisticsSub;
+        currentDiningSub = st.diningSub || currentDiningSub;
+        selectedDay = st.day ?? selectedDay;
+        enterInnerSite({ pushHistory: false, restorePrevious: false, targetView: currentView, targetDay: selectedDay });
+        return;
+      }
+      if (h === 'cover') {
+        openCover({ pushHistory: false });
+      } else if (["itinerary", "logistics", "dining", "lineup"].includes(h)) {
+        enterInnerSite({ pushHistory: false, restorePrevious: false, targetView: h });
+      }
+    });
+
     // ==========================================
-    // 6. COUNTDOWN & CHECKLIST
+    // 7. COUNTDOWN & SHARED CHECKLIST
     // ==========================================
     function updateCountdown() {
-      const targetTime = new Date("2026-12-09T07:40:00+08:00").getTime();
-      const endTime = new Date("2026-12-17T23:59:59+08:00").getTime();
       const now = Date.now();
-      const diff = targetTime - now;
+      const diff = DEPARTURE_TPE_MS - now;
+      const phase = getTripPhase();
 
-      const gridEl = document.getElementById("countdown-grid");
-      const liveBannerEl = document.getElementById("cd-live-banner");
+      const covGrid = document.getElementById("cover-cd-grid");
+      const covLive = document.getElementById("cover-cd-live");
+      const covCap = document.getElementById("cover-cd-caption");
+      const innerBadge = document.getElementById("inner-trip-badge");
+      const memorialBanner = document.getElementById("memorial-banner");
 
-      if (diff <= 0 && now <= endTime) {
-        gridEl.classList.add("hidden");
-        liveBannerEl.classList.remove("hidden");
+      if (phase === "during") {
+        const isoBkk = getBangkokIsoDate();
+        const match = itineraryData.find(d => d.date === isoBkk);
+        const dayNum = match ? match.day : 1;
+        if (covGrid) covGrid.classList.add("hidden");
+        if (covLive) {
+          covLive.classList.remove("hidden");
+          covLive.textContent = `✦ LIVE IN THAILAND · DAY ${dayNum} / 9 ✦`;
+        }
+        if (covCap) covCap.textContent = `THAILAND TIME · ${isoBkk}`;
+        if (innerBadge) innerBadge.textContent = `✦ 旅途進行中 · DAY ${dayNum} / 9（泰國時間）`;
+        if (memorialBanner) memorialBanner.classList.add("hidden");
         return;
       }
-      if (now > endTime) {
-        gridEl.classList.add("hidden");
-        liveBannerEl.classList.remove("hidden");
-        liveBannerEl.textContent = "✦ MEMORIES FOREVER · TOMORROWLAND 2026 ✦";
+
+      if (phase === "after") {
+        if (covGrid) covGrid.classList.add("hidden");
+        if (covLive) {
+          covLive.classList.remove("hidden");
+          covLive.textContent = "✦ MEMORIES FOREVER · 2026 ✦";
+        }
+        if (covCap) covCap.textContent = "TOMORROWLAND THAILAND 2026";
+        if (innerBadge) innerBadge.textContent = "✦ MEMORIES FOREVER · 9 天完整紀錄";
+        if (memorialBanner) memorialBanner.classList.remove("hidden");
         return;
       }
 
+      // Before departure (TPE 2026-12-09 07:40)
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const mins = Math.floor((diff / (1000 * 60)) % 60);
       const secs = Math.floor((diff / 1000) % 60);
 
-      document.getElementById("cd-days").textContent = String(days).padStart(2, "0");
-      document.getElementById("cd-hours").textContent = String(hours).padStart(2, "0");
-      document.getElementById("cd-mins").textContent = String(mins).padStart(2, "0");
-      document.getElementById("cd-secs").textContent = String(secs).padStart(2, "0");
+      document.getElementById("cov-days").textContent = String(days).padStart(2, "0");
+      document.getElementById("cov-hours").textContent = String(hours).padStart(2, "0");
+      document.getElementById("cov-mins").textContent = String(mins).padStart(2, "0");
+      document.getElementById("cov-secs").textContent = String(secs).padStart(2, "0");
     }
 
     const STORAGE_KEY = "tml_thailand_2026_checklist_v2";
@@ -1267,7 +1805,10 @@
     }
     function updateChecklistBadge(items) {
       const done = items.filter(i => i.checked).length;
-      document.getElementById("checklist-badge").textContent = `${done}/${items.length}`;
+      const text = `${done}/${items.length}`;
+      document.querySelectorAll(".checklist-badge-sync").forEach(el => {
+        el.textContent = text;
+      });
     }
     function renderChecklist() {
       const items = getChecklist();
@@ -1303,12 +1844,30 @@
     }
 
     window.addEventListener("DOMContentLoaded", () => {
-      loadItinerary();
       updateChecklistBadge(getChecklist());
       updateCountdown();
       setInterval(updateCountdown, 1000);
+      loadItinerary();
       setInterval(loadItinerary, 5 * 60 * 1000);
-      if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("./sw.js").catch(() => {});
+
+      // Determine initial view layer based on URL hash & Taiwan departure time (2026-12-09 07:40 +08:00)
+      const initialHash = location.hash.replace('#', '');
+      const phase = getTripPhase();
+
+      if (["itinerary", "logistics", "dining", "lineup"].includes(initialHash)) {
+        // Direct tab link or refresh while on an inner tab (restore saved state when available)
+        enterInnerSite({ pushHistory: false, restorePrevious: true, targetView: initialHash });
+      } else if (phase !== "before" && initialHash !== "cover") {
+        // After 2026/12/09 07:40 Taiwan time: bypass cover automatically into itinerary (aligns to Bangkok day when during trip)
+        enterInnerSite({ pushHistory: false, restorePrevious: false, targetView: "itinerary", targetDay: null, scrollToTarget: phase === "during" });
+      } else {
+        // Before departure: show VIP Invitation Cover by default
+        openCover({ pushHistory: false });
+      }
+
+      if ("serviceWorker" in navigator && location.protocol === "https:") {
+        navigator.serviceWorker.register("./sw.js").catch(() => {});
+      }
     });
   </script>
 </body>
