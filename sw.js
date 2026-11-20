@@ -1,13 +1,10 @@
-// Tomorrowland Thailand — offline shell v4
-const CACHE = 'tml-journey-offline-v4';
+// Tomorrowland Thailand — offline shell v5
+const CACHE = 'tml-journey-offline-v5';
 const APP_SHELL = ['./', './index.html', './tailwind.css', './data.json', './tera_rex_bangkok_guide.html'];
 self.addEventListener('install', event => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE);
-    // CSS/HTML are essential. Do not activate an incomplete offline shell.
     await cache.addAll(['./index.html', './tailwind.css']);
-    // The JSON may be briefly unavailable during a sync; preserve the existing
-    // localStorage copy in that case and retry when online.
     await Promise.allSettled(['./', './data.json', './tera_rex_bangkok_guide.html'].map(url => cache.add(url)));
     await self.skipWaiting();
   })());
@@ -30,7 +27,6 @@ self.addEventListener('fetch', event => {
     try {
       const response = await fetch(request);
       if (response.ok && response.type === 'basic') {
-        // Keep only one canonical copy of data.json, ignoring ?ts= cache-busters.
         const key = url.pathname.endsWith('/data.json') ? new URL('./data.json', self.registration.scope).href : request;
         await cache.put(key, response.clone());
       }
