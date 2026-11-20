@@ -499,13 +499,15 @@
       <!-- VIEW 3: DINING & ROUTES (WITH 3 SUB-TABS) -->
       <section id="view-dining" class="hidden space-y-5">
         <!-- Sub-tabs Bar: 🍽️ 精選美食 | 🗺️ 分日動線 | ✦ 行前提醒 -->
-        <div class="grid grid-cols-3 gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-amber-400/20" role="tablist" aria-label="美食動線提醒子分頁">
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-amber-400/20" role="tablist" aria-label="美食動線提醒子分頁">
           <button type="button" data-dining-sub="food" class="dining-sub-btn active min-h-[42px] px-2 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 bg-amber-500 text-slate-950 shadow-sm cursor-pointer">
             <span>🍽️</span><span>精選美食</span>
           </button>
           <button type="button" data-dining-sub="routes" class="dining-sub-btn min-h-[42px] px-2 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center justify-center gap-1.5 bg-transparent text-slate-300 hover:bg-white/5 cursor-pointer">
             <span>🗺️</span><span>分日動線</span>
           </button>
+          <button type="button" data-dining-sub="wishlist" class="dining-sub-btn min-h-[42px] px-2 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center justify-center gap-1.5 bg-transparent text-slate-300 hover:bg-white/5 cursor-pointer"><span>🍜</span><span>餐廳清單</span></button>
+          <button type="button" data-dining-sub="shopping" class="dining-sub-btn min-h-[42px] px-2 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center justify-center gap-1.5 bg-transparent text-slate-300 hover:bg-white/5 cursor-pointer"><span>🛍️</span><span>購物清單</span></button>
           <button type="button" data-dining-sub="tips" class="dining-sub-btn min-h-[42px] px-2 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center justify-center gap-1.5 bg-transparent text-slate-300 hover:bg-white/5 cursor-pointer">
             <span>✦</span><span>行前提醒</span>
           </button>
@@ -524,6 +526,21 @@
           </div>
         </div>
 
+        <!-- V2.3: read-only priority lists; loaded independently of itinerary -->
+        <div id="dining-panel-wishlist" class="hidden glass-card rounded-3xl p-5 sm:p-8">
+          <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">SAVED FOR THAILAND</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-white mt-1">🍜 想去的餐廳</h2>
+          <p class="text-xs text-slate-400 mt-2">只顯示 Google 試算表標記「必去 🔥／想去 ⭐」的餐廳；資料為唯讀。</p>
+          <div class="mt-4 flex gap-2 flex-wrap"><input id="wishlist-search" type="search" placeholder="搜尋店名、區域、特色" aria-label="搜尋餐廳" class="min-w-0 flex-1 rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><select id="wishlist-area" aria-label="篩選餐廳區域" class="rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><option value="">所有區域</option></select></div>
+          <p id="wishlist-status" class="text-xs text-slate-400 mt-3" role="status"></p><div id="wishlist-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4"></div>
+        </div>
+        <div id="dining-panel-shopping" class="hidden glass-card rounded-3xl p-5 sm:p-8">
+          <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">SHOPPING WISHLIST</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-white mt-1">🛍️ 必買與想買清單</h2>
+          <p class="text-xs text-slate-400 mt-2">只顯示「必買 🔥／想買 ⭐」且尚未標記已購買的商品。</p>
+          <div class="mt-4 flex gap-2 flex-wrap"><input id="shopping-search" type="search" placeholder="搜尋商品、通路" aria-label="搜尋商品" class="min-w-0 flex-1 rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><select id="shopping-store" aria-label="篩選購物通路" class="rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><option value="">所有通路</option></select></div>
+          <p id="shopping-status" class="text-xs text-slate-400 mt-3" role="status"></p><div id="shopping-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4"></div>
+        </div>
         <!-- Sub-panel 3B: 🗺️ 分日動線 -->
         <div id="dining-panel-routes" class="hidden space-y-5">
           <!-- Day 6 Afternoon & Evening Route Card -->
@@ -1022,7 +1039,7 @@
 
     function setDiningSubTab(sub, options = {}) {
       const { scrollToSection = true } = options;
-      if (!["food", "routes", "tips"].includes(sub)) sub = "food";
+      if (!["food", "routes", "tips", "wishlist", "shopping"].includes(sub)) sub = "food";
       currentDiningSub = sub;
 
       document.querySelectorAll(".dining-sub-btn").forEach(btn => {
@@ -1036,7 +1053,7 @@
         }
       });
 
-      ["food", "routes", "tips"].forEach(k => {
+      ["food", "routes", "tips", "wishlist", "shopping"].forEach(k => {
         const panel = document.getElementById(`dining-panel-${k}`);
         if (panel) panel.classList.toggle("hidden", k !== sub);
       });
@@ -1607,6 +1624,66 @@
       modal.classList.add('hidden');
       modal.classList.remove('flex');
     }
+
+    // V2.3 separate, sanitized list feed; never exposes the source workbook.
+    let priorityLists = {restaurants: [], shopping: [], updated: ''};
+    const priorityCacheKey = 'tml-v23-priority-lists';
+    function eligiblePriority(v, kind) {
+      const t = String(v || '').trim();
+      return kind === 'restaurant' ? /^(必去|想去)/.test(t) : /^(必買|想買)/.test(t);
+    }
+    function renderPriorityLists() {
+      const defs = [
+        {key:'restaurants',prefix:'wishlist',filter:'area',kind:'restaurant',facet:'area'},
+        {key:'shopping',prefix:'shopping',filter:'store',kind:'shopping',facet:'store'}
+      ];
+      for (const d of defs) {
+        const source = Array.isArray(priorityLists[d.key]) ? priorityLists[d.key] : [];
+        const eligible = source.filter(x => eligiblePriority(x.priority, d.kind) && (d.kind !== 'shopping' || !/^(已購買|放棄)/.test(String(x.status || ''))));
+        const select = document.getElementById(d.prefix + '-' + d.filter);
+        const previous = select.value;
+        const facets = [...new Set(eligible.map(x => String(x[d.facet] || '').trim()).filter(Boolean))].sort();
+        select.innerHTML = '<option value="">所有' + (d.kind === 'shopping' ? '通路' : '區域') + '</option>' + facets.map(v => '<option value="' + escapeHtml(v) + '">' + escapeHtml(v) + '</option>').join('');
+        if (facets.includes(previous)) select.value = previous;
+        const q = document.getElementById(d.prefix + '-search').value.trim().toLocaleLowerCase();
+        const items = eligible.filter(x => (!select.value || x[d.facet] === select.value) && (!q || [x.name,x.area,x.store,x.description,x.note].some(v => String(v || '').toLocaleLowerCase().includes(q))));
+        document.getElementById(d.prefix + '-status').textContent = '顯示 ' + items.length + ' / ' + eligible.length + ' 筆' + (priorityLists.updated ? ' · 資料更新：' + priorityLists.updated : '');
+        const grid = document.getElementById(d.prefix + '-grid');
+        grid.innerHTML = items.length ? items.map(x => {
+          const url = safeMapUrl(x.url || '');
+          const desc = [x.description, x.note].filter(Boolean).join(' · ');
+          const meta = d.kind === 'shopping' ? [x.store, x.price].filter(Boolean).join(' · ') : [x.area, x.hours].filter(Boolean).join(' · ');
+          return '<article class="rounded-2xl border border-amber-400/20 bg-white/[0.035] p-4">' +
+            '<div class="flex gap-2 items-start justify-between"><h3 class="text-white font-bold">' + escapeHtml(x.name) + '</h3><span class="text-xs text-amber-300 shrink-0">' + escapeHtml(x.priority) + '</span></div>' +
+            '<p class="text-xs text-amber-100/80 mt-2">' + escapeHtml(meta) + '</p>' +
+            (desc ? '<p class="text-sm text-slate-300 mt-2">' + escapeHtml(desc) + '</p>' : '') +
+            (url ? '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener noreferrer" class="inline-flex mt-3 text-sm text-amber-300 underline">' + (d.kind === 'shopping' ? '開啟來源／購買連結' : '開啟地圖／來源') + '</a>' : '') + '</article>';
+        }).join('') : '<p class="text-sm text-slate-400 col-span-full py-6">目前沒有符合條件的資料。請確認試算表優先度，或清除搜尋條件。</p>';
+      }
+    }
+    async function loadPriorityLists() {
+      try {
+        const old = JSON.parse(localStorage.getItem(priorityCacheKey) || 'null');
+        if (old && Array.isArray(old.restaurants) && Array.isArray(old.shopping)) { priorityLists = old; renderPriorityLists(); }
+      } catch (_) {}
+      try {
+        const response = await fetch('./lists.json?ts=' + Date.now(), {cache:'no-store'});
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        const payload = await response.json();
+        if (!Array.isArray(payload.restaurants) || !Array.isArray(payload.shopping)) throw new Error('清單格式不正確');
+        priorityLists = payload; renderPriorityLists();
+        try {localStorage.setItem(priorityCacheKey, JSON.stringify(payload));} catch (_) {}
+      } catch (err) {
+        if (!priorityLists.updated) {
+          document.getElementById('wishlist-status').textContent = '清單尚未同步：' + err.message;
+          document.getElementById('shopping-status').textContent = '清單尚未同步：' + err.message;
+        }
+      }
+    }
+    ['wishlist-search','wishlist-area','shopping-search','shopping-store'].forEach(id => {
+      document.getElementById(id).addEventListener('input', renderPriorityLists);
+    });
+    loadPriorityLists();
 
     // Delegated click listener for day pills, sub-tabs, DJ card expand & driver big cards
     document.addEventListener('click', e => {

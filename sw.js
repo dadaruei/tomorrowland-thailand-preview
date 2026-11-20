@@ -1,11 +1,11 @@
-// Tomorrowland Thailand — offline shell v7
-const CACHE = 'tml-journey-offline-v7';
-const APP_SHELL = ['./', './index.html', './tailwind.css', './data.json', './tera_rex_bangkok_guide.html'];
+// Tomorrowland Thailand — offline shell v8
+const CACHE = 'tml-journey-offline-v8';
+const APP_SHELL = ['./', './index.html', './tailwind.css', './data.json', './lists.json', './tera_rex_bangkok_guide.html'];
 self.addEventListener('install', event => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE);
     await cache.addAll(['./index.html', './tailwind.css']);
-    await Promise.allSettled(['./', './data.json', './tera_rex_bangkok_guide.html'].map(url => cache.add(url)));
+    await Promise.allSettled(['./', './data.json', './lists.json', './tera_rex_bangkok_guide.html'].map(url => cache.add(url)));
     await self.skipWaiting();
   })());
 });
@@ -27,12 +27,12 @@ self.addEventListener('fetch', event => {
     try {
       const response = await fetch(request);
       if (response.ok && response.type === 'basic') {
-        const key = url.pathname.endsWith('/data.json') ? new URL('./data.json', self.registration.scope).href : request;
+        const key = (url.pathname.endsWith('/data.json') || url.pathname.endsWith('/lists.json')) ? new URL(url.pathname.endsWith('/lists.json') ? './lists.json' : './data.json', self.registration.scope).href : request;
         await cache.put(key, response.clone());
       }
       return response;
     } catch (_) {
-      const key = url.pathname.endsWith('/data.json') ? new URL('./data.json', self.registration.scope).href : request;
+      const key = (url.pathname.endsWith('/data.json') || url.pathname.endsWith('/lists.json')) ? new URL(url.pathname.endsWith('/lists.json') ? './lists.json' : './data.json', self.registration.scope).href : request;
       return await cache.match(key, {ignoreSearch: true}) ||
         (request.mode === 'navigate' ? await cache.match('./index.html') : undefined) ||
         Response.error();
