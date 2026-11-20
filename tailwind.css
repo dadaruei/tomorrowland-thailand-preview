@@ -26,6 +26,7 @@
   --color-slate-300: oklch(86.9% 0.022 252.894);
   --color-slate-400: oklch(70.4% 0.04 256.788);
   --color-slate-500: oklch(55.4% 0.046 257.417);
+  --color-slate-900: oklch(20.8% 0.042 265.755);
   --color-slate-950: oklch(12.9% 0.042 264.695);
   --color-black: #000;
   --color-white: #fff;
@@ -298,6 +299,9 @@ button, input:where([type='button'], [type='reset'], [type='submit']), ::file-se
 }
 .mt-3 {
   margin-top: calc(var(--spacing) * 3);
+}
+.mt-4 {
+  margin-top: calc(var(--spacing) * 4);
 }
 .mt-5 {
   margin-top: calc(var(--spacing) * 5);
@@ -1917,4 +1921,35 @@ button, input:where([type='button'], [type='reset'], [type='submit']), ::file-se
   .sm\:w-14 { width: 3.5rem; }
   .sm\:h-14 { height: 3.5rem; }
   .sm\:py-7 { padding-top: 1.75rem; padding-bottom: 1.75rem; }
+}
+
+/* === V2.3.1 Priority Lists & Black-Gold Filter Controls Patch === */
+.flex-1 { flex: 1 1 0%; }
+.underline { text-decoration-line: underline; text-underline-offset: 3px; }
+.bg-slate-900 { background-color: rgba(15, 23, 42, 0.92); }
+.border-amber-400\/20 { border-color: rgba(251, 191, 36, 0.22); }
+.priority-filters input,
+.priority-filters select {
+  min-height: 44px;
+  color-scheme: dark;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.priority-filters input:focus,
+.priority-filters select:focus {
+  outline: none;
+  border-color: rgba(251, 191, 36, 0.65);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.16);
+}
+.priority-filters select option {
+  background-color: #0f172a;
+  color: #f3f4f6;
+}
+@media (max-width: 480px) {
+  .priority-filters {
+    flex-direction: column;
+  }
+  .priority-filters input,
+  .priority-filters select {
+    width: 100%;
+  }
 }
