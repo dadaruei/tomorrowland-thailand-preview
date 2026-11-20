@@ -351,8 +351,8 @@
           </div>
           <div class="p-4 rounded-2xl bg-amber-500/15 border border-amber-400/35">
             <div class="text-xs font-bold text-amber-300">STEP 4 · 19:15 — 22:30</div>
-            <div class="font-semibold text-white mt-1">2 台 Grab 直奔 Talat Phlu</div>
-            <p class="text-xs text-slate-200 mt-1">優先吃百年老店「符德興」（備案楚龍炒粿條），順逛 500m 鐵道小吃與 First One 夜市。</p>
+            <div class="font-semibold text-white mt-1">Talat Phlu 晚餐夜市 ➔ BTS 回市區</div>
+            <p class="text-xs text-slate-200 mt-1">2 台 Grab 赴符德興晚餐與 First One 夜市；回程步行約 450m 至 BTS Talat Phlu (S10) 搭往 National Stadium 方向進市區（逛太晚備案分兩台 Grab）。</p>
           </div>
         </div>
       </div>
@@ -598,6 +598,13 @@
       return q ? 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q) : '';
     }
 
+    function getExtraMapButtons(ev) {
+      if (!Array.isArray(ev.extra_maps)) return [];
+      return ev.extra_maps
+        .map(m => ({ label: String(m.label || '').trim(), url: safeMapUrl(m.url) }))
+        .filter(m => m.label && m.url);
+    }
+
     function hasTag(event, tag) {
       return String(event.sub_tags || '').split(',').map(x => x.trim().toLowerCase()).includes(tag);
     }
@@ -686,8 +693,10 @@
           <div class="relative mt-5 ml-2 border-l border-amber-400/25 space-y-4">
           ${d.events.map(e => {
             const badge = getStatusBadge(e);
-            const map = buildMapLink(e);
+            const extraMaps = getExtraMapButtons(e);
+            const map = extraMaps.length ? '' : buildMapLink(e);
             const showDriver = shouldShowDriverCard(e);
+            const hasActions = Boolean(extraMaps.length || map || showDriver);
             return `<div class="relative pl-6">
               <span class="absolute -left-[6px] top-4 w-3 h-3 rounded-full bg-amber-400 ring-4 ring-[#101320]"></span>
               <div class="rounded-2xl bg-white/[0.035] border border-white/10 p-4 sm:p-5 hover:border-amber-400/30 transition">
@@ -699,8 +708,9 @@
                 <h3 class="font-bold text-white text-base sm:text-lg">${highlightSafe(e.title, searchQuery)}</h3>
                 ${e.location ? `<p class="mt-2 text-xs sm:text-sm text-amber-100/85">📍 ${highlightSafe(e.location, searchQuery)}</p>` : ''}
                 ${e.note ? `<p class="mt-2 text-xs sm:text-sm leading-relaxed text-slate-300 whitespace-pre-line">${highlightSafe(e.note, searchQuery)}</p>` : ''}
-                ${(map || showDriver) ? `
+                ${hasActions ? `
                   <div class="flex flex-wrap gap-2 mt-3">
+                    ${extraMaps.map(m => `<a href="${escapeHtml(m.url)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-amber-400/30 text-amber-200 bg-amber-500/10 text-xs hover:bg-amber-500/20 transition">${escapeHtml(m.label)}</a>`).join('')}
                     ${map ? `<a href="${escapeHtml(map)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-amber-400/30 text-amber-200 bg-amber-500/10 text-xs hover:bg-amber-500/20 transition">📍 Google Maps 導航</a>` : ''}
                     ${showDriver ? `<button type="button" data-driver-day="${d.day}" data-driver-idx="${e._origIdx}" class="driver-card-btn inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-white/15 text-slate-200 bg-white/5 text-xs hover:bg-white/10 transition">🚕 給司機看泰文</button>` : ''}
                   </div>
@@ -828,7 +838,8 @@
       );
       if (foods.length) {
         document.getElementById('dining-grid').innerHTML = foods.map(e => {
-          const map = buildMapLink(e);
+          const extraMaps = getExtraMapButtons(e);
+          const map = extraMaps.length ? '' : buildMapLink(e);
           const phone = String(e.contact_phone || '').split('/')[0].trim();
           const dial = /^[+0-9 ()-]{6,24}$/.test(phone) ? phone.replace(/[^+0-9]/g, '') : '';
           const hasThaiCard = shouldShowDriverCard(e);
@@ -843,6 +854,7 @@
                 <p class="text-xs text-slate-300 leading-relaxed">${escapeHtml(e.card_summary || e.note || '')}</p>
               </div>
               <div class="flex flex-wrap gap-2 pt-1">
+                ${extraMaps.map(m => `<a href="${escapeHtml(m.url)}" target="_blank" rel="noopener noreferrer" class="text-xs text-amber-200 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/30 rounded-xl px-3 py-1.5 font-semibold transition">${escapeHtml(m.label)}</a>`).join('')}
                 ${map ? `<a href="${escapeHtml(map)}" target="_blank" rel="noopener noreferrer" class="text-xs text-amber-200 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/30 rounded-xl px-3 py-1.5 font-semibold transition">📍 地圖</a>` : ''}
                 ${hasThaiCard ? `<button type="button" data-driver-day="${e.dayNum}" data-driver-idx="${e._origIdx}" class="driver-card-btn text-xs text-slate-200 bg-white/5 hover:bg-white/10 border border-white/15 rounded-xl px-3 py-1.5 font-semibold transition">🚕 泰文大字卡</button>` : ''}
                 ${dial ? `<a href="tel:${escapeHtml(dial)}" class="text-xs text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-400/30 rounded-xl px-3 py-1.5 font-semibold transition">📞 撥號</a>` : ''}
@@ -878,34 +890,62 @@
         return;
       }
 
-      container.innerHTML = filtered.map(item => {
+      container.innerHTML = filtered.map((item, idx) => {
         const isMust = item.priority === '必聽';
         const isHigh = item.priority === '高優先候選' || item.priority === 'B2B 加碼';
         const badgeCls = isMust
-          ? 'bg-amber-500 text-slate-950 font-bold'
+          ? 'bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-extrabold shadow-sm shadow-amber-500/25'
           : (isHigh ? 'bg-purple-500/25 text-purple-200 border border-purple-400/40 font-semibold' : 'bg-white/10 text-slate-300');
-        const hasConflict = item.conflict_note && item.conflict_note.includes('⚠️');
+        const cardSurfaceCls = isMust
+          ? 'bg-gradient-to-br from-amber-500/[0.13] via-amber-500/[0.04] to-white/[0.03] border-amber-400/60 shadow-lg shadow-amber-500/10'
+          : (isHigh ? 'bg-white/[0.04] border-purple-400/30' : 'bg-white/[0.025] border-white/10');
+        const rawConflict = String(item.conflict_note || '').trim();
+        const hasConflict = rawConflict.includes('⚠️');
+        const conflictSummary = rawConflict
+          ? (hasConflict
+              ? rawConflict.split(/[：:（(]/)[0].trim()
+              : '✓ 無衝突')
+          : '';
+        const rawTime = String(item.time || '');
+        const midnightMatch = rawTime.match(/^(.*?)（(跨午夜[^）]+)）$/);
+        const mainTime = midnightMatch ? midnightMatch[1].trim() : rawTime;
+        const midnightTag = midnightMatch ? midnightMatch[2].trim() : '';
+        const autoExpand = Boolean(q);
         return `
-          <div class="rounded-2xl bg-white/[0.03] border ${isMust ? 'border-amber-400/45' : 'border-white/10'} p-4 sm:p-5 space-y-3 flex flex-col justify-between">
-            <div class="space-y-2">
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <span class="text-xs font-bold text-amber-300">${escapeHtml(item.date_label)} · ${escapeHtml(item.time)}</span>
-                <div class="flex items-center gap-1.5">
-                  <span class="text-[11px] px-2.5 py-0.5 rounded-full ${badgeCls}">${isMust ? '🔥 ' : ''}${escapeHtml(item.priority)}</span>
-                  <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-black/45 border border-white/15 text-amber-200">${escapeHtml(item.stage)}</span>
+          <div class="dj-card rounded-2xl border ${cardSurfaceCls} p-3.5 sm:p-4 space-y-2.5 transition">
+            <div class="flex items-start justify-between gap-2">
+              <div class="space-y-1 min-w-0">
+                <div class="flex flex-wrap items-center gap-1.5 text-xs">
+                  <span class="font-bold text-amber-300">${escapeHtml(item.date_label)}</span>
+                  <span class="text-slate-400">·</span>
+                  <span class="font-bold text-white">${escapeHtml(mainTime)}</span>
+                  ${midnightTag ? `<span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-500/20 border border-amber-400/45 text-amber-200">🌙 ${escapeHtml(midnightTag)}</span>` : ''}
                 </div>
+                <h3 class="text-base sm:text-lg font-extrabold ${isMust ? 'text-amber-100' : 'text-white'} leading-snug">${highlightSafe(item.dj, searchQuery)}</h3>
               </div>
-              <div>
-                <h3 class="text-lg font-bold text-white leading-snug">${highlightSafe(item.dj, searchQuery)}</h3>
-                <div class="text-xs text-slate-400 mt-0.5">${escapeHtml(item.genre)}</div>
-              </div>
-              <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">${highlightSafe(item.highlight, searchQuery)}</p>
+              <span class="shrink-0 text-[11px] px-2.5 py-0.5 rounded-full ${badgeCls}">${isMust ? '🔥 ' : ''}${escapeHtml(item.priority)}</span>
             </div>
-            ${item.conflict_note ? `
-              <div class="text-xs leading-relaxed px-3.5 py-2.5 rounded-xl ${hasConflict ? 'bg-rose-500/10 border border-rose-400/25 text-rose-200' : 'bg-emerald-500/10 border border-emerald-400/20 text-emerald-200'}">
-                ${escapeHtml(item.conflict_note)}
+
+            <div class="flex flex-wrap items-center justify-between gap-2 pt-0.5">
+              <div class="flex flex-wrap items-center gap-1.5">
+                <span class="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-black/50 border border-amber-400/25 text-amber-200">🎪 ${escapeHtml(item.stage)}</span>
+                ${conflictSummary ? `<span class="text-[11px] font-medium px-2 py-1 rounded-lg border ${hasConflict ? 'bg-rose-500/15 border-rose-400/30 text-rose-200' : 'bg-emerald-500/10 border-emerald-400/25 text-emerald-300'}">${escapeHtml(conflictSummary)}</span>` : ''}
               </div>
-            ` : ''}
+              <button type="button" class="dj-toggle-btn inline-flex items-center gap-1 text-[11px] font-semibold text-amber-300 hover:text-amber-200 px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition" aria-expanded="${autoExpand ? 'true' : 'false'}">
+                <span class="dj-toggle-label">${autoExpand ? '收合' : '詳情'}</span>
+                <span class="dj-toggle-chevron transition-transform duration-200 ${autoExpand ? 'rotate-180' : ''}">▾</span>
+              </button>
+            </div>
+
+            <div class="dj-details ${autoExpand ? '' : 'hidden'} pt-2.5 border-t border-white/10 space-y-2">
+              <div class="text-xs text-amber-200/85 font-medium">🎵 曲風：${highlightSafe(item.genre, searchQuery)}</div>
+              <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">${highlightSafe(item.highlight, searchQuery)}</p>
+              ${rawConflict ? `
+                <div class="text-xs leading-relaxed px-3 py-2 rounded-xl ${hasConflict ? 'bg-rose-500/10 border border-rose-400/25 text-rose-200' : 'bg-emerald-500/10 border border-emerald-400/20 text-emerald-200'}">
+                  ${escapeHtml(rawConflict)}
+                </div>
+              ` : ''}
+            </div>
           </div>
         `;
       }).join('');
@@ -977,12 +1017,39 @@
     // ==========================================
     // 5. EVENT DELEGATION & INTERACTIVE CONTROLS
     // ==========================================
-    function selectDay(day) {
+    function scrollToDayHeading(targetDay) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const targetEl = targetDay === 'all'
+            ? document.getElementById('view-itinerary')
+            : document.getElementById(`day-card-${targetDay}`);
+          if (!targetEl) return;
+          const navEl = document.querySelector('nav.sticky');
+          const navHeight = navEl ? navEl.getBoundingClientRect().height : 0;
+          const offset = navHeight + 12;
+          const top = Math.max(0, window.pageYOffset + targetEl.getBoundingClientRect().top - offset);
+          const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          window.scrollTo({
+            top,
+            behavior: prefersReduced ? 'auto' : 'smooth'
+          });
+        });
+      });
+    }
+
+    function selectDay(day, options = {}) {
+      const { userInitiated = false } = options;
       selectedDay = day === 'all' ? 'all' : Number(day);
       renderDayPills();
       renderItinerary();
       const activePill = document.querySelector(`[data-select-day="${selectedDay}"]`);
-      if (activePill) activePill.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      if (activePill) {
+        const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        activePill.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", inline: "center", block: "nearest" });
+      }
+      if (userInitiated) {
+        scrollToDayHeading(selectedDay);
+      }
     }
 
     function jumpToToday() {
@@ -991,9 +1058,7 @@
       const isoBkk = nowBkk.toISOString().slice(0, 10);
       const match = itineraryData.find(d => d.date === isoBkk);
       const targetDay = match ? match.day : 1;
-      selectDay(targetDay);
-      const el = document.getElementById(`day-card-${targetDay}`);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      selectDay(targetDay, { userInitiated: true });
     }
 
     function resetFilters() {
@@ -1043,11 +1108,25 @@
       modal.classList.remove('flex');
     }
 
-    // Delegated click listener for day pills & driver big cards (safe against special chars / quotes)
+    // Delegated click listener for day pills, DJ card expand & driver big cards
     document.addEventListener('click', e => {
       const pillBtn = e.target.closest('[data-select-day]');
       if (pillBtn) {
-        selectDay(pillBtn.dataset.selectDay);
+        selectDay(pillBtn.dataset.selectDay, { userInitiated: true });
+        return;
+      }
+      const djToggle = e.target.closest('.dj-toggle-btn');
+      if (djToggle) {
+        const card = djToggle.closest('.dj-card');
+        const details = card && card.querySelector('.dj-details');
+        if (details) {
+          const isHidden = details.classList.toggle('hidden');
+          djToggle.setAttribute('aria-expanded', String(!isHidden));
+          const lbl = djToggle.querySelector('.dj-toggle-label');
+          const chev = djToggle.querySelector('.dj-toggle-chevron');
+          if (lbl) lbl.textContent = isHidden ? '詳情' : '收合';
+          if (chev) chev.classList.toggle('rotate-180', !isHidden);
+        }
         return;
       }
       const driverBtn = e.target.closest('.driver-card-btn');

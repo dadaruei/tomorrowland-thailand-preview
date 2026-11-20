@@ -1,7 +1,7 @@
 {
-  "schema_version": "2.1",
+  "schema_version": "2.2",
   "title": "Tomorrowland Thailand 2026 | Our Journey",
-  "updated": "2026-11-20 19:10",
+  "updated": "2026-11-20 20:18",
   "timezone": "Asia/Bangkok",
   "days": [
     {
@@ -42,8 +42,8 @@
           "sort_order": 2,
           "sub_tags": "van",
           "card_summary": "11:30 BKK接 Tara、Rex，直接送 EMSPHERE；行李由司機送回民宿，不先繞 Asok",
-          "local_name": "VIP 豪華廂型車 (8人座)",
-          "local_address": "曼谷蘇凡納布國際機場 (BKK) ➔ Bangkok Family trip BTS Asoke",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "已預約包車"
         },
@@ -61,8 +61,8 @@
           "sort_order": 3,
           "sub_tags": "",
           "card_summary": "EMSPHERE 午餐、SuperRich 換匯、特色商店；按摩與甜點自由加選",
-          "local_name": "Terminal 21 Asok",
-          "local_address": "88 Soi Sukhumvit 19, Khlong Toei Nuea, Watthana, Bangkok",
+          "local_name": "EMSPHERE",
+          "local_address": "628 Sukhumvit Rd, Khlong Tan, Khlong Toei, Bangkok 10110",
           "contact_phone": "",
           "booking_ref": ""
         },
@@ -80,8 +80,8 @@
           "sort_order": 4,
           "sub_tags": "van",
           "card_summary": "豪億與朋友13:05抵達BKK，可等候司機；送Asok後自由活動，18:00民宿集合",
-          "local_name": "VIP 豪華廂型車 (8人座)",
-          "local_address": "曼谷蘇凡納布國際機場 (BKK) ➔ Bangkok Family trip BTS Asoke",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "暫定 (司機接送／自行前往雙軌備案)"
         },
@@ -118,8 +118,8 @@
           "sort_order": 6,
           "sub_tags": "",
           "card_summary": "下午完全自由活動，按摩未預約；18:00 Asok 民宿集合",
-          "local_name": "Asoke 周邊按摩店",
-          "local_address": "Sukhumvit 19 周邊",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "待預約 (未訂位)"
         },
@@ -175,8 +175,8 @@
           "sort_order": 9,
           "sub_tags": "mrt",
           "card_summary": "【行李上包車／人員自搭 ARL+MRT】BKK 2F 3號出口交放大件行李上包車，4人輕裝自搭機場快線 ARL 轉 MRT 藍線直達餐廳",
-          "local_name": "VIP 豪華廂型車 / 機場快線 ARL",
-          "local_address": "曼谷蘇凡納布國際機場 (BKK) ➔ Chom Arun",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "已預約包車"
         },
@@ -194,8 +194,8 @@
           "sort_order": 10,
           "sub_tags": "mrt",
           "card_summary": "四人18:00 Asok民宿集合，搭MRT赴 Chom Arun；8人訂位已確認，20:00前到場",
-          "local_name": "ร้านอาหารชมอรุณ (Chom Arun Restaurant)",
-          "local_address": "392/53 Maha Rat Rd, Phra Borom Maha Ratchawang, Phra Nakhon, Bangkok",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "095-446-4199",
           "booking_ref": "先行報到"
         },
@@ -232,8 +232,8 @@
           "sort_order": 12,
           "sub_tags": "van",
           "card_summary": "司機走高架外環直奔 DMK 機場接獅航組，專車載送回 Asoke 公寓辦理入住",
-          "local_name": "VIP 豪華廂型車 (8人座)",
-          "local_address": "曼谷廊曼國際機場 (DMK) ➔ Asoke 公寓",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "已預約包車"
         },
@@ -334,8 +334,8 @@
           "sort_order": 2,
           "sub_tags": "van",
           "card_summary": "全員退房上車，VIP 專車發車直奔羅勇，行李隨車免預放，提早出發避開車潮",
-          "local_name": "VIP 豪華廂型車 (8人座)",
-          "local_address": "Bangkok Family trip BTS Asoke",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "已預約包車"
         },
@@ -353,8 +353,8 @@
           "sort_order": 3,
           "sub_tags": "van",
           "card_summary": "專車直奔羅勇中途停靠國道7號休息站，洗手間、採買泰奶零食小歇",
-          "local_name": "VIP 豪華廂型車 (8人座)",
-          "local_address": "國道7號高速公路休息站",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "已預約包車"
         },
@@ -493,7 +493,7 @@
           "sort_order": 1,
           "sub_tags": "",
           "card_summary": "晨間自然醒、輕便梳洗，先穿適合白天逛街吃飯的透氣便服（免吃飯店早餐）",
-          "local_name": "Holiday Inn Express Rayong by IHG",
+          "local_name": "",
           "local_address": "",
           "contact_phone": "",
           "booking_ref": ""
@@ -512,8 +512,8 @@
           "sort_order": 2,
           "sub_tags": "van",
           "card_summary": "VIP 專車自羅勇飯店出發，直達 Amber Rayong 玻璃屋早午餐",
-          "local_name": "VIP 豪華廂型車 (8人座)",
-          "local_address": "Holiday Inn Express Rayong ➔ Amber Rayong",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "已預約包車"
         },
@@ -588,8 +588,8 @@
           "sort_order": 6,
           "sub_tags": "van",
           "card_summary": "魚餃麵店門口上車，VIP 專車接送返回飯店沖澡換裝（車程約 12.7 公里 / 16 分鐘）",
-          "local_name": "VIP 豪華廂型車 (8人座)",
-          "local_address": "Jay Jim 門口 ➔ Holiday Inn Express Rayong",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "已預約包車"
         },
@@ -607,8 +607,8 @@
           "sort_order": 7,
           "sub_tags": "",
           "card_summary": "4間雙人房輪流沖澡吹整、換上戰袍，檢查手環與隨身物品",
-          "local_name": "Holiday Inn Express Rayong by IHG",
-          "local_address": "羅勇府 (近 Wisdom Valley 會場)",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "已訂房"
         },
@@ -626,8 +626,8 @@
           "sort_order": 8,
           "sub_tags": "van",
           "card_summary": "走 36 號國道專車直送會場 Drop-off，司機下班完成本日趟次，下午進場避開正午烈日",
-          "local_name": "VIP 豪華廂型車 (8人座)",
-          "local_address": "Wisdom Valley 會場 Drop-off 乘客下車區",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "已預約包車"
         },
@@ -645,7 +645,7 @@
           "sort_order": 9,
           "sub_tags": "",
           "card_summary": "下午進場避開烈日，搶先開箱三大主題舞台、周邊巡禮打卡、百大DJ主舞台狂歡至深夜",
-          "local_name": "Wisdom Valley, Pattaya",
+          "local_name": "",
           "local_address": "",
           "contact_phone": "",
           "booking_ref": ""
@@ -664,7 +664,7 @@
           "sort_order": 10,
           "sub_tags": "",
           "card_summary": "深夜散場依燈光指引步行至接駁月台，搭乘官方專車返回羅勇飯店",
-          "local_name": "Wisdom Valley ➔ Holiday Inn Express Rayong",
+          "local_name": "",
           "local_address": "",
           "contact_phone": "",
           "booking_ref": ""
@@ -709,8 +709,8 @@
           "sort_order": 2,
           "sub_tags": "van",
           "card_summary": "VIP 專車飯店出發，直達 AJS 秘密廚房享用運河私房海鮮熱炒午餐",
-          "local_name": "VIP 豪華廂型車 (8人座)",
-          "local_address": "Holiday Inn Express Rayong ➔ AJS 秘密廚房",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "已預約包車"
         },
@@ -785,8 +785,8 @@
           "sort_order": 6,
           "sub_tags": "van",
           "card_summary": "專車自飛機夜市直送會場 Drop-off 下車區，司機傍晚下班完成本日趟次",
-          "local_name": "VIP 豪華廂型車 (8人座)",
-          "local_address": "Wisdom Valley 會場 Drop-off 乘客下車區",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "已預約包車"
         },
@@ -868,8 +868,8 @@
           "sort_order": 2,
           "sub_tags": "van",
           "card_summary": "全員集合搭乘 VIP 專車直奔月牙灣海灘 Baramee Hoi 享用海鮮午餐",
-          "local_name": "VIP 豪華廂型車 (8人座)",
-          "local_address": "Holiday Inn Express Rayong ➔ Saeng Chan Beach",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "已預約包車"
         },
@@ -944,8 +944,8 @@
           "sort_order": 6,
           "sub_tags": "van",
           "card_summary": "專車自飛機夜市直送會場 Drop-off 下車區，司機傍晚下班完成本日趟次",
-          "local_name": "VIP 豪華廂型車 (8人座)",
-          "local_address": "Wisdom Valley 會場 Drop-off 乘客下車區",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "已預約包車"
         },
@@ -1008,8 +1008,8 @@
           "sort_order": 1,
           "sub_tags": "van",
           "card_summary": "08:00 退房，09:00 VIP 包車出發 ➔ 12:00 抵曼谷寄放行李 ➔ 載至鄭王廟午餐 ➔ 送抵 OK Shop 下車後司機結束服務",
-          "local_name": "VIP 豪華廂型車 (8人座)",
-          "local_address": "羅勇 ➔ 曼谷 (經國道7號公路)",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "已預約包車"
         },
@@ -1038,7 +1038,7 @@
           "end_time": "13:30",
           "title": "鄭王廟周邊午餐候選（船麵或泰式炒河粉）",
           "location": "Ayutthaya Boat Noodle 或 PadThai Wangdoem",
-          "note": "司機自 83 Siam Fandee Cafe 繼續載六人前往鄭王廟附近享用午餐（約 12:30–13:30），候選：① Ayutthaya Boat Noodle 船麵 / ② PadThai Wangdoem 泰式炒河粉（兩間均未訂位，當天依六人意願與路況二選一）。午餐後由司機送六人前往 OK Shop 泰服店附近，確保 14:00 準時抵達。",
+          "note": "司機自 83 Siam Fandee Cafe 繼續載六人前往鄭王廟附近享用午餐（約 12:30–13:30），候選：① Ayutthaya Boat Noodle 船麵（ก๋วยเตี๋ยวเรืออยุธยา，Arun Amarin Rd 近鄭王廟）/ ② PadThai Wangdoem 泰式炒河粉（Wang Doem Rd 近鄭王廟）。兩間均未訂位，當天依六人意願與路況二選一；下方提供兩間餐廳獨立導航按鈕。午餐後由司機送六人前往 OK Shop 泰服店附近，確保 14:00 準時抵達。",
           "type": "food",
           "status": "verify",
           "status_label": "暫定",
@@ -1046,10 +1046,20 @@
           "sort_order": 3,
           "sub_tags": "featured_food",
           "card_summary": "司機載往鄭王廟周邊享用午餐（船麵/炒河粉二選一，未訂位），餐後專車送往 OK Shop 確保 14:00 準時抵達",
-          "local_name": "Ayutthaya Boat Noodle / PadThai Wangdoem",
-          "local_address": "OK Shop 泰服店周邊 / 鄭王廟西岸",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
-          "booking_ref": "現場決定 (未訂位)"
+          "booking_ref": "現場決定 (未訂位)",
+          "extra_maps": [
+            {
+              "label": "🍜 船麵導航",
+              "url": "https://www.google.com/maps/search/?api=1&query=Ayutthaya+Boat+Noodle+Arun+Amarin+Wat+Arun+Bangkok"
+            },
+            {
+              "label": "🍳 Pad Thai 導航",
+              "url": "https://www.google.com/maps/search/?api=1&query=PadThai+Wangdoem+Wat+Arun+Bangkok"
+            }
+          ]
         },
         {
           "time": "14:00–17:00",
@@ -1114,7 +1124,7 @@
           "end_time": "22:30",
           "title": "Talat Phlu 鐵道老街小吃巡禮 ＆ First One Night Market 逛夜市酒吧 ＆ 自行返回住宿",
           "location": "Talat Phlu 鐵道老街小吃 ➔ First One Night Market Talat Phlu",
-          "note": "晚餐後展開老街由北往南順路漫步巡禮（總長約 500 公尺 / 純步行約 7 分鐘）：途經 Sunee 叉燒飯、Sarinthip 百年泰式煎餅、品嚐 Ni-Ang 招牌蛋黃冰淇淋（營業至 02:00）、可選 Auntie Kia 現煎韭菜粿（李寶玉週一公休之替代首選）；隨後步行約 3 分鐘抵達 First One Night Market Talat Phlu，享受啤酒花園 Live 音樂演奏、夜市特色小吃與逛街購物（夜市營業至 00:00，免訂位）。約 22:00–22:30 依團員體力各自叫車或搭乘大眾運輸返回各自住宿（4 人住 83 Siamfandee Suites、2 人 Every Surawong），不另安排包車。",
+          "note": "晚餐後展開老街由北往南順路漫步巡禮（總長約 500 公尺）：途經 Sunee 叉燒飯、Sarinthip 百年泰式煎餅、品嚐 Ni-Ang 招牌蛋黃冰淇淋（表定營業至 02:00）、可選 Auntie Kia 現煎韭菜粿（李寶玉週一公休之替代首選）；隨後步行前往 First One Night Market Talat Phlu，享受啤酒花園 Live 音樂演奏、夜市小吃與逛街（表定營業至 00:00，免訂位）。\n\n【BTS 回程動線（預計 22:00–22:30 離開，依團員體力彈性調整）】\n1. 前往車站：由 First One Night Market 步行前往 BTS Talat Phlu（S10）站（依地圖定位約 450 公尺，實際步行時間視現場人潮而定）。\n2. 搭乘方向：搭乘 BTS Silom Line（深綠線）「往 National Stadium（W1，國立體育館）方向」列車進市區（勿搭往 Bang Wa 方向）。\n3. 六人同行與分開點：六人可同站進站搭乘同一班列車，建議於 BTS Sala Daeng（S2）或 BTS Chong Nonsi（S3）下車後再分頭返回各自住宿。\n4. 兩間住宿最後一段路程：\n   • 83 Siamfandee Suites（4 人，83 Sap Rd）：於 BTS Sala Daeng（S2）或 Chong Nonsi（S3）下車後步行或轉搭短程 Grab 返回（精確無障礙出口編號與夜間步行時間待現場確認）。\n   • Every Surawong（2 人，Soi Suksan, Surawong Rd）：於 BTS Chong Nonsi（S3）或 Sala Daeng（S2）下車後步行或叫車返回（精確出口編號待現場確認）。\n5. 末班車與備案提醒：BTS 官方營運時間表定至約午夜 24:00 前後，但 BTS Talat Phlu（S10）單站週一晚間精確末班發車時刻尚未確認（不可直接以終點站發車時間推算）。若逛太晚、接近末班車時段或體力疲累，直接改採備案「分兩台 Grab（4 人一台、2 人一台）各自直達住宿」，不另安排包車。",
           "type": "food",
           "status": "confirmed",
           "status_label": "已確認",
@@ -1125,7 +1135,17 @@
           "local_name": "ตลาดพลู ＆ เฟิร์สวัน ไนท์มาร์เก็ต (First One Night Market Talat Phlu)",
           "local_address": "Thoet Thai Rd ＆ 20 Ratchadaphisek Rd, Talat Phlu, Thon Buri, Bangkok",
           "contact_phone": "+66 99 154 4949",
-          "booking_ref": "免訂位 (鐵道街頭小吃 ＆ 夜市自由前往)"
+          "booking_ref": "免訂位 (鐵道街頭小吃 ＆ 夜市自由前往)",
+          "extra_maps": [
+            {
+              "label": "🏮 First One 夜市導航",
+              "url": "https://www.google.com/maps/place//data=!4m2!3m1!19sChIJAU-m1CCZ4jAR5WBsOvdOQBM"
+            },
+            {
+              "label": "🚇 BTS Talat Phlu (S10) 導航",
+              "url": "https://www.google.com/maps/search/?api=1&query=BTS+Talat+Phlu+Station+Bangkok"
+            }
+          ]
         }
       ]
     },
@@ -1148,8 +1168,8 @@
           "sort_order": 1,
           "sub_tags": "flight",
           "card_summary": "A 組 Tara、Rex（2 人）08:50 由 KKday 預約專車於 Every Surawong 飯店送機赴 BKK，搭 12:50 TG634 返台（訂車已預訂成功）",
-          "local_name": "Every Surawong ➔ Suvarnabhumi Airport (BKK)",
-          "local_address": "142/4-5 Soi Suksan, Surawong Road, Bangkok",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "已確認"
         },
@@ -1205,8 +1225,8 @@
           "sort_order": 4,
           "sub_tags": "transport",
           "card_summary": "逛街結束後搭車先回 83 Siamfandee Suites 民宿放戰利品卸貨",
-          "local_name": "83 Siamfandee Suites",
-          "local_address": "83 Sap Road, Bang Rak, Bangkok",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "66866615655",
           "booking_ref": "原宿續住"
         },
@@ -1326,8 +1346,8 @@
           "sort_order": 4,
           "sub_tags": "transport",
           "card_summary": "宛貞與豪謙 13:30 KKday 專車送機赴 BKK 機場搭星宇",
-          "local_name": "Suvarnabhumi Airport (BKK)",
-          "local_address": "999, Nong Prue, Bang Phli District, Samut Prakan",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "已確認"
         },
@@ -1345,8 +1365,8 @@
           "sort_order": 5,
           "sub_tags": "flight",
           "card_summary": "星宇航空 JX746（17:40 BKK ➔ 22:30 TPE）改票完成，順利返抵台灣",
-          "local_name": "Suvarnabhumi Airport (BKK)",
-          "local_address": "999, Nong Prue, Bang Phli District, Samut Prakan",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "星宇航空 JX746 (已改票確認)"
         },
@@ -1364,7 +1384,7 @@
           "sort_order": 6,
           "sub_tags": "",
           "card_summary": "達睿與承宏晚間彈性自由活動（可安排按摩、夜生活或老街漫步，暫定未預約）",
-          "local_name": "曼谷市區",
+          "local_name": "",
           "local_address": "",
           "contact_phone": "",
           "booking_ref": "自由活動 (暫定/未預約)"
@@ -1383,8 +1403,8 @@
           "sort_order": 7,
           "sub_tags": "accommodation",
           "card_summary": "返回 83 Siamfandee Suites 整理大件行李、伴手禮裝箱與預辦華航 CI0840 線上報到",
-          "local_name": "83 Siamfandee Suites",
-          "local_address": "83 Sap Road, Bang Rak, Bangkok",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "66866615655",
           "booking_ref": "續住 (已確認)"
         }
@@ -1466,8 +1486,8 @@
           "sort_order": 4,
           "sub_tags": "transport",
           "card_summary": "預計 14:30 民宿出發前往 BKK 機場（尚未訂車，待確認），提早避開塞車",
-          "local_name": "83 Siamfandee Suites ➔ Suvarnabhumi Airport (BKK)",
-          "local_address": "83 Sap Road, Bang Rak, Bangkok",
+          "local_name": "",
+          "local_address": "",
           "contact_phone": "",
           "booking_ref": "尚未訂車 (暫定/待確認)"
         },
