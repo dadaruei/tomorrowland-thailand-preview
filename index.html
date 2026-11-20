@@ -837,21 +837,23 @@
           : (isHigh ? 'bg-purple-500/25 text-purple-200 border border-purple-400/40 font-semibold' : 'bg-white/10 text-slate-300');
         const hasConflict = item.conflict_note && item.conflict_note.includes('⚠️');
         return `
-          <div class="rounded-2xl bg-white/[0.03] border ${isMust ? 'border-amber-400/45' : 'border-white/10'} p-4 sm:p-5 space-y-2.5 flex flex-col justify-between">
+          <div class="rounded-2xl bg-white/[0.03] border ${isMust ? 'border-amber-400/45' : 'border-white/10'} p-4 sm:p-5 space-y-3 flex flex-col justify-between">
             <div class="space-y-2">
               <div class="flex flex-wrap items-center justify-between gap-2">
                 <span class="text-xs font-bold text-amber-300">${escapeHtml(item.date_label)} · ${escapeHtml(item.time)}</span>
-                <span class="text-[11px] px-2.5 py-0.5 rounded-full ${badgeCls}">${isMust ? '🔥 ' : ''}${escapeHtml(item.priority)}</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[11px] px-2.5 py-0.5 rounded-full ${badgeCls}">${isMust ? '🔥 ' : ''}${escapeHtml(item.priority)}</span>
+                  <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-black/45 border border-white/15 text-amber-200">${escapeHtml(item.stage)}</span>
+                </div>
               </div>
-              <div class="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 class="text-lg font-bold text-white">${highlightSafe(item.dj, searchQuery)}</h3>
-                <span class="text-xs px-2 py-0.5 rounded bg-black/40 border border-white/10 text-amber-200">${escapeHtml(item.stage)}</span>
+              <div>
+                <h3 class="text-lg font-bold text-white leading-snug">${highlightSafe(item.dj, searchQuery)}</h3>
+                <div class="text-xs text-slate-400 mt-0.5">${escapeHtml(item.genre)}</div>
               </div>
-              <div class="text-xs text-slate-400">${escapeHtml(item.genre)}</div>
               <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">${highlightSafe(item.highlight, searchQuery)}</p>
             </div>
             ${item.conflict_note ? `
-              <div class="text-[11px] leading-relaxed p-2.5 rounded-xl ${hasConflict ? 'bg-rose-500/10 border border-rose-400/25 text-rose-200' : 'bg-emerald-500/10 border border-emerald-400/20 text-emerald-200'}">
+              <div class="text-xs leading-relaxed px-3.5 py-2.5 rounded-xl ${hasConflict ? 'bg-rose-500/10 border border-rose-400/25 text-rose-200' : 'bg-emerald-500/10 border border-emerald-400/20 text-emerald-200'}">
                 ${escapeHtml(item.conflict_note)}
               </div>
             ` : ''}
@@ -930,6 +932,8 @@
       selectedDay = day === 'all' ? 'all' : Number(day);
       renderDayPills();
       renderItinerary();
+      const activePill = document.querySelector(`[data-select-day="${selectedDay}"]`);
+      if (activePill) activePill.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
     }
 
     function jumpToToday() {
@@ -1013,6 +1017,7 @@
 
         btn.classList.remove("bg-white/5", "text-slate-300", "font-medium", "border", "border-white/10");
         btn.classList.add("bg-gradient-to-r", "from-amber-500", "to-yellow-600", "text-slate-950", "font-semibold", "shadow-md", "shadow-amber-500/20");
+        btn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
 
         ["itinerary", "logistics", "dining", "lineup"].forEach(v => {
           const el = document.getElementById(`view-${v}`);

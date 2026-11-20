@@ -1799,3 +1799,50 @@ button, input:where([type='button'], [type='reset'], [type='submit']), ::file-se
     }
   }
 }
+
+/* === V2.1.1 Missing Utility Classes Patch === */
+.bg-amber-400\/10 { background-color: rgba(251, 191, 36, 0.10); }
+.bg-emerald-400\/10 { background-color: rgba(52, 211, 153, 0.10); }
+.bg-emerald-500\/10 { background-color: rgba(16, 185, 129, 0.10); }
+.bg-rose-500\/10 { background-color: rgba(244, 63, 94, 0.10); }
+.bg-black\/85 { background-color: rgba(0, 0, 0, 0.85); }
+
+.border-amber-400\/45 { border-color: rgba(251, 191, 36, 0.45); }
+.border-emerald-400\/20 { border-color: rgba(52, 211, 153, 0.20); }
+.border-purple-400\/40 { border-color: rgba(192, 132, 252, 0.40); }
+.border-rose-400\/25 { border-color: rgba(251, 113, 133, 0.25); }
+
+.text-amber-100\/90 { color: rgba(254, 243, 199, 0.90); }
+.text-emerald-200 { color: #a7f3d0; }
+.text-rose-100 { color: #ffe4e6; }
+.text-white\/90 { color: rgba(255, 255, 255, 0.90); }
+
+.p-2\.5 { padding: 0.625rem; }
+.p-3\.5 { padding: 0.875rem; }
+.px-3\.5 { padding-left: 0.875rem; padding-right: 0.875rem; }
+.pt-5 { padding-top: 1.25rem; }
+.pb-9 { padding-bottom: 2.25rem; }
+.py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+
+.space-y-0\.5 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.125rem; margin-bottom: 0; }
+.space-y-5 > :not([hidden]) ~ :not([hidden]) { margin-top: 1.25rem; margin-bottom: 0; }
+
+.max-w-lg { max-width: 32rem; }
+.max-w-xl { max-width: 36rem; }
+.col-span-full { grid-column: 1 / -1; }
+.items-baseline { align-items: baseline; }
+.leading-snug { line-height: 1.375; }
+.line-through { text-decoration-line: line-through; }
+.select-all { -webkit-user-select: all; user-select: all; }
+
+.hover\:bg-emerald-500\/20:hover { background-color: rgba(16, 185, 129, 0.20); }
+.hover\:opacity-95:hover { opacity: 0.95; }
+
+@media (min-width: 40rem) {
+  .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sm\:text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+  .sm\:text-xs { font-size: 0.75rem; line-height: 1rem; }
+}
+@media (min-width: 64rem) {
+  .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
