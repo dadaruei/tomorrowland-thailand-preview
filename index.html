@@ -220,6 +220,38 @@
       .footer-motto { letter-spacing: .045em; }
       .vip-invitation-card { padding: 30px 18px 24px; }
     }
+
+    /* V2.3.1 mobile dining navigation: compact single-row swipeable pills */
+    .dining-tabs-scroll {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 5px 1px 9px;
+      border: 0;
+      background: transparent;
+    }
+    .dining-tabs-scroll::-webkit-scrollbar { display: none; }
+    .dining-tabs-scroll .dining-sub-btn {
+      flex: 0 0 auto;
+      white-space: nowrap;
+      padding-left: 13px;
+      padding-right: 13px;
+      border: 1px solid rgba(212,175,55,.14);
+      border-radius: 999px;
+      font-size: 13px;
+    }
+    .dining-tabs-scroll .dining-sub-btn.bg-amber-500 { border-color: rgba(245,158,11,.8); }
+    .priority-empty .priority-filters { display: none; }
+    .priority-empty .priority-empty-note { display: block; }
+    .priority-empty-note { display: none; }
+    @media (max-width: 640px) {
+      #dining-panel-wishlist, #dining-panel-shopping { padding: 18px 16px; }
+      #dining-panel-wishlist h2, #dining-panel-shopping h2 { font-size: 19px; }
+    }
   </style>
 </head>
 <body class="min-h-screen antialiased selection:bg-amber-500/30 selection:text-amber-200">
@@ -499,16 +531,16 @@
       <!-- VIEW 3: DINING & ROUTES (WITH 3 SUB-TABS) -->
       <section id="view-dining" class="hidden space-y-5">
         <!-- Sub-tabs Bar: 🍽️ 精選美食 | 🗺️ 分日動線 | ✦ 行前提醒 -->
-        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-amber-400/20" role="tablist" aria-label="美食動線提醒子分頁">
+        <div class="dining-tabs-scroll no-scrollbar" role="tablist" aria-label="美食動線提醒子分頁">
           <button type="button" data-dining-sub="food" class="dining-sub-btn active min-h-[42px] px-2 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 bg-amber-500 text-slate-950 shadow-sm cursor-pointer">
             <span>🍽️</span><span>精選美食</span>
           </button>
-          <button type="button" data-dining-sub="routes" class="dining-sub-btn min-h-[42px] px-2 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center justify-center gap-1.5 bg-transparent text-slate-300 hover:bg-white/5 cursor-pointer">
+          <button type="button" data-dining-sub="routes" class="dining-sub-btn min-h-[40px] px-2 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center justify-center gap-1.5 bg-transparent text-slate-300 hover:bg-white/5 cursor-pointer">
             <span>🗺️</span><span>分日動線</span>
           </button>
-          <button type="button" data-dining-sub="wishlist" class="dining-sub-btn min-h-[42px] px-2 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center justify-center gap-1.5 bg-transparent text-slate-300 hover:bg-white/5 cursor-pointer"><span>🍜</span><span>餐廳清單</span></button>
-          <button type="button" data-dining-sub="shopping" class="dining-sub-btn min-h-[42px] px-2 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center justify-center gap-1.5 bg-transparent text-slate-300 hover:bg-white/5 cursor-pointer"><span>🛍️</span><span>購物清單</span></button>
-          <button type="button" data-dining-sub="tips" class="dining-sub-btn min-h-[42px] px-2 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center justify-center gap-1.5 bg-transparent text-slate-300 hover:bg-white/5 cursor-pointer">
+          <button type="button" data-dining-sub="wishlist" class="dining-sub-btn min-h-[40px] px-2 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center justify-center gap-1.5 bg-transparent text-slate-300 hover:bg-white/5 cursor-pointer"><span>🍜</span><span>餐廳清單</span></button>
+          <button type="button" data-dining-sub="shopping" class="dining-sub-btn min-h-[40px] px-2 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center justify-center gap-1.5 bg-transparent text-slate-300 hover:bg-white/5 cursor-pointer"><span>🛍️</span><span>購物清單</span></button>
+          <button type="button" data-dining-sub="tips" class="dining-sub-btn min-h-[40px] px-2 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center justify-center gap-1.5 bg-transparent text-slate-300 hover:bg-white/5 cursor-pointer">
             <span>✦</span><span>行前提醒</span>
           </button>
         </div>
@@ -531,15 +563,15 @@
           <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">SAVED FOR THAILAND</span>
           <h2 class="text-xl sm:text-2xl font-bold text-white mt-1">🍜 想去的餐廳</h2>
           <p class="text-xs text-slate-400 mt-2">只顯示 Google 試算表標記「必去 🔥／想去 ⭐」的餐廳；資料為唯讀。</p>
-          <div class="mt-4 flex gap-2 flex-wrap"><input id="wishlist-search" type="search" placeholder="搜尋店名、區域、特色" aria-label="搜尋餐廳" class="min-w-0 flex-1 rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><select id="wishlist-area" aria-label="篩選餐廳區域" class="rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><option value="">所有區域</option></select></div>
-          <p id="wishlist-status" class="text-xs text-slate-400 mt-3" role="status"></p><div id="wishlist-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4"></div>
+          <div class="priority-filters mt-4 flex gap-2 flex-wrap"><input id="wishlist-search" type="search" placeholder="搜尋店名、區域、特色" aria-label="搜尋餐廳" class="min-w-0 flex-1 rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><select id="wishlist-area" aria-label="篩選餐廳區域" class="rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><option value="">所有區域</option></select></div>
+          <p class="priority-empty-note text-xs text-slate-400 mt-4">尚未同步餐廳收藏，完成資料連線後會自動顯示。</p><p id="wishlist-status" class="text-xs text-slate-400 mt-3" role="status"></p><div id="wishlist-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4"></div>
         </div>
         <div id="dining-panel-shopping" class="hidden glass-card rounded-3xl p-5 sm:p-8">
           <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">SHOPPING WISHLIST</span>
           <h2 class="text-xl sm:text-2xl font-bold text-white mt-1">🛍️ 必買與想買清單</h2>
           <p class="text-xs text-slate-400 mt-2">只顯示「必買 🔥／想買 ⭐」且尚未標記已購買的商品。</p>
-          <div class="mt-4 flex gap-2 flex-wrap"><input id="shopping-search" type="search" placeholder="搜尋商品、通路" aria-label="搜尋商品" class="min-w-0 flex-1 rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><select id="shopping-store" aria-label="篩選購物通路" class="rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><option value="">所有通路</option></select></div>
-          <p id="shopping-status" class="text-xs text-slate-400 mt-3" role="status"></p><div id="shopping-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4"></div>
+          <div class="priority-filters mt-4 flex gap-2 flex-wrap"><input id="shopping-search" type="search" placeholder="搜尋商品、通路" aria-label="搜尋商品" class="min-w-0 flex-1 rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><select id="shopping-store" aria-label="篩選購物通路" class="rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><option value="">所有通路</option></select></div>
+          <p class="priority-empty-note text-xs text-slate-400 mt-4">尚未同步購物清單，完成資料連線後會自動顯示。</p><p id="shopping-status" class="text-xs text-slate-400 mt-3" role="status"></p><div id="shopping-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4"></div>
         </div>
         <!-- Sub-panel 3B: 🗺️ 分日動線 -->
         <div id="dining-panel-routes" class="hidden space-y-5">
@@ -1640,6 +1672,8 @@
       for (const d of defs) {
         const source = Array.isArray(priorityLists[d.key]) ? priorityLists[d.key] : [];
         const eligible = source.filter(x => eligiblePriority(x.priority, d.kind) && (d.kind !== 'shopping' || !/^(已購買|放棄)/.test(String(x.status || ''))));
+        const panel = document.getElementById('dining-panel-' + (d.kind === 'restaurant' ? 'wishlist' : 'shopping'));
+        panel.classList.toggle('priority-empty', eligible.length === 0);
         const select = document.getElementById(d.prefix + '-' + d.filter);
         const previous = select.value;
         const facets = [...new Set(eligible.map(x => String(x[d.facet] || '').trim()).filter(Boolean))].sort();
@@ -1647,9 +1681,9 @@
         if (facets.includes(previous)) select.value = previous;
         const q = document.getElementById(d.prefix + '-search').value.trim().toLocaleLowerCase();
         const items = eligible.filter(x => (!select.value || x[d.facet] === select.value) && (!q || [x.name,x.area,x.store,x.description,x.note].some(v => String(v || '').toLocaleLowerCase().includes(q))));
-        document.getElementById(d.prefix + '-status').textContent = '顯示 ' + items.length + ' / ' + eligible.length + ' 筆' + (priorityLists.updated ? ' · 資料更新：' + priorityLists.updated : '');
+        document.getElementById(d.prefix + '-status').textContent = eligible.length ? '顯示 ' + items.length + ' / ' + eligible.length + ' 筆' + (priorityLists.updated ? ' · 資料更新：' + priorityLists.updated : '') : '';
         const grid = document.getElementById(d.prefix + '-grid');
-        grid.innerHTML = items.length ? items.map(x => {
+        grid.innerHTML = eligible.length === 0 ? '' : items.length ? items.map(x => {
           const url = safeMapUrl(x.url || '');
           const desc = [x.description, x.note].filter(Boolean).join(' · ');
           const meta = d.kind === 'shopping' ? [x.store, x.price].filter(Boolean).join(' · ') : [x.area, x.hours].filter(Boolean).join(' · ');
