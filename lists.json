@@ -1,7 +1,16 @@
 {
   "schema_version": "2.3",
-  "updated": "2026-11-20 22:54",
+  "updated": "2026-11-20 22:57",
   "restaurants": [
+    {
+      "area": "Asok／Phrom Phong",
+      "name": "KINKIN Sukhumvit 47",
+      "priority": "必去 🔥",
+      "description": "蟹肉炒飯、泰式海鮮料理（位於 Sukhumvit 47 巷口的人氣泰式餐館）",
+      "hours": "每日 11:30–22:30（Google Maps 資訊，與截圖一致）",
+      "url": "",
+      "note": "價格為截圖店家價位帶，非蟹肉炒飯單品售價；已核實地址（855 Sukhumvit Rd）與營業時間（11:30–22:30）"
+    },
     {
       "area": "Asok／Phrom Phong",
       "name": "SW1 Market",
