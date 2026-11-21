@@ -182,17 +182,6 @@
       55%, 100% { transform: translateX(65%); }
     }
 
-    /* Tomorrowland-inspired Geometric Crest Shimmer */
-    .tml-crest-glow {
-      filter: drop-shadow(0 0 18px rgba(212, 175, 55, 0.40));
-      animation: crestPulse 4.2s ease-in-out infinite alternate;
-    }
-
-    @keyframes crestPulse {
-      0% { filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.28)); }
-      100% { filter: drop-shadow(0 0 24px rgba(253, 230, 138, 0.60)); }
-    }
-
     /* Distinct Metallic Foil Shimmer on Main Title & Signature */
     .vip-folio-title {
       font-family: 'Cinzel', Georgia, serif;
@@ -336,7 +325,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .cover-star, .vip-invitation-card::after, .tml-crest-glow, .vip-folio-title, .vip-creator-text, .vip-enter-btn::after, .animate-ping, .animate-pulse {
+      .cover-star, .vip-invitation-card::after, .vip-folio-title, .vip-creator-text, .vip-enter-btn::after, .animate-ping, .animate-pulse {
         animation: none !important;
       }
       .vip-folio-title, .vip-creator-text {
@@ -419,34 +408,19 @@
           <span>✦</span>
         </div>
 
-        <!-- Enlarged Tomorrowland-inspired Geometric Winged Star Crest -->
-        <div class="mt-7 mb-6 flex flex-col items-center">
-          <svg class="w-32 h-20 sm:w-40 sm:h-24 text-amber-300 tml-crest-glow" viewBox="0 0 120 68" fill="none" aria-hidden="true">
-            <defs>
-              <linearGradient id="tmlCrestGold" x1="0" y1="0" x2="120" y2="68" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#B88924"/>
-                <stop offset="35%" stop-color="#FFF7D6"/>
-                <stop offset="65%" stop-color="#D4AF37"/>
-                <stop offset="100%" stop-color="#FDE68A"/>
-              </linearGradient>
-            </defs>
-            <!-- Outer symmetric celestial wings -->
-            <path d="M52 34C40 24 23 19 8 22C17 28 24 33 34 35C22 37 15 42 11 48C25 46 39 42 52 36" stroke="url(#tmlCrestGold)" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M68 34C80 24 97 19 112 22C103 28 96 33 86 35C98 37 105 42 109 48C95 46 81 42 68 36" stroke="url(#tmlCrestGold)" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
-            <!-- Inner filigree arcs -->
-            <path d="M48 31C39 26 30 25 22 26" stroke="url(#tmlCrestGold)" stroke-width="0.9" opacity="0.7" stroke-linecap="round"/>
-            <path d="M72 31C81 26 90 25 98 26" stroke="url(#tmlCrestGold)" stroke-width="0.9" opacity="0.7" stroke-linecap="round"/>
-            <!-- Central crown & North Star emblem -->
-            <circle cx="60" cy="34" r="13" stroke="url(#tmlCrestGold)" stroke-width="1" stroke-dasharray="2 2.5" opacity="0.75"/>
-            <path d="M60 12L63.2 27.5L78 34L63.2 40.5L60 56L56.8 40.5L42 34L56.8 27.5L60 12Z" fill="rgba(212,175,55,0.16)" stroke="url(#tmlCrestGold)" stroke-width="1.4" stroke-linejoin="round"/>
-            <circle cx="60" cy="34" r="2.6" fill="#FFFDF2"/>
+        <!-- Official Tomorrowland Emblem SVG (Champagne Gold #D9B76C, 140px) -->
+        <div class="mt-7 mb-5 flex flex-col items-center">
+          <svg style="width: 140px; height: auto;" class="w-[140px] h-auto mx-auto block" viewBox="0 0 800 800" fill="none" aria-label="Tomorrowland Emblem" role="img">
+            <path fill="#D9B76C" d="M398.48 332.91C393.36 333.24 385.12 329.36 381.07 326.25C357.15 307.90 364.86 268.25 393.83 261.26C433.90 251.59 462.66 297.69 435.53 328.91C424.94 341.09 412.88 331.99 398.48 332.91ZM398.89 278.58C384.61 278.80 375.95 294.75 383.86 306.79C395.92 325.13 423.86 308.67 413.45 288.24C410.48 282.43 405.33 278.48 398.89 278.58Z"/>
+            <path fill="#D9B76C" d="M182.89 196.44C185.39 193.02 186.10 189.26 188.25 185.62C191.50 180.13 197.45 170.51 199.78 164.61C203.00 156.45 204.24 148.94 205.52 140.32C206.31 135.02 204.77 127.17 208.35 123.51C212.90 118.85 218.23 123.22 223.38 124.27C238.11 127.27 254.05 128.43 269.08 127.99C283.93 127.55 300.62 122.41 314.57 117.16C346.60 105.09 374.12 79.40 398.17 55.66C404.92 48.99 401.95 45.28 408.84 52.34C419.44 63.20 430.98 73.92 442.83 83.48C465.43 101.72 492.41 117.24 520.99 123.95C536.37 127.56 549.49 128.49 565.34 127.76C574.16 127.36 589.64 124.06 597.49 125.72C604.64 127.24 606.27 139.00 608.05 144.89C612.82 160.69 619.65 175.47 629.36 188.81C627.14 191.56 625.00 194.28 622.65 196.91C619.50 200.43 614.43 207.88 609.68 208.47C608.36 208.64 601.52 203.90 600.28 202.98C565.58 177.26 527.14 157.09 485.62 144.65C470.82 140.22 459.48 136.68 443.92 135.81C421.74 134.57 398.10 135.75 375.92 135.75C348.55 135.75 312.64 147.90 287.17 157.96C260.41 168.53 234.62 183.75 211.09 200.06C207.76 202.37 202.50 208.36 198.12 208.43C196.59 208.46 194.07 206.79 192.93 205.84C189.11 202.66 186.11 199.94 182.89 196.44Z"/>
+            <path fill="#D9B76C" d="M625.07 523.38C632.99 525.71 644.89 532.92 652.00 537.54C662.26 544.19 683.48 560.61 688.80 571.63C699.45 593.69 690.51 628.88 677.67 648.46C654.44 683.89 605.78 709.64 567.74 725.92C561.36 728.65 554.37 732.15 547.27 732.02C534.34 731.78 511.78 697.81 504.47 686.99C478.08 647.92 465.24 600.40 462.66 553.54C461.46 531.66 461.50 509.71 461.50 487.80C461.50 442.49 462.71 399.83 487.84 360.38C502.83 336.86 524.06 318.92 547.00 303.65C569.67 288.57 593.26 274.88 615.32 258.91C646.96 236.02 688.23 204.26 694.88 162.87C695.09 161.58 694.75 159.17 695.67 158.29C697.70 156.33 700.78 161.26 702.07 162.64C726.32 188.68 749.26 218.23 763.96 250.76C775.56 276.43 783.73 305.87 781.94 334.23C779.05 380.17 752.71 417.50 721.76 449.55C694.57 477.70 662.23 499.13 627.13 516.24C626.35 516.62 622.66 518.31 622.34 518.95C621.25 521.14 623.02 522.78 625.07 523.38Z"/>
+            <path fill="#D9B76C" d="M273.32 222.88C299.14 191.50 331.49 167.21 371.63 158.50C384.60 155.68 395.92 155.34 409.16 155.94C450.25 157.82 486.08 175.34 515.17 204.14C523.39 212.27 531.66 221.39 538.49 230.72C539.77 232.47 540.48 232.39 539.58 234.72C537.54 240.02 526.22 254.05 522.27 258.54C507.47 275.33 488.39 287.21 470.51 300.28C446.63 317.74 426.33 337.98 412.66 364.45C409.59 370.40 407.75 377.77 403.52 382.93C401.18 380.93 399.51 376.43 398.18 373.68C393.56 364.11 388.40 354.57 382.13 345.98C366.85 325.06 347.92 308.05 327.09 292.76C305.87 277.18 283.84 259.66 270.39 236.68C268.22 232.98 268.25 232.87 270.30 229.01C271.25 227.22 272.07 224.39 273.32 222.88ZM399.49 178.47C356.90 177.81 323.71 200.40 296.64 231.59C298.81 234.10 301.24 236.79 303.70 239.04C327.70 261.00 358.88 282.61 392.42 284.74C400.62 285.26 408.73 285.08 416.86 283.76C431.70 281.36 446.81 273.73 459.98 266.75C477.10 257.69 493.55 246.30 508.28 233.66C509.00 233.04 510.72 232.16 510.44 230.92C509.78 228.05 495.55 215.27 492.71 212.83C466.20 190.02 434.76 179.02 399.49 178.47Z"/>
+            <path fill="#D9B76C" d="M243.52 522.27C237.65 524.20 231.42 526.47 225.78 529.00C208.16 536.93 183.86 553.23 175.60 571.36C163.01 598.97 177.98 637.66 196.76 659.06C219.91 685.44 256.86 704.96 288.91 719.21C299.13 723.75 314.08 732.02 325.19 731.92C333.76 731.85 344.29 721.74 349.84 715.86C358.93 706.23 367.07 695.07 373.81 683.67C399.78 639.77 411.17 586.09 412.16 535.47C412.66 510.02 412.50 484.42 412.17 458.97C411.53 410.50 403.52 365.58 369.55 328.43C347.92 304.76 319.94 287.22 293.09 270.48C272.24 257.48 252.00 243.36 232.89 227.95C208.35 208.16 177.69 179.31 174.16 146.16C173.92 143.91 174.47 140.53 173.51 138.63C172.07 135.75 168.42 140.48 167.26 141.61C162.87 145.92 158.95 150.56 154.92 155.20C115.20 200.90 78.83 257.56 75.59 319.86C72.42 380.83 111.58 430.72 156.71 467.85C186.26 492.15 219.95 508.53 255.14 523.43C254.02 524.06 252.97 524.16 251.73 523.86C249.68 523.36 245.90 521.49 243.52 522.27Z"/>
+            <path fill="#D9B76C" d="M685.15 588.88C684.66 588.58 684.33 588.36 683.99 588.14C668.40 622.34 646.94 654.48 621.02 681.75C579.89 725.04 527.14 756.37 472.73 780.42C457.99 786.93 443.47 794.08 428.34 799.64C427.62 799.91 425.73 800.62 425.10 800.06C424.13 799.21 422.90 798.77 421.74 798.26C355.02 769.10 286.67 736.22 232.97 686.00C202.21 657.23 176.27 624.53 157.82 586.50C156.87 584.56 156.25 581.77 154.61 580.34C153.50 579.37 152.96 579.37 151.78 580.33C149.49 582.19 149.10 589.49 148.88 592.35C146.94 617.44 148.94 643.56 153.03 668.30C159.40 706.79 175.60 742.68 197.79 774.66C240.36 836.02 305.51 875.59 371.50 907.85C387.98 915.90 404.92 923.38 422.17 929.74C424.21 930.49 425.43 930.63 427.49 929.88C496.52 904.60 571.63 869.03 624.25 816.37C671.56 769.02 696.95 708.16 701.14 641.55C702.07 626.86 702.09 611.61 700.90 596.94C700.53 592.34 700.89 583.07 697.81 579.42C695.09 576.19 687.58 586.44 685.15 588.88Z" transform="translate(-25.5,-130.5)"/>
           </svg>
         </div>
 
-        <!-- Main Centerpiece Title -->
-        <h1 class="vip-folio-title">OUR JOURNEY</h1>
-
-        <p class="mt-3 text-xs sm:text-sm font-medium tracking-[0.24em] text-amber-200/85 uppercase">
+        <p class="mt-1 text-xs sm:text-sm font-medium tracking-[0.24em] text-amber-200/85 uppercase">
           THAILAND · 9D8N
         </p>
 
@@ -2147,7 +2121,7 @@
     <div class="max-w-lg mx-auto my-8 glass-card rounded-3xl border border-amber-400/35 p-5 sm:p-7 space-y-5">
       <div class="flex items-center justify-between gap-3"><h2 class="text-xl font-bold text-amber-200">🧭 旅遊工具</h2><button type="button" onclick="closeTravelTools()" class="px-3 py-1 rounded-xl border border-amber-400/30 text-amber-200">✕ 關閉</button></div>
       <div class="space-y-3"><h3 class="text-amber-200 font-semibold">🌤 天氣預報</h3><select id="weather-city" onchange="loadWeather(true)" class="w-full rounded-xl p-3 bg-[#161923] text-white border border-amber-400/30"><option value="bangkok">曼谷 Bangkok</option><option value="rayong">羅勇 Rayong</option></select><div id="weather-detail" class="text-sm text-slate-300 leading-relaxed">正在查詢天氣…</div></div>
-      <div class="border-t border-amber-400/20 pt-4 space-y-3"><h3 class="text-amber-200 font-semibold">💱 泰銖 ↔ 台幣</h3><label class="text-xs text-slate-300 block">1 THB = <input id="thb-rate" type="number" step="0.0001" min="0.0001" oninput="convertCurrency('thb')" class="w-24 rounded-lg bg-[#161923] border border-amber-400/30 px-2 py-1 text-white" placeholder="匯率"></label><div class="grid grid-cols-2 gap-3"><label class="text-xs text-slate-300">THB<input id="amount-thb" type="number" value="1000" oninput="convertCurrency('thb')" class="block w-full mt-1 p-2 rounded-xl bg-[#161923] border border-amber-400/30 text-white"></label><label class="text-xs text-slate-300">TWD<input id="amount-twd" type="number" oninput="convertCurrency('twd')" class="block w-full mt-1 p-2 rounded-xl bg-[#161923] border border-amber-400/30 text-white"></label></div><p id="fx-status" class="text-xs text-slate-400">讀取參考匯率中…</p><button type="button" onclick="refreshFx()" class="text-xs text-amber-200 underline">重新取得參考匯率</button></div>
+      <div class="border-t border-amber-400/20 pt-4 space-y-3"><h3 class="text-amber-200 font-semibold">💱 泰銖 ↔ 台幣</h3><label class="text-xs text-slate-300 block">1 THB = <input id="thb-rate" type="number" step="0.0001" min="0.0001" oninput="convertCurrency('thb')" class="w-24 rounded-lg bg-[#161923] border border-amber-400/30 px-2 py-1 text-white" placeholder="匯率"></label><div class="grid grid-cols-2 gap-3"><label class="text-xs text-slate-300">THB<input id="amount-thb" type="number" value="1000" oninput="convertCurrency('thb')" class="block w-full mt-1 p-2 rounded-xl bg-[#161923] border border-amber-400/30 text-white"></label><label class="text-xs text-slate-300">TWD<input id="amount-twd" type="number" value="1000" oninput="convertCurrency('twd')" class="block w-full mt-1 p-2 rounded-xl bg-[#161923] border border-amber-400/30 text-white"></label></div><p id="fx-status" class="text-xs text-slate-400">讀取參考匯率中…</p><button type="button" onclick="refreshFx()" class="text-xs text-amber-200 underline">重新取得參考匯率</button></div>
     </div>
   </div>
 </body>
