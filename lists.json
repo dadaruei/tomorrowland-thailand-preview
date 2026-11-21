@@ -1,16 +1,7 @@
 {
   "schema_version": "2.3",
-  "updated": "2026-11-21 23:52",
+  "updated": "2026-11-22 00:48",
   "restaurants": [
-    {
-      "area": "Asok／Phrom Phong",
-      "name": "SW1 Market",
-      "priority": "想去 ⭐",
-      "description": "炒河粉、泰式小吃（Asok 站旁露天貨櫃美食夜市，匯集多攤泰式街頭小吃與飲品）",
-      "hours": "每日 16:00–00:30（Google Maps 資訊；各攤收攤時間不同）",
-      "url": "",
-      "note": "【夜市】Asok 站旁露天美食市集；已核實地址與營業時間（16:00–00:30）；已列入 Day 1 夜間自由加選備案"
-    },
     {
       "area": "Asok／Phrom Phong",
       "name": "Blue Bottle Coffee – EmQuartier",
@@ -82,15 +73,6 @@
       "hours": "每日 07:30–16:30（Google Maps 資訊）",
       "url": "",
       "note": "已核實地址與營業時間；僅營業至下午 16:30，適合早午餐時段前往"
-    },
-    {
-      "area": "曼谷其他區域",
-      "name": "Huai Khwang Night Market（輝煌夜市／匯狂夜市）",
-      "priority": "必去 🔥",
-      "description": "曼谷知名在地深夜夜市；匯集泰式小吃、生醃海鮮、熱帶水果、平價服飾與美甲雜貨",
-      "hours": "主街市場區 Google Maps 標示 24 小時（夜間攤販主要約 18:00–04:00；另 Ratchadaphisek 路口區標示 11:00–22:00，各攤不同）",
-      "url": "",
-      "note": "【夜市】⭐ 使用者覺得很讚；已核實位於 MRT Huai Khwang 旁 Pracha Songkhro Rd，距 83 Siamfandee Suites 有一段距離建議叫車，未排入正式行程"
     },
     {
       "area": "曼谷其他區域",
