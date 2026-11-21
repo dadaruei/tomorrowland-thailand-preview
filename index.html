@@ -785,11 +785,15 @@
 <button type="button" data-collection-tab="景點／體驗" class="collection-tab">📸 景點／體驗</button>
 <button type="button" data-collection-tab="按摩／SPA" class="collection-tab">💆 按摩／SPA</button>
 </div>
-          <div class="flex gap-2 flex-wrap mt-4">
-            <input id="collection-search" type="search" placeholder="搜尋店名、分類或區域" aria-label="搜尋收藏" class="min-w-0 flex-1 rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm" />
-            <select id="collection-area" aria-label="選擇區域" class="rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><option value="">所有區域</option></select>
-            
-            <select id="collection-priority" aria-label="選擇想去程度" class="rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><option value="">所有優先度</option></select>
+          <div class="mt-4 space-y-3" aria-label="搜尋與篩選收藏">
+            <div class="relative w-full">
+              <span aria-hidden="true" class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">⌕</span>
+              <input id="collection-search" type="search" placeholder="搜尋店名、分類或區域" aria-label="搜尋收藏" class="block w-full min-w-0 rounded-xl bg-slate-900 border border-amber-400/20 py-3 pl-9 pr-3 text-white text-sm box-border" />
+            </div>
+            <div class="grid grid-cols-2 gap-3 w-full">
+              <select id="collection-area" aria-label="選擇區域" class="block w-full min-w-0 rounded-xl bg-slate-900 border border-amber-400/20 px-3 py-3 text-white text-sm box-border"><option value="">所有區域</option></select>
+              <select id="collection-priority" aria-label="選擇想去程度" class="block w-full min-w-0 rounded-xl bg-slate-900 border border-amber-400/20 px-3 py-3 text-white text-sm box-border"><option value="">所有優先度</option></select>
+            </div>
           </div>
           <p id="collection-count" class="text-xs text-amber-300 mt-4" role="status"></p>
           <div id="collection-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4"></div>
