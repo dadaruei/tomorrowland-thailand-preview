@@ -67,14 +67,14 @@
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
     /* =========================================================
-       LAYER 1: VIP INVITATION COVER (黑金精品 VIP 邀請函封面 V2.5)
+       LAYER 1: VIP INVITATION COVER (黑金精品 VIP 邀請函封面 V2.6)
        ========================================================= */
     #vip-cover {
       min-height: 100dvh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px 14px;
+      padding: 20px 16px;
       position: relative;
       z-index: 20;
       overflow: hidden;
@@ -90,11 +90,11 @@
       position: absolute;
       top: -120px;
       left: 50%;
-      width: min(720px, 145vw);
-      height: 460px;
+      width: min(680px, 140vw);
+      height: 440px;
       transform: translateX(-50%);
       background:
-        radial-gradient(ellipse at 50% 25%, rgba(212, 175, 55, 0.24) 0%, rgba(245, 158, 11, 0.09) 42%, transparent 72%);
+        radial-gradient(ellipse at 50% 25%, rgba(212, 175, 55, 0.22) 0%, rgba(245, 158, 11, 0.08) 42%, transparent 72%);
       filter: blur(18px);
       pointer-events: none;
       z-index: 0;
@@ -143,16 +143,12 @@
       position: relative;
       z-index: 10;
       width: 100%;
-      max-width: 520px;
-      min-height: min(86dvh, 720px);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border-radius: 30px;
-      padding: 46px 26px 40px;
+      max-width: 500px;
+      border-radius: 28px;
+      padding: 44px 26px 36px;
       background:
         radial-gradient(ellipse at 50% -10%, rgba(212, 175, 55, 0.20) 0%, rgba(212, 175, 55, 0.04) 48%, transparent 75%),
-        radial-gradient(circle at 50% 108%, rgba(245, 158, 11, 0.12) 0%, transparent 52%),
+        radial-gradient(circle at 50% 108%, rgba(245, 158, 11, 0.11) 0%, transparent 52%),
         linear-gradient(170deg, rgba(17, 20, 32, 0.94) 0%, rgba(8, 9, 14, 0.98) 100%);
       border: 1px solid rgba(212, 175, 55, 0.28);
       box-shadow:
@@ -221,14 +217,6 @@
       animation: foilShimmer 4.2s linear infinite;
     }
 
-    .vip-subtitle-foil {
-      background: linear-gradient(90deg, #D4AF37 0%, #FFF7D6 50%, #D4AF37 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: foilShimmer 5.5s linear infinite;
-    }
-
     .vip-creator-badge {
       display: inline-flex;
       align-items: center;
@@ -256,44 +244,23 @@
       to { background-position: 240% center; }
     }
 
-    /* Dedicated Countdown Chamber */
-    .vip-countdown-chamber {
-      position: relative;
+    /* Clean Open Countdown Block (No boxy double-lines, generous vertical breathing room) */
+    .vip-countdown-block {
       width: 100%;
-      max-width: 320px;
-      margin: 26px auto;
-      padding: 20px 20px 18px;
-      border-radius: 22px;
-      background:
-        radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.15) 0%, transparent 72%),
-        rgba(255, 255, 255, 0.025);
-      border: 1px solid rgba(212, 175, 55, 0.22);
-      box-shadow:
-        inset 0 1px 0 rgba(255, 247, 214, 0.08),
-        0 10px 26px -12px rgba(0, 0, 0, 0.75);
+      margin: 34px auto 32px;
+      padding: 6px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .vip-countdown-chamber::before,
-    .vip-countdown-chamber::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 52px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(253, 230, 138, 0.65), transparent);
-    }
-    .vip-countdown-chamber::before { top: -1px; }
-    .vip-countdown-chamber::after { bottom: -1px; }
-
-    /* Larger Countdown Number */
     .vip-countdown-num {
       font-family: 'Cinzel', Georgia, serif;
-      font-size: clamp(64px, 16vw, 84px);
+      font-size: clamp(68px, 18vw, 88px);
       font-weight: 800;
-      line-height: 0.95;
+      line-height: 0.92;
       color: #FDE68A;
-      text-shadow: 0 0 24px rgba(212, 175, 55, 0.35);
+      text-shadow: 0 0 28px rgba(212, 175, 55, 0.38);
     }
 
     /* Primary CTA Button with Metallic Sweep */
@@ -305,7 +272,7 @@
       justify-content: center;
       gap: 10px;
       width: 100%;
-      max-width: 320px;
+      max-width: 310px;
       padding: 15px 24px;
       border-radius: 999px;
       background: linear-gradient(135deg, #F59E0B 0%, #E5B942 48%, #D4AF37 100%);
@@ -369,10 +336,10 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .cover-star, .vip-invitation-card::after, .tml-crest-glow, .vip-folio-title, .vip-subtitle-foil, .vip-creator-text, .vip-enter-btn::after, .animate-ping, .animate-pulse {
+      .cover-star, .vip-invitation-card::after, .tml-crest-glow, .vip-folio-title, .vip-creator-text, .vip-enter-btn::after, .animate-ping, .animate-pulse {
         animation: none !important;
       }
-      .vip-folio-title, .vip-subtitle-foil, .vip-creator-text {
+      .vip-folio-title, .vip-creator-text {
         background: linear-gradient(135deg, #FFF3C4 0%, #D4AF37 50%, #F59E0B 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -444,7 +411,6 @@
     </div>
 
     <div class="vip-invitation-card">
-      <!-- Top & Center Group -->
       <div class="relative z-10 flex flex-col items-center">
         <!-- Top Pill: TOMORROWLAND 2026 -->
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/[0.08] border border-amber-400/25 text-amber-300/95 text-[11px] font-display font-bold tracking-[0.22em] uppercase">
@@ -454,7 +420,7 @@
         </div>
 
         <!-- Enlarged Tomorrowland-inspired Geometric Winged Star Crest -->
-        <div class="mt-6 mb-5 flex flex-col items-center">
+        <div class="mt-7 mb-6 flex flex-col items-center">
           <svg class="w-32 h-20 sm:w-40 sm:h-24 text-amber-300 tml-crest-glow" viewBox="0 0 120 68" fill="none" aria-hidden="true">
             <defs>
               <linearGradient id="tmlCrestGold" x1="0" y1="0" x2="120" y2="68" gradientUnits="userSpaceOnUse">
@@ -480,16 +446,13 @@
         <!-- Main Centerpiece Title -->
         <h1 class="vip-folio-title">OUR JOURNEY</h1>
 
-        <p class="mt-2.5 text-xs sm:text-sm font-semibold tracking-[0.22em] text-amber-200/90 uppercase">
+        <p class="mt-3 text-xs sm:text-sm font-medium tracking-[0.24em] text-amber-200/85 uppercase">
           THAILAND · 9D8N
         </p>
-        <p class="mt-1 text-[10.5px] text-slate-400/85 tracking-[0.2em] font-display">
-          DEC 09 — 17, 2026
-        </p>
 
-        <!-- Dedicated Countdown Chamber -->
-        <div class="vip-countdown-chamber">
-          <div class="text-[9.5px] font-display uppercase tracking-[0.24em] text-amber-300/80 mb-2" id="cover-cd-caption">
+        <!-- Clean Open Countdown Block (No inner box/borders, generous spacing) -->
+        <div class="vip-countdown-block">
+          <div class="text-[9.5px] font-display uppercase tracking-[0.26em] text-amber-300/75 mb-3" id="cover-cd-caption">
             THE JOURNEY BEGINS IN
           </div>
           <div id="cover-cd-grid" class="flex flex-col items-center justify-center text-center">
@@ -497,8 +460,8 @@
               <span id="cov-days" class="vip-countdown-num">00</span>
               <span class="font-display text-sm font-bold tracking-[0.22em] text-amber-300 uppercase">DAYS</span>
             </div>
-            <div class="mt-2.5 text-[9.5px] uppercase tracking-[0.18em] text-slate-400/80">
-              DEC 09, 2026 · BANGKOK
+            <div class="mt-3 text-[9.5px] uppercase tracking-[0.2em] text-slate-400/75">
+              DEC 09 — 17, 2026
             </div>
           </div>
           <div id="cover-cd-live" class="hidden py-2 text-xs sm:text-sm font-display font-bold tracking-widest text-amber-200">
@@ -507,7 +470,7 @@
         </div>
 
         <!-- Primary CTA & Integrated Checklist -->
-        <div class="w-full flex flex-col items-center gap-3.5">
+        <div class="w-full flex flex-col items-center gap-4">
           <button type="button" id="enter-journey-btn" class="vip-enter-btn">
             <span>ENTER OUR JOURNEY</span>
             <span aria-hidden="true">→</span>
@@ -521,14 +484,14 @@
             <span class="checklist-badge-sync text-amber-300 font-semibold tracking-wider">0/8</span>
           </button>
         </div>
-      </div>
 
-      <!-- Bottom Highlighted Creator Signature (Generous Spacing, No Divider Line) -->
-      <div class="relative z-10 mt-11 pt-2 flex flex-col items-center">
-        <div class="vip-creator-badge">
-          <span class="text-amber-300/80 text-xs" aria-hidden="true">✦</span>
-          <p class="vip-creator-text">睿睿出品・必屬精品</p>
-          <span class="text-amber-300/80 text-xs" aria-hidden="true">✦</span>
+        <!-- Bottom Highlighted Creator Signature (Generous Spacing, No Divider Line) -->
+        <div class="mt-12 flex flex-col items-center">
+          <div class="vip-creator-badge">
+            <span class="text-amber-300/80 text-xs" aria-hidden="true">✦</span>
+            <p class="vip-creator-text">睿睿出品・必屬精品</p>
+            <span class="text-amber-300/80 text-xs" aria-hidden="true">✦</span>
+          </div>
         </div>
       </div>
     </div>
