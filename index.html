@@ -744,7 +744,7 @@
           <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">THAILAND DISCOVERY · PREVIEW</span>
           <h2 class="text-xl sm:text-2xl font-bold text-white mt-1">📍 美食與玩樂收藏</h2>
           <p class="text-xs text-slate-400 mt-2">依公開候選清單整理；介紹與營業時間來自收藏庫紀錄，出發前請再確認。地圖以店名及地址搜尋，請核對搜尋結果。</p>
-          <details class="mt-5 rounded-2xl border border-amber-400/30 bg-amber-500/[0.05] p-4 sm:p-5" id="rayong-oldtown-guide"><summary class="cursor-pointer text-amber-200 font-bold">📖 查看羅勇永欽達老街漫步攻略（Yomjinda Road）</summary><div class="mt-3 text-sm text-slate-200 leading-relaxed space-y-3"><p>適合在羅勇市區留一段不趕行程的散步時間：看老屋街景、找咖啡館、吃在地小吃、拍復古街景。這是自由活動靈感，<strong>不是新增的正式行程</strong>。</p><p><strong>建議走法：</strong>先到 Yomjinda Road 老街入口 → 沿老街步行、看木造老屋與街邊小店 → 遇到喜歡的咖啡或甜點店再停留 → 視當日店家營業情況返回。</p><p><strong>提醒：</strong>老街店家營業日與市集活動可能變動；目前未核實特定店家或當天活動時間，請勿把週末市集當作每天都有。</p><a class="inline-flex text-amber-300 underline" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&amp;query=Yomjinda%20Road%20Rayong%20Thailand">📍 開啟 Yomjinda Road 地圖搜尋 ↗</a></div></details>
+          
           <div class="flex gap-2 flex-wrap mt-4">
             <input id="collection-search" type="search" placeholder="搜尋店名、分類或區域" aria-label="搜尋收藏" class="min-w-0 flex-1 rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm" />
             <select id="collection-area" aria-label="選擇區域" class="rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><option value="">所有區域</option></select>
@@ -1351,6 +1351,7 @@
                 <h3 class="font-bold text-white text-base sm:text-lg">${highlightSafe(e.title, searchQuery)}</h3>
                 ${e.location ? `<p class="mt-2 text-xs sm:text-sm text-amber-100/85">📍 ${highlightSafe(e.location, searchQuery)}</p>` : ''}
                 ${e.note ? `<p class="mt-2 text-xs sm:text-sm leading-relaxed text-slate-300 whitespace-pre-line">${highlightSafe(e.note, searchQuery)}</p>` : ''}
+                ${d.day === 3 && /老街|Yomjinda/.test(e.title || "") ? `<button type="button" onclick="openRayongGuide()" class="mt-4 w-full rounded-xl border border-amber-400/50 bg-amber-500/10 px-4 py-3 text-left font-bold text-amber-200 hover:bg-amber-500/20">📖 查看永欽達老街完整漫步與美食攻略 ↗</button>` : ''}
                 ${hasActions ? `
                   <div class="flex flex-wrap gap-2 mt-3">
                     ${extraMaps.map(m => `<a href="${escapeHtml(m.url)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-amber-400/30 text-amber-200 bg-amber-500/10 text-xs hover:bg-amber-500/20 transition">${escapeHtml(m.label)}</a>`).join('')}
@@ -2158,5 +2159,30 @@
       <div class="border-t border-amber-400/20 pt-4 space-y-3"><h3 class="text-amber-200 font-semibold">💱 泰銖 ↔ 台幣</h3><label class="text-xs text-slate-300 block">1 THB = <input id="thb-rate" type="number" step="0.0001" min="0.0001" oninput="convertCurrency('thb')" class="w-24 rounded-lg bg-[#161923] border border-amber-400/30 px-2 py-1 text-white" placeholder="匯率"></label><div class="grid grid-cols-2 gap-3"><label class="text-xs text-slate-300">THB<input id="amount-thb" type="number" value="1000" oninput="convertCurrency('thb')" class="block w-full mt-1 p-2 rounded-xl bg-[#161923] border border-amber-400/30 text-white"></label><label class="text-xs text-slate-300">TWD<input id="amount-twd" type="number" value="1000" oninput="convertCurrency('twd')" class="block w-full mt-1 p-2 rounded-xl bg-[#161923] border border-amber-400/30 text-white"></label></div><p id="fx-status" class="text-xs text-slate-400">讀取參考匯率中…</p><button type="button" onclick="refreshFx()" class="text-xs text-amber-200 underline">重新取得參考匯率</button></div>
     </div>
   </div>
+<div id="rayong-guide-modal" class="hidden fixed inset-0 z-[9999] bg-black/80 p-3 sm:p-6 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="rayong-guide-title" onclick="if(event.target===this)closeRayongGuide()">
+  <div class="mx-auto my-5 max-w-2xl rounded-3xl border border-amber-400/50 bg-[#171720] p-5 sm:p-8 shadow-2xl text-slate-100">
+    <div class="sticky top-0 z-10 flex items-center justify-between gap-4 bg-[#171720] pb-3 border-b border-amber-400/25">
+      <h2 id="rayong-guide-title" class="text-lg sm:text-2xl font-bold text-amber-200">🏛️ 永欽達老街｜12/11 漫步攻略</h2>
+      <button type="button" onclick="closeRayongGuide()" class="shrink-0 rounded-xl border border-amber-400/40 px-4 py-2 text-amber-200">✕ 關閉</button>
+    </div>
+    <div class="mt-4 text-sm leading-relaxed text-slate-200 space-y-3"><p><strong>羅勇老街＝永欽達老街（Yomjinda Road）</strong>，同一個區域，不是兩站。這裡整合試算表「餐廳口袋名單與預約備忘錄」第 47–67 列的資訊；以下其他店家為沿途候選，不是新增必跑行程。</p><p class="text-amber-100 font-semibold">12/11 正式節奏：10:15–11:15 Amber Rayong → 11:20 老街北端下車 → 11:20–12:10 老街漫步（木屋、壁畫、咖啡、林寺早市視情況）→ 12:10–12:50 Jay Jim 魚餃麵 → 12:50 司機接回飯店 → 14:10 前往會場。</p><p>老街漫步只有約 50 分鐘，不可能逐店內用。優先散步拍照；想進店喝咖啡或吃點心，需自行取捨，不影響 12:10 午餐。</p><ul class="list-none p-0 m-0"><li class="py-2 border-b border-white/10"><strong class="text-amber-100">ราย็อง（Rayong Historic Restaurant）</strong><div class="mt-1 text-slate-300">古法 Pad Thai、打拋飯、海鮮涼拌與泰奶；百年老屋正餐備選</div><a class="inline-block text-amber-300 underline underline-offset-4 mr-3 mt-1" href="https://www.google.com/maps/search/?api=1&query=%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B9%87%E0%B8%AD%E0%B8%87%20Rayong%20Historic%20Restaurant" target="_blank" rel="noopener noreferrer">📍 地圖搜尋</a></li><li class="py-2 border-b border-white/10"><strong class="text-amber-100">ร้านเชย（Chuey Restaurant）</strong><div class="mt-1 text-slate-300">脆皮五花肉、咖椰／香蘭烤吐司、泰式熱炒；復古老宅餐館</div><a class="inline-block text-amber-300 underline underline-offset-4 mr-3 mt-1" href="https://www.google.com/maps/search/?api=1&query=%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B9%80%E0%B8%8A%E0%B8%A2%20Chuey%20Restaurant%20Rayong" target="_blank" rel="noopener noreferrer">📍 地圖搜尋</a></li><li class="py-2 border-b border-white/10"><strong class="text-amber-100">Old House At Yomjinda</strong><div class="mt-1 text-slate-300">泰式早午餐、三明治、手作點心與咖啡</div><a class="inline-block text-amber-300 underline underline-offset-4 mr-3 mt-1" href="https://www.google.com/maps/search/?api=1&query=Old%20House%20At%20Yomjinda%20Rayong" target="_blank" rel="noopener noreferrer">📍 地圖搜尋</a></li><li class="py-2 border-b border-white/10"><strong class="text-amber-100">Lahn Ek Coffeehouse / House of Vanich</strong><div class="mt-1 text-slate-300">百年木屋咖啡館，手沖咖啡、泰式甜點與冰飲</div><a class="inline-block text-amber-300 underline underline-offset-4 mr-3 mt-1" href="https://www.google.com/maps/search/?api=1&query=Lahn%20Ek%20Coffeehouse%20Rayong" target="_blank" rel="noopener noreferrer">📍 地圖搜尋</a></li><li class="py-2 border-b border-white/10"><strong class="text-amber-100">Satudom House</strong><div class="mt-1 text-slate-300">老街歷史建築與博物館外觀，順路看老屋</div><a class="inline-block text-amber-300 underline underline-offset-4 mr-3 mt-1" href="https://www.google.com/maps/search/?api=1&query=Satudom%20House%20Rayong" target="_blank" rel="noopener noreferrer">📍 地圖搜尋</a></li><li class="py-2 border-b border-white/10"><strong class="text-amber-100">老街木造街屋與壁畫</strong><div class="mt-1 text-slate-300">沿路拍照，不必另外安排一個景點</div><a class="inline-block text-amber-300 underline underline-offset-4 mr-3 mt-1" href="https://www.google.com/maps/search/?api=1&query=Yomjinda%20Road%20Rayong" target="_blank" rel="noopener noreferrer">📍 地圖搜尋</a></li><li class="py-2 border-b border-white/10"><strong class="text-amber-100">Wat Lum Market（林寺早市）</strong><div class="mt-1 text-slate-300">傳統熟食、烤肉串、炸香蕉；接近中午可能陸續收攤</div><a class="inline-block text-amber-300 underline underline-offset-4 mr-3 mt-1" href="https://www.google.com/maps/search/?api=1&query=Wat%20Lum%20Market%20Rayong" target="_blank" rel="noopener noreferrer">📍 地圖搜尋</a></li><li class="py-2 border-b border-white/10"><strong class="text-amber-100">Jay Jim Fish Noodles & Wontons</strong><div class="mt-1 text-slate-300">40 年老店魚肉麵、魚餃、炸魚皮；12:10–12:50 正式午餐</div><a class="inline-block text-amber-300 underline underline-offset-4 mr-3 mt-1" href="https://www.google.com/maps/search/?api=1&query=Jay%20Jim%20Fish%20Noodles%20Rayong" target="_blank" rel="noopener noreferrer">📍 地圖搜尋</a></li></ul><p class="text-xs text-slate-400">營業時段、店家是否開門及落客位置尚未逐店實地確認；Wat Lum Market 接近中午可能收攤。地圖為店名搜尋入口，請核對搜尋結果。以上動線依試算表規劃，不代表實測步行路線。</p><a class="inline-block text-amber-300 underline underline-offset-4 mr-3 mt-1" href="https://www.google.com/maps/search/?api=1&query=Yomjinda%20Road%20Rayong%20Thailand" target="_blank" rel="noopener noreferrer">📍 永欽達老街區域地圖</a></div>
+  </div>
+</div>
+<script>
+function openRayongGuide(){
+  const el=document.getElementById('rayong-guide-modal');
+  if(!el)return;
+  el.classList.remove('hidden');
+  document.body.style.overflow='hidden';
+  const close=el.querySelector('button');if(close)close.focus();
+}
+function closeRayongGuide(){
+  const el=document.getElementById('rayong-guide-modal');
+  if(!el)return;
+  el.classList.add('hidden');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeRayongGuide();});
+</script>
 </body>
 </html>
