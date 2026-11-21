@@ -486,7 +486,11 @@
     }
 
   </style>
-</head>
+<style>
+#collection-tabs{scrollbar-width:thin;scrollbar-color:#8e692b transparent}
+.collection-tab{flex:none;white-space:nowrap;border:1px solid rgba(214,165,70,.35);border-radius:999px;padding:9px 15px;background:rgba(255,255,255,.045);color:#cbd5e1;font-size:13px;transition:background .15s}
+.collection-tab.active{background:linear-gradient(100deg,#f59e0b,#d88a05);color:#16131b;border-color:#f6b42c;font-weight:700}
+</style></head>
 <body class="min-h-screen antialiased selection:bg-amber-500/30 selection:text-amber-200">
 
   <div class="fixed inset-0 pointer-events-none cosmic-grid opacity-60 z-0"></div>
@@ -772,10 +776,19 @@
           <h2 class="text-xl sm:text-2xl font-bold text-white mt-1">📍 美食與玩樂收藏</h2>
           <p class="text-xs text-slate-400 mt-2">依公開候選清單整理；介紹與營業時間來自收藏庫紀錄，出發前請再確認。地圖以店名及地址搜尋，請核對搜尋結果。</p>
           
+          <div id="collection-tabs" class="flex gap-2 overflow-x-auto py-2 mt-4" role="tablist" aria-label="收藏分類">
+<button type="button" data-collection-tab="全部" class="collection-tab active" aria-pressed="true">全部</button>
+<button type="button" data-collection-tab="餐廳／小吃" class="collection-tab">🍽️ 餐廳／小吃</button>
+<button type="button" data-collection-tab="咖啡／甜點" class="collection-tab">🍰 咖啡／甜點</button>
+<button type="button" data-collection-tab="夜市／市集" class="collection-tab">🏮 夜市／市集</button>
+<button type="button" data-collection-tab="酒吧／夜生活" class="collection-tab">🍸 酒吧／夜生活</button>
+<button type="button" data-collection-tab="景點／體驗" class="collection-tab">📸 景點／體驗</button>
+<button type="button" data-collection-tab="按摩／SPA" class="collection-tab">💆 按摩／SPA</button>
+</div>
           <div class="flex gap-2 flex-wrap mt-4">
             <input id="collection-search" type="search" placeholder="搜尋店名、分類或區域" aria-label="搜尋收藏" class="min-w-0 flex-1 rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm" />
             <select id="collection-area" aria-label="選擇區域" class="rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><option value="">所有區域</option></select>
-            <select id="collection-category" aria-label="選擇分類" class="rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><option value="">所有分類</option></select>
+            
             <select id="collection-priority" aria-label="選擇想去程度" class="rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><option value="">所有優先度</option></select>
           </div>
           <p id="collection-count" class="text-xs text-amber-300 mt-4" role="status"></p>
@@ -783,7 +796,9 @@
         </div>
         <div id="dining-panel-shopping" class="hidden glass-card rounded-3xl p-5 sm:p-8">
           <h2 class="text-xl sm:text-2xl font-bold text-white">🛍️ 購物清單</h2>
-          <p class="text-sm text-slate-400 mt-3">購物清單維持獨立，尚未取得可供公開的購物資料；不會混入私人收藏或臆造商品。</p>
+          <p class="text-sm text-slate-400 mt-3">預覽版先展示試算表中的部分商品；價格為來源紀錄，並非即時報價。正式版再接上已測試的試算表同步。</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5"><article class="rounded-2xl border border-amber-400/20 bg-white/[0.035] p-4"><div class="flex justify-between gap-2"><h3 class="font-bold text-white">迷你調味料吊飾</h3><span class="text-xs text-amber-300 shrink-0">必買 🔥</span></div><p class="text-xs text-slate-400 mt-2">📍 Siam Center 3F</p><p class="text-sm text-slate-300 mt-2">影片參考 ฿295 · 未購買</p></article><article class="rounded-2xl border border-amber-400/20 bg-white/[0.035] p-4"><div class="flex justify-between gap-2"><h3 class="font-bold text-white">Nang Led 傳統米餅</h3><span class="text-xs text-amber-300 shrink-0">必買 🔥</span></div><p class="text-xs text-slate-400 mt-2">📍 Silom Soi 7</p><p class="text-sm text-slate-300 mt-2">截圖參考 ฿50–60 · 未購買</p></article><article class="rounded-2xl border border-amber-400/20 bg-white/[0.035] p-4"><div class="flex justify-between gap-2"><h3 class="font-bold text-white">Clorets 西瓜涼糖</h3><span class="text-xs text-amber-300 shrink-0">想買 ⭐</span></div><p class="text-xs text-slate-400 mt-2">📍 7-Eleven／Big C</p><p class="text-sm text-slate-300 mt-2">影片參考 ฿32 · 未購買</p></article><article class="rounded-2xl border border-amber-400/20 bg-white/[0.035] p-4"><div class="flex justify-between gap-2"><h3 class="font-bold text-white">KUNNA 椰子華夫巧克力脆餅</h3><span class="text-xs text-amber-300 shrink-0">想買 ⭐</span></div><p class="text-xs text-slate-400 mt-2">📍 Big C／Tops</p><p class="text-sm text-slate-300 mt-2">參考 ฿145 · 未購買</p></article><article class="rounded-2xl border border-amber-400/20 bg-white/[0.035] p-4"><div class="flex justify-between gap-2"><h3 class="font-bold text-white">Manora 黑胡椒蒜香蝦片</h3><span class="text-xs text-amber-300 shrink-0">想買 ⭐</span></div><p class="text-xs text-slate-400 mt-2">📍 Big C</p><p class="text-sm text-slate-300 mt-2">參考 ฿51 · 未購買</p></article><article class="rounded-2xl border border-amber-400/20 bg-white/[0.035] p-4"><div class="flex justify-between gap-2"><h3 class="font-bold text-white">NSL 火腿起司點心</h3><span class="text-xs text-amber-300 shrink-0">想買 ⭐</span></div><p class="text-xs text-slate-400 mt-2">📍 7-Eleven</p><p class="text-sm text-slate-300 mt-2">價格待確認 · 未購買</p></article><article class="rounded-2xl border border-amber-400/20 bg-white/[0.035] p-4"><div class="flex justify-between gap-2"><h3 class="font-bold text-white">杜拜巧克力Q餅</h3><span class="text-xs text-amber-300 shrink-0">想買 ⭐</span></div><p class="text-xs text-slate-400 mt-2">📍 7-Eleven</p><p class="text-sm text-slate-300 mt-2">影片參考 ฿39 · 未購買</p></article><article class="rounded-2xl border border-amber-400/20 bg-white/[0.035] p-4"><div class="flex justify-between gap-2"><h3 class="font-bold text-white">泰式奶茶（品牌待確認）</h3><span class="text-xs text-amber-300 shrink-0">想買 ⭐</span></div><p class="text-xs text-slate-400 mt-2">📍 7-Eleven</p><p class="text-sm text-slate-300 mt-2">影片參考 ฿20–26 · 未購買</p></article></div>
+          <p class="text-xs text-slate-400 mt-4">此區為 8 筆商品預覽，不代表完整清單；正式版將由購物分頁同步完整資料。</p>
         </div>
         <!-- Sub-panel 3C: ✦ 行前提醒 -->
         <div id="dining-panel-tips" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1833,10 +1848,10 @@
     const publicCollectionItems = collectionItems.filter(x => !/男士按摩|男性按摩|male massage|men.s massage|gay massage/i.test([x.name,x.description,x.category].join(' ')));
     function renderCollections() {
       const area = document.getElementById('collection-area').value;
-      const category = document.getElementById('collection-category').value;
+      const category = window.activeCollectionCategory || '全部';
       const priority = document.getElementById('collection-priority').value;
       const q = document.getElementById('collection-search').value.trim().toLocaleLowerCase();
-      const matches = publicCollectionItems.filter(x => (!area || x.area === area) && (!category || x.category === category) && (!priority || x.priority === priority) && (!q || [x.name,x.area,x.category,x.description,x.address].some(v => String(v||'').toLocaleLowerCase().includes(q))));
+      const matches = publicCollectionItems.filter(x => (!area || x.area === area) && (category === '全部' || (category === '餐廳／小吃' && x.category === '美食餐廳') || (category === '咖啡／甜點' && x.category === '咖啡甜點') || (category === '夜市／市集' && x.category === '景點市集') || (category === '酒吧／夜生活' && x.category === '酒吧夜生活') || (category === '景點／體驗' && x.category === '景點體驗') || (category === '按摩／SPA' && x.category === '按摩 SPA')) && (!priority || x.priority === priority) && (!q || [x.name,x.area,x.category,x.description,x.address].some(v => String(v||'').toLocaleLowerCase().includes(q))));
       document.getElementById('collection-count').textContent = '顯示 ' + matches.length + ' / ' + publicCollectionItems.length + ' 筆公開候選收藏';
       document.getElementById('collection-grid').innerHTML = matches.length ? matches.map(x => {
         const query = x.name + ' ' + x.address;
@@ -1850,12 +1865,20 @@
           '<a href="' + escapeHtml(map) + '" target="_blank" rel="noopener noreferrer" class="inline-flex mt-auto pt-2 text-sm text-amber-300 underline">Google Maps 搜尋與導航 ↗</a></article>';
       }).join('') : '<p class="text-sm text-slate-400">找不到符合條件的收藏，試試清除篩選條件。</p>';
     }
-    for (const [id,key] of [['collection-area','area'],['collection-category','category'],['collection-priority','priority']]) {
+    for (const [id,key] of [['collection-area','area'],['collection-priority','priority']]) {
       const el = document.getElementById(id);
       [...new Set(publicCollectionItems.map(x=>x[key]))].filter(x=>key!=='priority'||x!=='未設定').sort().forEach(v => {const option=document.createElement('option');option.value=v;option.textContent=v;el.appendChild(option)});
       el.addEventListener('change',renderCollections);
     }
     document.getElementById('collection-search').addEventListener('input',renderCollections);
+    window.activeCollectionCategory='全部';
+    document.querySelectorAll('[data-collection-tab]').forEach(btn=>btn.addEventListener('click',()=>{
+      window.activeCollectionCategory=btn.dataset.collectionTab;
+      document.querySelectorAll('[data-collection-tab]').forEach(b=>{
+        const on=b===btn;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on));
+      });
+      renderCollections();
+    }));
     renderCollections();
 
         // Delegated click listener for day pills, sub-tabs, DJ card expand & driver big cards
