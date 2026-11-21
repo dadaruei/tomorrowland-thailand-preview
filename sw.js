@@ -1,10 +1,10 @@
 // Tomorrowland Thailand — offline shell v10
-const CACHE = 'tml-journey-offline-v12';
-const APP_SHELL = ['./', './index.html', './tailwind.css', './data.json', './lists.json', './tera_rex_bangkok_guide.html'];
+const CACHE = 'tml-journey-offline-v12-images';
+const APP_SHELL = ['./', './index.html', './tailwind.css', './cover-background.jpg', './cover-emblem.png', './data.json', './lists.json', './tera_rex_bangkok_guide.html'];
 self.addEventListener('install', event => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE);
-    await cache.addAll(['./index.html', './tailwind.css']);
+    await cache.addAll(['./index.html', './tailwind.css', './cover-background.jpg', './cover-emblem.png']);
     await Promise.allSettled(['./', './data.json', './lists.json', './tera_rex_bangkok_guide.html'].map(url => cache.add(url)));
     await self.skipWaiting();
   })());
