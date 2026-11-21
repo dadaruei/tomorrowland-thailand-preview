@@ -23,6 +23,33 @@
     #travel-tools-modal > div { width: 100%; max-width: 32rem; margin: 32px auto; }
     #travel-tools-modal input { min-width: 0; max-width: 100%; }
 
+
+    /* Old town guide modal: explicit CSS, independent of generated Tailwind utilities. */
+    #rayong-guide-modal { display: none !important; }
+    #rayong-guide-modal:not(.hidden) {
+      display: block !important;
+      position: fixed !important;
+      inset: 0 !important;
+      z-index: 100000 !important;
+      background: rgba(0,0,0,.86) !important;
+      overflow-y: auto !important;
+      overscroll-behavior: contain;
+      padding: max(16px, env(safe-area-inset-top)) 12px max(20px, env(safe-area-inset-bottom));
+    }
+    #rayong-guide-modal > div {
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 680px;
+      margin: 10px auto 32px;
+      background: #171720;
+      border: 1px solid rgba(212,175,55,.5);
+      border-radius: 22px;
+      padding: 18px;
+      color: #f3f4f6;
+      box-shadow: 0 18px 70px rgba(0,0,0,.7);
+    }
+    #rayong-guide-modal button { cursor: pointer; }
+
     :root {
       --bg-obsidian: #08090F;
       --gold-primary: #D4AF37;
@@ -1351,7 +1378,7 @@
                 <h3 class="font-bold text-white text-base sm:text-lg">${highlightSafe(e.title, searchQuery)}</h3>
                 ${e.location ? `<p class="mt-2 text-xs sm:text-sm text-amber-100/85">📍 ${highlightSafe(e.location, searchQuery)}</p>` : ''}
                 ${e.note ? `<p class="mt-2 text-xs sm:text-sm leading-relaxed text-slate-300 whitespace-pre-line">${highlightSafe(e.note, searchQuery)}</p>` : ''}
-                ${d.day === 3 && /老街|Yomjinda/.test(e.title || "") ? `<button type="button" onclick="openRayongGuide()" class="mt-4 w-full rounded-xl border border-amber-400/50 bg-amber-500/10 px-4 py-3 text-left font-bold text-amber-200 hover:bg-amber-500/20">📖 查看永欽達老街完整漫步與美食攻略 ↗</button>` : ''}
+                ${d.day === 3 && /老街|Yomjinda/.test(e.title || "") ? `<button type="button" onclick="openRayongGuide()" class="mt-3 inline-flex max-w-full items-center rounded-lg border border-amber-400/50 bg-amber-500/10 px-3 py-2 text-sm font-semibold text-amber-200 hover:bg-amber-500/20" style="width:auto;white-space:nowrap;font-size:13px;padding:8px 10px;line-height:1.3">📖 查看老街漫步攻略 ↗</button>` : ''}
                 ${hasActions ? `
                   <div class="flex flex-wrap gap-2 mt-3">
                     ${extraMaps.map(m => `<a href="${escapeHtml(m.url)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-amber-400/30 text-amber-200 bg-amber-500/10 text-xs hover:bg-amber-500/20 transition">${escapeHtml(m.label)}</a>`).join('')}
@@ -2169,14 +2196,14 @@
   </div>
 </div>
 <script>
-function openRayongGuide(){
+window.openRayongGuide = function(){
   const el=document.getElementById('rayong-guide-modal');
   if(!el)return;
   el.classList.remove('hidden');
   document.body.style.overflow='hidden';
   const close=el.querySelector('button');if(close)close.focus();
 }
-function closeRayongGuide(){
+window.closeRayongGuide = function(){
   const el=document.getElementById('rayong-guide-modal');
   if(!el)return;
   el.classList.add('hidden');
