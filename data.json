@@ -1,7 +1,7 @@
 {
   "schema_version": "2.2.1",
   "title": "Tomorrowland Thailand 2026 | Our Journey",
-  "updated": "2026-11-21 · Preview V2.3.4 (local snapshot)",
+  "updated": "2026-11-21 · Preview V2.3.4 mobile layout fix",
   "timezone": "Asia/Bangkok",
   "days": [
     {
@@ -1124,7 +1124,7 @@
           "end_time": "22:30",
           "title": "Talat Phlu 鐵道老街小吃巡禮 ＆ First One Night Market 逛夜市酒吧",
           "location": "Talat Phlu 鐵道老街小吃 ➔ First One Night Market Talat Phlu",
-          "note": "晚餐後展開老街由北往南順路漫步巡禮（總長約 500 公尺）：途經 Sunee 叉燒飯、Sarinthip 百年泰式煎餅、品嚐 Ni-Ang 招牌蛋黃冰淇淋（表定營業至 02:00）、可選 Auntie Kia 現煎韭菜粿（李寶玉週一公休之替代首選）；隨後步行前往 First One Night Market Talat Phlu，享受啤酒花園 Live 音樂演奏、夜市小吃與逛街（表定營業至 00:00，免訂位）。\n\n【BTS 回程動線（預計 22:00–22:30 離開，依團員體力彈性調整）】\n1. 前往車站：由 First One Night Market 步行前往 BTS Talat Phlu（S10）站（依地圖定位約 450 公尺，實際步行時間視現場人潮而定）。\n2. 搭乘方向：搭乘 BTS Silom Line（深綠線）「往 National Stadium（W1，國立體育館）方向」列車進市區（勿搭往 Bang Wa 方向）。\n3. 六人同行與分開點：六人可同站進站搭乘同一班列車，建議於 BTS Sala Daeng（S2）或 BTS Chong Nonsi（S3）下車後再分頭返回各自住宿。\n4. 兩間住宿最後一段路程：\n   • 83 Siamfandee Suites（4 人，83 Sap Rd）：於 BTS Sala Daeng（S2）或 Chong Nonsi（S3）下車後步行或轉搭短程 Grab 返回（精確無障礙出口編號與夜間步行時間待現場確認）。\n   • Every Surawong（2 人，Soi Suksan, Surawong Rd）：於 BTS Chong Nonsi（S3）或 Sala Daeng（S2）下車後步行或叫車返回（精確出口編號待現場確認）。\n5. 末班車與備案提醒：BTS 官方營運時間表定至約午夜 24:00 前後，但 BTS Talat Phlu（S10）單站週一晚間精確末班發車時刻尚未確認（不可直接以終點站發車時間推算）。若逛太晚、接近末班車時段或體力疲累，直接改採備案「分兩台 Grab（4 人一台、2 人一台）各自直達住宿」，不另安排包車。",
+          "note": "晚餐後展開老街由北往南順路漫步巡禮（總長約 500 公尺）：途經 Sunee 叉燒飯、Sarinthip 百年泰式煎餅、品嚐 Ni-Ang 招牌蛋黃冰淇淋（表定營業至 02:00）、可選 Auntie Kia 現煎韭菜粿（李寶玉週一公休之替代首選）；隨後步行前往 First One Night Market Talat Phlu，享受啤酒花園 Live 音樂演奏、夜市小吃與逛街（表定營業至 00:00，免訂位）。\n\n22:30 起另有獨立返程卡片；BTS／叫車與住宿分流請參考下一筆行程。",
           "type": "food",
           "status": "confirmed",
           "status_label": "已確認",

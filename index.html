@@ -8,6 +8,21 @@
   <link rel="stylesheet" href="./tailwind.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
+    /* Travel tools modal: do not rely on uncompiled Tailwind arbitrary utilities. */
+    #travel-tools-modal:not(.hidden) {
+      display: block;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      background: rgba(0, 0, 0, 0.82);
+      padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+    }
+    #travel-tools-modal.hidden { display: none !important; }
+    #travel-tools-modal > div { width: 100%; max-width: 32rem; margin: 32px auto; }
+    #travel-tools-modal input { min-width: 0; max-width: 100%; }
+
     :root {
       --bg-obsidian: #08090F;
       --gold-primary: #D4AF37;
@@ -513,15 +528,12 @@
         </div>
       </section>
 
-      <!-- VIEW 3: DINING & ROUTES (WITH 5 SUB-TABS) -->
+      <!-- VIEW 3: DINING & ROUTES (WITH 4 SUB-TABS) -->
       <section id="view-dining" class="hidden space-y-5">
-        <!-- Sub-tabs Bar: 🍽️ 精選美食 | 🗺️ 分日動線 | 🍜 餐廳清單 | 🛍️ 購物清單 | ✦ 行前提醒 -->
+        <!-- Sub-tabs Bar: 🍽️ 精選美食 | 🍜 餐廳清單 | 🛍️ 購物清單 | ✦ 行前提醒 -->
         <div class="dining-tabs-scroll no-scrollbar" role="tablist" aria-label="美食動線提醒子分頁">
           <button type="button" data-dining-sub="food" class="dining-sub-btn active min-h-[42px] px-2 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 bg-amber-500 text-slate-950 shadow-sm cursor-pointer">
             <span>🍽️</span><span>精選美食</span>
-          </button>
-          <button type="button" data-dining-sub="routes" class="dining-sub-btn min-h-[40px] px-2 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center justify-center gap-1.5 bg-transparent text-slate-300 hover:bg-white/5 cursor-pointer">
-            <span>🗺️</span><span>分日動線</span>
           </button>
           <button type="button" data-dining-sub="wishlist" class="dining-sub-btn min-h-[40px] px-2 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center justify-center gap-1.5 bg-transparent text-slate-300 hover:bg-white/5 cursor-pointer"><span>🍜</span><span>餐廳清單</span></button>
           <button type="button" data-dining-sub="shopping" class="dining-sub-btn min-h-[40px] px-2 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center justify-center gap-1.5 bg-transparent text-slate-300 hover:bg-white/5 cursor-pointer"><span>🛍️</span><span>購物清單</span></button>
@@ -558,59 +570,6 @@
           <div class="priority-filters mt-4 flex gap-2 flex-wrap"><input id="shopping-search" type="search" placeholder="搜尋商品、通路" aria-label="搜尋商品" class="min-w-0 flex-1 rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><select id="shopping-store" aria-label="篩選購物通路" class="rounded-xl bg-slate-900 border border-amber-400/20 p-3 text-white text-sm"><option value="">所有通路</option></select></div>
           <p class="priority-empty-note text-xs text-slate-400 mt-4">尚未同步購物清單，完成資料連線後會自動顯示。</p><p id="shopping-status" class="text-xs text-slate-400 mt-3" role="status"></p><div id="shopping-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4"></div>
         </div>
-        <!-- Sub-panel 3B: 🗺️ 分日動線 -->
-        <div id="dining-panel-routes" class="hidden space-y-5">
-          <!-- Day 6 Afternoon & Evening Route Card -->
-          <div class="glass-card rounded-3xl p-5 sm:p-8 border-amber-400/25">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-              <div>
-                <span class="text-xs uppercase tracking-wider text-amber-300 font-semibold">DAY 6 · 12/14 (週一) 曼谷河畔文化與百年老街動線</span>
-                <h3 class="text-lg sm:text-xl font-bold text-white mt-0.5">👘 鄭王廟泰服體驗 ➔ ICONSIAM 水舞秀 ➔ Talat Phlu 符德興與鐵道夜市</h3>
-              </div>
-              <span class="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-200 text-xs font-medium self-start">
-                ✓ 14:00 OK Shop 6人泰服已預約
-              </span>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
-              <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
-                <div class="text-xs font-bold text-amber-300">STEP 1 · 12:00 — 13:30</div>
-                <div class="font-semibold text-white mt-1">寄放行李 ＆ 鄭王廟午餐</div>
-                <p class="text-xs text-slate-300 mt-1">12:00 先至 83 Siam Fandee Cafe 寄放行李，隨後包車載往鄭王廟周邊吃船麵或泰式炒河粉。</p>
-              </div>
-              <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
-                <div class="text-xs font-bold text-amber-300">STEP 2 · 14:00 — 17:00</div>
-                <div class="font-semibold text-white mt-1">OK Shop 泰服 ＆ 鄭王廟拍照</div>
-                <p class="text-xs text-slate-300 mt-1">14:00 準時抵達 OK Shop（司機全約結束下班），換裝後於鄭王廟悠閒取景拍照。</p>
-              </div>
-              <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
-                <div class="text-xs font-bold text-amber-300">STEP 3 · 17:00 — 19:15</div>
-                <div class="font-semibold text-white mt-1">搭船赴 ICONSIAM 水舞秀</div>
-                <p class="text-xs text-slate-300 mt-1">自行搭船前往暹羅天地，欣賞 18:30 聖誕樹燈光音樂秀與 19:00 水舞秀。</p>
-              </div>
-              <div class="p-4 rounded-2xl bg-amber-500/15 border border-amber-400/35">
-                <div class="text-xs font-bold text-amber-300">STEP 4 · 19:15 — 22:30</div>
-                <div class="font-semibold text-white mt-1">Talat Phlu 晚餐夜市 ➔ BTS 回市區</div>
-                <p class="text-xs text-slate-200 mt-1">2 台 Grab 赴符德興晚餐與 First One 夜市；回程步行約 450m 至 BTS Talat Phlu (S10) 搭往 National Stadium 方向進市區（逛太晚備案分兩台 Grab）。</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Day 7 & Day 8 City Exploration Highlights -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="glass-card rounded-2xl p-5 space-y-2">
-              <div class="text-xs font-bold text-amber-300">DAY 7 · 12/15 (週二) 4人留泰組路線</div>
-              <h4 class="font-bold text-white text-base">🎄 Siam 商圈 ➔ CentralWorld 聖誕樹 ➔ 朱拉隆功宵夜</h4>
-              <p class="text-xs text-slate-300 leading-relaxed">上午送別 Tara & Rex 後，四人逛 Siam Square / Siam Paragon 午餐，下午重頭戲前往 <strong>CentralWorld 聖誕活動</strong>拍照購物；18:45 先回民宿放戰利品，19:30 搭機車計程車衝 <strong>Banthat Thong 商圈</strong>吃 Jimjoom99 泰式陶鍋！</p>
-            </div>
-            <div class="glass-card rounded-2xl p-5 space-y-2">
-              <div class="text-xs font-bold text-amber-300">DAY 8 · 12/16 (週三) 達睿＆承宏雙人老城漫步</div>
-              <h4 class="font-bold text-white text-base">🦢 松瓦路 Urai 滷鵝 ➔ Talat Noi 噠叻仔 ➔ 中國城</h4>
-              <p class="text-xs text-slate-300 leading-relaxed">10:30 首站先吃米其林必比登 <strong>Urai 潮州滷鵝</strong>（僅收現金、售完為止），漫步 Talat Noi 老巷弄塗鴉與 <strong>KHIRI 精品泰奶</strong>，中午探索蘇坤1巷蚵仔煎與炭火咖啡。（留意當日泰國皇家火葬大典國定假日交通管制）</p>
-            </div>
-          </div>
-        </div>
-
         <!-- Sub-panel 3C: ✦ 行前提醒 -->
         <div id="dining-panel-tips" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4">
           <div class="glass-card rounded-2xl p-5 space-y-2">
@@ -1063,7 +1022,7 @@
 
     function setDiningSubTab(sub, options = {}) {
       const { scrollToSection = true } = options;
-      if (!["food", "routes", "tips", "wishlist", "shopping"].includes(sub)) sub = "food";
+      if (!["food", "tips", "wishlist", "shopping"].includes(sub)) sub = "food";
       currentDiningSub = sub;
 
       document.querySelectorAll(".dining-sub-btn").forEach(btn => {
@@ -1077,7 +1036,7 @@
         }
       });
 
-      ["food", "routes", "tips", "wishlist", "shopping"].forEach(k => {
+      ["food", "tips", "wishlist", "shopping"].forEach(k => {
         const panel = document.getElementById(`dining-panel-${k}`);
         if (panel) panel.classList.toggle("hidden", k !== sub);
       });
@@ -1178,13 +1137,13 @@
 
       container.innerHTML = days.map(d => `
         <article id="day-card-${d.day}" class="glass-card rounded-3xl p-5 sm:p-7">
-          <div class="flex flex-wrap items-start justify-between gap-2 pb-2">
-            <div class="flex flex-wrap items-center gap-2 min-w-0 flex-1">
-              <span class="rounded-full px-3 py-1 text-xs font-bold bg-amber-500/20 text-amber-200 border border-amber-400/30">DAY ${d.day} · ${escapeHtml(d.date)} (${escapeHtml(d.weekday)}) · ${tripCity(d.day)}</span>
-              <span class="text-slate-300 text-xs">${d.events.length} 筆活動</span>
+          <div class="pb-2">
+            <div class="flex items-start justify-between gap-2">
+              <span class="rounded-full px-3 py-1 text-xs font-bold bg-amber-500/20 text-amber-200 border border-amber-400/30 min-w-0">DAY ${d.day} · ${escapeHtml(d.date)} (${escapeHtml(d.weekday)}) · ${tripCity(d.day)}</span>
+              <button type="button" class="day-weather text-xs text-amber-200 border border-amber-400/30 rounded-xl px-2.5 py-1.5 shrink-0" data-weather-day="${d.day}" onclick="openTravelTools(${d.day})" title="查看天氣">🌤 --°</button>
             </div>
-            <button type="button" class="day-weather text-xs text-amber-200 border border-amber-400/30 rounded-xl px-2.5 py-1.5 shrink-0" data-weather-day="${d.day}" onclick="openTravelTools(${d.day})" title="查看天氣">🌤 --°</button>
-            ${d.day === 1 ? `<a href="./tera_rex_bangkok_guide.html" class="text-xs px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/35 text-amber-200 hover:bg-amber-500/25 transition">🇹🇭 12/9 自由活動分頁攻略 ↗</a>` : ''}
+            ${d.day === 1 ? `<div class="flex justify-end mt-3"><a href="./tera_rex_bangkok_guide.html" class="inline-flex text-xs px-3 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/35 text-amber-200 hover:bg-amber-500/25 transition">🇹🇭 12/9 自由活動分頁攻略 ↗</a></div>` : ''}
+            <div class="text-slate-300 text-xs mt-2">${d.events.length} 筆活動</div>
           </div>
           <div class="relative mt-5 ml-2 border-l border-amber-400/25 space-y-4">
           ${d.events.map(e => {
@@ -2040,7 +1999,7 @@
     });
   </script>
 
-  <div id="travel-tools-modal" class="hidden fixed inset-0 z-[90] bg-black/80 p-4 overflow-y-auto" role="dialog" aria-modal="true" aria-label="旅遊工具" onclick="if(event.target===this)closeTravelTools()">
+  <div id="travel-tools-modal" class="hidden fixed inset-0 p-4 overflow-y-auto" role="dialog" aria-modal="true" aria-label="旅遊工具" onclick="if(event.target===this)closeTravelTools()">
     <div class="max-w-lg mx-auto my-8 glass-card rounded-3xl border border-amber-400/35 p-5 sm:p-7 space-y-5">
       <div class="flex items-center justify-between gap-3"><h2 class="text-xl font-bold text-amber-200">🧭 旅遊工具</h2><button type="button" onclick="closeTravelTools()" class="px-3 py-1 rounded-xl border border-amber-400/30 text-amber-200">✕ 關閉</button></div>
       <div class="space-y-3"><h3 class="text-amber-200 font-semibold">🌤 天氣預報</h3><select id="weather-city" onchange="loadWeather(true)" class="w-full rounded-xl p-3 bg-[#161923] text-white border border-amber-400/30"><option value="bangkok">曼谷 Bangkok</option><option value="rayong">羅勇 Rayong</option></select><div id="weather-detail" class="text-sm text-slate-300 leading-relaxed">正在查詢天氣…</div></div>
