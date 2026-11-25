@@ -490,6 +490,11 @@
 #collection-tabs{scrollbar-width:thin;scrollbar-color:#8e692b transparent}
 .collection-tab{flex:none;white-space:nowrap;border:1px solid rgba(214,165,70,.35);border-radius:999px;padding:9px 15px;background:rgba(255,255,255,.045);color:#cbd5e1;font-size:13px;transition:background .15s}
 .collection-tab.active{background:linear-gradient(100deg,#f59e0b,#d88a05);color:#16131b;border-color:#f6b42c;font-weight:700}
+
+html, body { max-width:100%; overflow-wrap:anywhere; }
+.glass-card, .glass-card *, #collection-grid article, #collection-grid article * { min-width:0; }
+.glass-card a, .glass-card button { max-width:100%; }
+.itinerary-details summary { cursor:pointer; color:#fcd34d; }
 </style></head>
 <body class="min-h-screen antialiased selection:bg-amber-500/30 selection:text-amber-200">
 
@@ -772,9 +777,9 @@
 
         <!-- Collection preview: sanitized candidate entries only; no private source rows -->
         <div id="dining-panel-wishlist" class="hidden glass-card rounded-3xl p-5 sm:p-8">
-          <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">THAILAND DISCOVERY · PREVIEW</span>
+          <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">THAILAND DISCOVERY</span>
           <h2 class="text-xl sm:text-2xl font-bold text-white mt-1">📍 美食與玩樂收藏</h2>
-          <p class="text-xs text-slate-400 mt-2">依公開候選清單整理；介紹與營業時間來自收藏庫紀錄，出發前請再確認。地圖以店名及地址搜尋，請核對搜尋結果。</p>
+          <p class="text-xs text-slate-400 mt-2">依網站收藏資料公開清單整理；營業時間請於出發前確認。地圖優先使用試算表提供的連結。</p>
           
           <div id="collection-tabs" class="flex gap-2 overflow-x-auto py-2 mt-4" role="tablist" aria-label="收藏分類">
 <button type="button" data-collection-tab="全部" class="collection-tab active" aria-pressed="true">全部</button>
@@ -783,6 +788,7 @@
 <button type="button" data-collection-tab="夜市／市集" class="collection-tab">🏮 夜市／市集</button>
 <button type="button" data-collection-tab="酒吧／夜生活" class="collection-tab">🍸 酒吧／夜生活</button>
 <button type="button" data-collection-tab="景點／體驗" class="collection-tab">📸 景點／體驗</button>
+<button type="button" data-collection-tab="購物伴手禮" class="collection-tab">🛍️ 購物伴手禮</button>
 <button type="button" data-collection-tab="按摩／SPA" class="collection-tab">💆 按摩／SPA</button>
 </div>
           <div class="mt-4 space-y-3" aria-label="搜尋與篩選收藏">
@@ -795,14 +801,23 @@
               <select id="collection-priority" aria-label="選擇想去程度" class="block w-full min-w-0 rounded-xl bg-slate-900 border border-amber-400/20 px-3 py-3 text-white text-sm box-border"><option value="">所有優先度</option></select>
             </div>
           </div>
+          <div class="flex flex-wrap items-center gap-3 mt-3"><label class="text-xs text-slate-300">適合日期 <select id="collection-date" class="rounded-lg bg-slate-900 border border-amber-400/20 p-2 text-white"><option value="">全部日期</option></select></label><label class="text-xs text-slate-300 flex items-center gap-2"><input type="checkbox" id="collection-any-date" />包含不限日期</label></div>
+          <p id="collection-source-note" class="text-xs text-slate-400 mt-2" role="status"></p>
           <p id="collection-count" class="text-xs text-amber-300 mt-4" role="status"></p>
           <div id="collection-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4"></div>
         </div>
         <div id="dining-panel-shopping" class="hidden glass-card rounded-3xl p-5 sm:p-8">
           <h2 class="text-xl sm:text-2xl font-bold text-white">🛍️ 購物清單</h2>
-          <p class="text-sm text-slate-400 mt-3">預覽版先展示試算表中的部分商品；價格為來源紀錄，並非即時報價。正式版再接上已測試的試算表同步。</p>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5"><article class="rounded-2xl border border-amber-400/20 bg-white/[0.035] p-4"><div class="flex justify-between gap-2"><h3 class="font-bold text-white">迷你調味料吊飾</h3><span class="text-xs text-amber-300 shrink-0">必買 🔥</span></div><p class="text-xs text-slate-400 mt-2">📍 Siam Center 3F</p><p class="text-sm text-slate-300 mt-2">影片參考 ฿295 · 未購買</p></article><article class="rounded-2xl border border-amber-400/20 bg-white/[0.035] p-4"><div class="flex justify-between gap-2"><h3 class="font-bold text-white">Nang Led 傳統米餅</h3><span class="text-xs text-amber-300 shrink-0">必買 🔥</span></div><p class="text-xs text-slate-400 mt-2">📍 Silom Soi 7</p><p class="text-sm text-slate-300 mt-2">截圖參考 ฿50–60 · 未購買</p></article><article class="rounded-2xl border border-amber-400/20 bg-white/[0.035] p-4"><div class="flex justify-between gap-2"><h3 class="font-bold text-white">Clorets 西瓜涼糖</h3><span class="text-xs text-amber-300 shrink-0">想買 ⭐</span></div><p class="text-xs text-slate-400 mt-2">📍 7-Eleven／Big C</p><p class="text-sm text-slate-300 mt-2">影片參考 ฿32 · 未購買</p></article><article class="rounded-2xl border border-amber-400/20 bg-white/[0.035] p-4"><div class="flex justify-between gap-2"><h3 class="font-bold text-white">KUNNA 椰子華夫巧克力脆餅</h3><span class="text-xs text-amber-300 shrink-0">想買 ⭐</span></div><p class="text-xs text-slate-400 mt-2">📍 Big C／Tops</p><p class="text-sm text-slate-300 mt-2">參考 ฿145 · 未購買</p></article><article class="rounded-2xl border border-amber-400/20 bg-white/[0.035] p-4"><div class="flex justify-between gap-2"><h3 class="font-bold text-white">Manora 黑胡椒蒜香蝦片</h3><span class="text-xs text-amber-300 shrink-0">想買 ⭐</span></div><p class="text-xs text-slate-400 mt-2">📍 Big C</p><p class="text-sm text-slate-300 mt-2">參考 ฿51 · 未購買</p></article><article class="rounded-2xl border border-amber-400/20 bg-white/[0.035] p-4"><div class="flex justify-between gap-2"><h3 class="font-bold text-white">NSL 火腿起司點心</h3><span class="text-xs text-amber-300 shrink-0">想買 ⭐</span></div><p class="text-xs text-slate-400 mt-2">📍 7-Eleven</p><p class="text-sm text-slate-300 mt-2">價格待確認 · 未購買</p></article><article class="rounded-2xl border border-amber-400/20 bg-white/[0.035] p-4"><div class="flex justify-between gap-2"><h3 class="font-bold text-white">杜拜巧克力Q餅</h3><span class="text-xs text-amber-300 shrink-0">想買 ⭐</span></div><p class="text-xs text-slate-400 mt-2">📍 7-Eleven</p><p class="text-sm text-slate-300 mt-2">影片參考 ฿39 · 未購買</p></article><article class="rounded-2xl border border-amber-400/20 bg-white/[0.035] p-4"><div class="flex justify-between gap-2"><h3 class="font-bold text-white">泰式奶茶（品牌待確認）</h3><span class="text-xs text-amber-300 shrink-0">想買 ⭐</span></div><p class="text-xs text-slate-400 mt-2">📍 7-Eleven</p><p class="text-sm text-slate-300 mt-2">影片參考 ฿20–26 · 未購買</p></article></div>
-          <p class="text-xs text-slate-400 mt-4">此區為 8 筆商品預覽，不代表完整清單；正式版將由購物分頁同步完整資料。</p>
+          <p class="text-sm text-slate-400 mt-3">由 Google 試算表單向同步；價格為參考資訊，購買狀態請在試算表修改。</p>
+          <div id="shopping-source-note" class="text-xs text-slate-400 mt-2" role="status"></div>
+          <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" aria-label="購物清單篩選">
+            <label class="text-xs text-slate-300">關鍵字搜尋<input id="shopping-search" type="search" placeholder="商品、店家、備註…" class="mt-1 w-full rounded-xl border border-white/20 bg-slate-900 text-white px-3 py-2 min-h-[42px]" /></label>
+            <label class="text-xs text-slate-300">店家／區域<select id="shopping-store" class="mt-1 w-full rounded-xl border border-white/20 bg-slate-900 text-white px-3 py-2 min-h-[42px]"><option value="">全部店家／區域</option></select></label>
+            <label class="text-xs text-slate-300">必買程度<select id="shopping-priority" class="mt-1 w-full rounded-xl border border-white/20 bg-slate-900 text-white px-3 py-2 min-h-[42px]"><option value="">全部優先度</option></select></label>
+            <label class="text-xs text-slate-300">購買狀態<select id="shopping-status" class="mt-1 w-full rounded-xl border border-white/20 bg-slate-900 text-white px-3 py-2 min-h-[42px]"><option value="">全部狀態</option></select></label>
+          </div>
+          <div class="mt-3 flex flex-wrap items-center justify-between gap-2"><p id="shopping-count" class="text-xs text-slate-400" aria-live="polite"></p><button id="shopping-reset" type="button" class="rounded-xl border border-amber-400/30 text-amber-200 px-3 py-2 text-xs">清除篩選</button></div>
+          <div id="shopping-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5"></div>
         </div>
         <!-- Sub-panel 3C: ✦ 行前提醒 -->
         <div id="dining-panel-tips" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1071,6 +1086,10 @@
     }
 
     function getExtraMapButtons(ev) {
+      if (/鄭王廟周邊午餐候選/.test(ev.title || '')) return [
+        {label:'🍜 Ayutthaya Boat Noodle',url:'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent('Ayutthaya Boat Noodle Wat Arun Bangkok')},
+        {label:'🍽️ PadThai Wangdoem',url:'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent('PadThai Wangdoem Bangkok')}
+      ];
       if (/離開 First One 夜市/.test(ev.title || '')) {
         return [
           {label:'🚉 BTS Talat Phlu', url:'https://www.google.com/maps/search/?api=1&query=BTS+Talat+Phlu'},
@@ -1335,9 +1354,27 @@
       activity: '✨', shopping: '🛍️', festival: '🎧', sightseeing: '📍'
     };
 
+    function restaurantBooking(ev) {
+      const ref = String(ev.booking_ref || '');
+      const text = ref || String(ev.status_label || '') || String(ev.card_summary || '') || String(ev.note || '');
+      if (/未訂位|待訂位|建議.*預約|待.*代訂|未預約/.test(text)) return '未訂位／待確認';
+      if (/已訂位|訂位已書面確認|已確認訂位/.test(text)) return '已訂位';
+      if (/免訂位|免預約|不需訂位|walk.in|現場排隊|現場候位|不提前訂位/i.test(text)) return '免訂位／現場候位';
+      return '訂位狀態待核對';
+    }
+    function publicNote(value) {
+      return String(value || '').replace(/網站獨立返程卡片需附[^。]*。?/g,'').replace(/【分流導航】[^]*$/g,'').replace(/https?:\/\/[^\s；。），、]+/g,'').trim();
+    }
+    function eventSummary(e) { return publicNote(e.card_summary) || publicNote(e.note); }
+    function eventDescription(e) {
+      const summary=eventSummary(e), detail=publicNote(e.note);
+      return (summary ? `<p class="mt-2 text-xs sm:text-sm leading-relaxed text-slate-300 whitespace-pre-line">${highlightSafe(summary,searchQuery)}</p>` : '') +
+        (detail && detail!==summary ? `<details class="itinerary-details mt-2 text-xs sm:text-sm" ${searchQuery && detail.toLowerCase().includes(searchQuery.toLowerCase()) ? 'open' : ''}><summary>展開完整行程</summary><p class="mt-2 text-slate-300 whitespace-pre-line leading-relaxed">${highlightSafe(detail,searchQuery)}</p></details>` : '');
+    }
     function getStatusBadge(ev) {
       const st = String(ev.status || '');
-      const rawLabel = String(ev.status_label || '');
+      const rawLabel = ev.type === 'food' && hasTag(ev,'featured_food') ? restaurantBooking(ev) : String(ev.status_label || '');
+      if (ev.type === 'food' && hasTag(ev,'featured_food')) return {cls:rawLabel==='已訂位'?'border-emerald-400/30 bg-emerald-400/10 text-emerald-300':'border-amber-400/30 bg-amber-400/10 text-amber-200',text:rawLabel};
       if (st === 'confirmed') {
         return { cls: 'border-emerald-400/30 bg-emerald-400/10 text-emerald-300', text: rawLabel || '已確認' };
       }
@@ -1396,7 +1433,7 @@
                 </div>
                 <h3 class="font-bold text-white text-base sm:text-lg">${highlightSafe(e.title, searchQuery)}</h3>
                 ${e.location ? `<p class="mt-2 text-xs sm:text-sm text-amber-100/85">📍 ${highlightSafe(e.location, searchQuery)}</p>` : ''}
-                ${e.note ? `<p class="mt-2 text-xs sm:text-sm leading-relaxed text-slate-300 whitespace-pre-line">${highlightSafe(e.note, searchQuery)}</p>` : ''}
+                ${eventDescription(e)}
                 ${d.day === 3 && /老街|Yomjinda/.test(e.title || "") ? `<button type="button" onclick="openRayongGuide()" class="mt-3 inline-flex max-w-full items-center rounded-lg border border-amber-400/50 bg-amber-500/10 px-3 py-2 text-sm font-semibold text-amber-200 hover:bg-amber-500/20" style="width:auto;white-space:nowrap;font-size:13px;padding:8px 10px;line-height:1.3">📖 查看老街漫步攻略 ↗</button>` : ''}
                 ${hasActions ? `
                   <div class="flex flex-wrap gap-2 mt-3">
@@ -1555,11 +1592,11 @@
               <div class="space-y-2">
                 <div class="flex flex-wrap items-center justify-between gap-2">
                   <span class="px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 text-xs font-semibold">Day ${e.dayNum} · ${escapeHtml(e.shortDate)} · ${escapeHtml(e.time)}</span>
-                  <span class="text-[11px] rounded-full px-2 py-1 border border-amber-400/30 text-amber-200">${escapeHtml(/已訂位|已確認訂位/.test(e.status_label || '') ? '已訂位' : /免訂位|不需訂位/.test(e.status_label || '') ? '免訂位' : /待訂位|待確認/.test(e.status_label || '') ? '待訂位／確認' : '訂位狀態待核對')}</span>
+                  <span class="text-[11px] rounded-full px-2 py-1 border border-amber-400/30 text-amber-200">${escapeHtml(restaurantBooking(e))}</span>
                 </div>
                 <h4 class="font-bold text-white text-base">${escapeHtml(e.local_name || e.title)}</h4>
                 ${e.booking_ref ? `<p class="text-xs text-amber-200 font-medium">${escapeHtml(e.booking_ref)}</p>` : ''}
-                <p class="text-xs text-slate-300 leading-relaxed">${escapeHtml(e.card_summary || e.note || '')}</p>
+                <p class="text-xs text-slate-300 leading-relaxed">${escapeHtml(eventSummary(e))}</p>
               </div>
               <div class="flex flex-wrap gap-2 pt-1">
                 ${extraMaps.map(m => `<a href="${escapeHtml(m.url)}" target="_blank" rel="noopener noreferrer" class="text-xs text-amber-200 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/30 rounded-xl px-3 py-1.5 font-semibold transition">${escapeHtml(m.label)}</a>`).join('')}
@@ -1847,33 +1884,59 @@
     }
 
     // Sanitized, static candidate data for local preview. No spreadsheet credentials or private source data.
-        const collectionItems = [{"area": "Asok／Phrom Phong", "category": "美食餐廳", "name": "KINKIN Sukhumvit 47", "priority": "未設定", "description": "蟹肉炒飯、泰式海鮮料理；Sukhumvit 47 巷口", "hours": "每日 11:30–22:30", "address": "855 Sukhumvit Rd, Bangkok"}, {"area": "Asok／Phrom Phong", "category": "景點市集", "name": "SW1 Market", "priority": "想去 ⭐", "description": "Asok 站旁露天貨櫃夜市，炒河粉與街頭小吃", "hours": "每日 16:00–00:30", "address": "222 Sukhumvit Rd, Bangkok"}, {"area": "Asok／Phrom Phong", "category": "咖啡甜點", "name": "Blue Bottle Coffee – EmQuartier", "priority": "想去 ⭐", "description": "EmQuartier G 樓精品咖啡廳與藍色燈籠裝置", "hours": "每日 08:00–22:00", "address": "EmQuartier G Floor, Bangkok"}, {"area": "Asok／Phrom Phong", "category": "咖啡甜點", "name": "Yu Dee Mee Suk（อยู่ดีมีสุข）", "priority": "未設定", "description": "芒果茉莉茶、芒果糯米飯甜品", "hours": "每日 10:00–22:00", "address": "EMSPHERE 4F, Bangkok"}, {"area": "Asok／Phrom Phong", "category": "按摩 SPA", "name": "District 39 Massage", "priority": "未設定", "description": "Sukhumvit 39 泰式按摩店", "hours": "每日 11:00–22:00", "address": "10/9-10 Sukhumvit 39, Bangkok"}, {"area": "Asok／Phrom Phong", "category": "按摩 SPA", "name": "Healthy Massage Sukhumvit 19", "priority": "想去 ⭐", "description": "Asok 附近平價泰式按摩，與第一晚住宿同巷", "hours": "每日 10:00–00:00", "address": "16/25-26 Sukhumvit 19 Alley, Bangkok"}, {"area": "Asok／Phrom Phong", "category": "酒吧夜生活", "name": "Baccarat", "priority": "未設定", "description": "Sukhumvit 24 精品夜店與餐酒館", "hours": "營業時間待確認", "address": "88 Sukhumvit 24 Alley, Bangkok"}, {"area": "Asok／Phrom Phong", "category": "酒吧夜生活", "name": "Bar Us", "priority": "未設定", "description": "以前菜、主餐、甜點概念設計的創意調酒", "hours": "週日–四 18:00–00:00；週五六至 01:00", "address": "61/37 Sukhumvit 26, Bangkok"}, {"area": "Asok／Phrom Phong", "category": "酒吧夜生活", "name": "Cavo", "priority": "未設定", "description": "Sukhumvit 沿線夜店俱樂部", "hours": "週日–四 22:00–03:00；週五六至 03:30", "address": "88/7 Sukhumvit Rd, Bangkok"}, {"area": "Asok／Phrom Phong", "category": "酒吧夜生活", "name": "GOT", "priority": "備選 📌", "description": "Sukhumvit 24 復古風格雞尾酒吧與夜店", "hours": "每日 19:00–03:00", "address": "97 Sukhumvit 24 Alley, Bangkok"}, {"area": "Asok／Phrom Phong", "category": "酒吧夜生活", "name": "House of Savoy", "priority": "未設定", "description": "Sukhumvit 路二樓夜店空間", "hours": "實際夜店營業時間待確認", "address": "2nd Floor, 41 Sukhumvit Rd, Bangkok"}, {"area": "Asok／Phrom Phong", "category": "酒吧夜生活", "name": "Mira", "priority": "未設定", "description": "Sukhumvit 11 夜店街俱樂部；注意與 Thong Lo 分店區分", "hours": "營業時間待確認", "address": "19 Sukhumvit 11 Alley, Bangkok"}, {"area": "Asok／Phrom Phong", "category": "酒吧夜生活", "name": "Sugar Club", "priority": "未設定", "description": "Sukhumvit 11 嘻哈主題夜店", "hours": "每日 22:00–04:00", "address": "37 Sukhumvit 11 Alley, Bangkok"}, {"area": "Asok／Phrom Phong", "category": "酒吧夜生活", "name": "Tic Tac Toe", "priority": "未設定", "description": "EMSPHERE 五樓社交酒吧與夜店", "hours": "營業時間待確認", "address": "EMSPHERE 5F, Bangkok"}, {"area": "Asok／Phrom Phong", "category": "酒吧夜生活", "name": "Upper House", "priority": "未設定", "description": "Sukhumvit 24 時尚夜店", "hours": "營業時間待確認", "address": "22/2 Sukhumvit 24 Alley, Bangkok"}, {"area": "Asok／Phrom Phong", "category": "酒吧夜生活", "name": "What's Happened", "priority": "未設定", "description": "EMSPHERE 五樓酒吧與夜生活空間", "hours": "營業時間待確認", "address": "EMSPHERE 5F, Bangkok"}, {"area": "Thong Lo／Ekkamai", "category": "景點市集", "name": "Johnny Market", "priority": "未設定", "description": "Ekkamai 站旁露天夜市與泰式街頭小吃", "hours": "每日 17:00–00:00", "address": "928 Sukhumvit Rd, Bangkok"}, {"area": "Thong Lo／Ekkamai", "category": "美食餐廳", "name": "Lim Pork Leg Buffet", "priority": "未設定", "description": "泰式滷豬腳飯吃到飽，配菜白飯可自取", "hours": "每日 07:30–17:30", "address": "44/6 Rama IV Rd, Bangkok"}, {"area": "Thong Lo／Ekkamai", "category": "美食餐廳", "name": "Phed Mark", "priority": "未設定", "description": "打拋豬飯與半熟鴨蛋；可選辣度", "hours": "每日 10:00–19:00", "address": "300 Sukhumvit Rd, Bangkok"}, {"area": "Thong Lo／Ekkamai", "category": "美食餐廳", "name": "Saengchai Phochana", "priority": "未設定", "description": "在地深夜泰式熱炒、蚵仔煎與海鮮", "hours": "每日 18:00–03:00", "address": "762/5-7 Sukhumvit Rd, Bangkok"}, {"area": "Thong Lo／Ekkamai", "category": "咖啡甜點", "name": "A KEEN HOUSE", "priority": "未設定", "description": "韓系簡約風咖啡、手沖與烘焙甜點", "hours": "每日 09:00–17:30", "address": "4 Soi Sukjai Sukhumvit 40, Bangkok"}, {"area": "Thong Lo／Ekkamai", "category": "咖啡甜點", "name": "Mae Varee（แม่วารี）", "priority": "想去 ⭐", "description": "Thong Lo 老字號芒果糯米飯、三色糯米與椰漿", "hours": "每日 06:00–22:00", "address": "1 Thong Lo, Bangkok"}, {"area": "Thong Lo／Ekkamai", "category": "咖啡甜點", "name": "Ning’s Mango Stand（Sukhumvit 38 芒果糯米飯）", "priority": "想去 ⭐", "description": "Sukhumvit 38 路口街邊芒果糯米飯", "hours": "每日 13:00–22:00", "address": "4 Sukhumvit Rd, Bangkok"}, {"area": "Thong Lo／Ekkamai", "category": "酒吧夜生活", "name": "Dry Wave Cocktail Studio", "priority": "未設定", "description": "Thong Lo 13 概念調酒吧，經典調酒重組", "hours": "每日 19:00–01:00", "address": "263 Thong Lo 13 Alley, Bangkok"}, {"area": "Thong Lo／Ekkamai", "category": "酒吧夜生活", "name": "Last Call", "priority": "未設定", "description": "Thong Lo 二樓隱藏版雞尾酒吧", "hours": "週日–四 18:30–01:30；週五六公休", "address": "413/10-12 Thong Lo, Bangkok"}, {"area": "Thong Lo／Ekkamai", "category": "酒吧夜生活", "name": "Salone", "priority": "未設定", "description": "Ekkamai 時尚夜店俱樂部", "hours": "每日 21:00–03:30", "address": "217/8 Sukhumvit 63, Bangkok"}, {"area": "Siam／Chit Lom／One Bangkok", "category": "美食餐廳", "name": "Easy Buddy", "priority": "未設定", "description": "創意泰式打拋飯，自選肉類與配料", "hours": "每日 10:00–21:15", "address": "Siam Center 2F, Bangkok"}, {"area": "Siam／Chit Lom／One Bangkok", "category": "美食餐廳", "name": "Proad", "priority": "想去 ⭐", "description": "斑斕脆嫩卷，玉米與嫩椰口味", "hours": "依 CentralWorld 營業時間", "address": "CentralWorld 7F, Bangkok"}, {"area": "Siam／Chit Lom／One Bangkok", "category": "美食餐廳", "name": "Sri's Room", "priority": "未設定", "description": "Sri Trat 旗下泰東料理餐廳", "hours": "每日 10:00–22:00", "address": "Siam Paragon GF G28, Bangkok"}, {"area": "Siam／Chit Lom／One Bangkok", "category": "咖啡甜點", "name": "Hashtag B (Siam Paragon)", "priority": "想去 ⭐", "description": "拿破崙千層蛋塔、黑糯米風味蛋塔", "hours": "每日 10:00–22:00", "address": "Siam Paragon, Bangkok"}, {"area": "Siam／Chit Lom／One Bangkok", "category": "酒吧夜生活", "name": "Akara Sky Hanuman", "priority": "未設定", "description": "OCC 58–61 樓泰式神話高空觀景、酒吧與表演", "hours": "樓層不同，約 11:00–02:00", "address": "One City Centre L58-L61, Bangkok"}, {"area": "Siam／Chit Lom／One Bangkok", "category": "景點體驗", "name": "Lumphini Park 團體有氧舞蹈", "priority": "未設定", "description": "公園免費戶外團體有氧舞蹈，免預約", "hours": "平日 18:00–20:00；週末假日約 17:00–18:00", "address": "Lumphini Park Gate 4, Bangkok"}, {"area": "朱拉隆功／Banthat Thong", "category": "美食餐廳", "name": "Puponfai & Zapponfai", "priority": "備選 📌", "description": "Banthat Thong 爆炒蟹肉、生醃海鮮與泰式熱炒", "hours": "每日 12:00–22:30", "address": "1406 Banthat Thong Rd, Bangkok"}, {"area": "嵩越路／Talat Noi", "category": "美食餐廳", "name": "Urai Braised Goose", "priority": "必去 🔥", "description": "嵩越路老字號滷鵝，售完即止", "hours": "週一 10:00–13:00；週二–日另有 16:00–19:00", "address": "935 Song Wat Rd, Bangkok"}, {"area": "嵩越路／Talat Noi", "category": "咖啡甜點", "name": "32Bar", "priority": "必去 🔥", "description": "Talat Noi 老屋可可飲品、手工巧克力特調", "hours": "週一–四 10:40–19:00；週五–日 08:30–19:00", "address": "294 Soi Wanit 2, Bangkok"}, {"area": "嵩越路／Talat Noi", "category": "咖啡甜點", "name": "Arteasia", "priority": "順路可去 👍", "description": "嵩越路二樓藝廊風甜點與調飲", "hours": "週一公休；週二–五 10:00–17:00；週末至 17:30", "address": "947 Song Wat Rd 2F, Bangkok"}, {"area": "嵩越路／Talat Noi", "category": "酒吧夜生活", "name": "G.O.D.", "priority": "想去 ⭐", "description": "中國城老屋實驗系創意調酒吧", "hours": "每日 18:00–01:00", "address": "25-27 Soi Rammaitree, Bangkok"}, {"area": "嵩越路／Talat Noi", "category": "酒吧夜生活", "name": "messenger service", "priority": "未設定", "description": "中國城配送主題創意雞尾酒吧", "hours": "週日–四 18:00–00:00；週五六至 01:00", "address": "306 Thanon Santiphap, Bangkok"}, {"area": "嵩越路／Talat Noi", "category": "酒吧夜生活", "name": "TAX", "priority": "未設定", "description": "中國城老屋頂樓酒吧，以醋與發酵風味調酒", "hours": "每日 19:00–01:00", "address": "695-697 Maitri Chit Rd, Bangkok"}, {"area": "嵩越路／Talat Noi", "category": "景點體驗", "name": "I WANNA BANGKOK 招牌柱", "priority": "順路可去 👍", "description": "嵩越路復古紅色招牌柱街角拍照點", "hours": "戶外全天可拍；建議白天", "address": "Song Wat Rd & Yaowa Phanit Rd, Bangkok"}, {"area": "嵩越路／Talat Noi", "category": "景點體驗", "name": "Song Wat 拍貼機", "priority": "順路可去 👍", "description": "嵩越路復古主題拍貼機，留作旅遊紀念", "hours": "依店家營業時間", "address": "880 Song Wat Rd, Bangkok"}, {"area": "Silom／Sathon", "category": "按摩 SPA", "name": "Prestige Massage Sathorn Branch", "priority": "未設定", "description": "Sathon 泰式按摩與 SPA", "hours": "每日 08:30–23:30", "address": "79 Naradhiwas Rajanagarindra Rd, Bangkok"}, {"area": "Silom／Sathon", "category": "按摩 SPA", "name": "SHAN Wellness", "priority": "未設定", "description": "Surawong 質感按摩與療癒空間", "hours": "每日 12:00–00:00", "address": "94 Surawong Rd, Bangkok"}, {"area": "曼谷其他區域", "category": "美食餐廳", "name": "Chim Chum Suthiporn", "priority": "備選 📌", "description": "泰式陶鍋、烤豬頸肉、烤蝦與炸鴨嘴", "hours": "每日 17:00–02:00", "address": "Soi Pracha Songkhro 2, Bangkok"}, {"area": "曼谷其他區域", "category": "美食餐廳", "name": "Guay Jub Mr. Joe", "priority": "想去 ⭐", "description": "胡椒粿汁、酥脆豬肉；米其林必比登推薦", "hours": "每日 07:30–16:30", "address": "313/7 Chan Rd, Bangkok"}, {"area": "曼谷其他區域", "category": "景點市集", "name": "Huai Khwang Night Market（輝煌夜市／匯狂夜市）", "priority": "必去 🔥", "description": "在地深夜夜市、小吃、海鮮、熱帶水果與雜貨", "hours": "夜間攤販多約 18:00–04:00；各攤不同", "address": "Pracha Songkhro Rd, Bangkok"}, {"area": "曼谷其他區域", "category": "美食餐廳", "name": "Mae Klong Hua Pla Mo Fai（แม่กลองหัวปลาหม้อไฟ）", "priority": "未設定", "description": "蒸螃蟹、蟹膏海鮮、魚頭火鍋", "hours": "週一–三公休；週四–日 11:00–21:00", "address": "198 Phran Nok Phutthamonthon Sai 4 Rd, Bangkok"}, {"area": "曼谷其他區域", "category": "咖啡甜點", "name": "โรตีสายไหม บังเอิญอร่อย（Bang Earn Aroi）", "priority": "想去 ⭐", "description": "現做泰式糖絲捲餅 Roti Sai Mai", "hours": "資料表記載 24 小時", "address": "10/2 Ratchaprarop Rd, Bangkok"}, {"area": "曼谷其他區域", "category": "酒吧夜生活", "name": "Onyx", "priority": "未設定", "description": "RCA 大型電音夜店", "hours": "每日 22:00–04:00", "address": "RCA Alley, Bangkok"}, {"area": "曼谷其他區域", "category": "酒吧夜生活", "name": "Route 66", "priority": "未設定", "description": "RCA 老牌大型夜店，現場樂團與電音舞池", "hours": "每日 21:00–04:00", "address": "29/33-48 Rama 9 Rd RCA, Bangkok"}, {"area": "曼谷其他區域", "category": "酒吧夜生活", "name": "Spaceplus", "priority": "未設定", "description": "RCA Plaza 三樓大型電音夜店", "hours": "每日 21:00–04:00", "address": "31/10 RCA Plaza 3F, Bangkok"}, {"area": "曼谷其他區域", "category": "酒吧夜生活", "name": "The Club Khaosan", "priority": "未設定", "description": "考山路三層樓派對夜店", "hours": "週日–四 21:00–04:00；週五六 20:30–04:00", "address": "123 Khaosan Rd, Bangkok"}, {"area": "曼谷其他區域", "category": "酒吧夜生活", "name": "Void", "priority": "未設定", "description": "RCA 一帶夜店俱樂部", "hours": "每日 21:30–03:45", "address": "559 Soi Thale Bangkok, Bangkok"}, {"area": "羅勇／Thap Ma", "category": "按摩 SPA", "name": "Bliss Spa Rayong", "priority": "未設定", "description": "羅勇芳療、運動按摩與泰式按摩，私人空間", "hours": "每日 09:30–21:30", "address": "88/97 Thap Ma, Rayong Thailand"}, {"area": "羅勇／Laem Charoen Beach", "category": "美食餐廳", "name": "Laem Charoen Seafood Rayong", "priority": "未設定", "description": "羅勇品牌創始海鮮店，魚露炸鱸魚、三味蝦、蒸蟹", "hours": "每日 10:00–21:30", "address": "001 Liap Chai Fang Road, Rayong Thailand"}];
-    const collectionCategoryIcons = {'美食餐廳':'🍽️','咖啡甜點':'🍰','景點市集':'🏮','景點體驗':'📸','酒吧夜生活':'🍸','按摩 SPA':'💆'};
-    const publicCollectionItems = collectionItems.filter(x => !/男士按摩|男性按摩|male massage|men.s massage|gay massage/i.test([x.name,x.description,x.category].join(' ')));
+        let collectionItems = [];
+    const collectionCategoryIcons = {'美食餐廳':'🍽️','咖啡甜點':'🍰','景點市集':'🏮','景點體驗':'📸','酒吧夜生活':'🍸','按摩 SPA':'💆','購物伴手禮':'🛍️'};
+    let publicCollectionItems = collectionItems.filter(x => !/男士按摩|男性按摩|male massage|men.s massage|gay massage/i.test([x.name,x.description,x.category].join(' ')));
     function renderCollections() {
       const area = document.getElementById('collection-area').value;
       const category = window.activeCollectionCategory || '全部';
       const priority = document.getElementById('collection-priority').value;
       const q = document.getElementById('collection-search').value.trim().toLocaleLowerCase();
-      const matches = publicCollectionItems.filter(x => (!area || x.area === area) && (category === '全部' || (category === '餐廳／小吃' && x.category === '美食餐廳') || (category === '咖啡／甜點' && x.category === '咖啡甜點') || (category === '夜市／市集' && x.category === '景點市集') || (category === '酒吧／夜生活' && x.category === '酒吧夜生活') || (category === '景點／體驗' && x.category === '景點體驗') || (category === '按摩／SPA' && x.category === '按摩 SPA')) && (!priority || x.priority === priority) && (!q || [x.name,x.area,x.category,x.description,x.address].some(v => String(v||'').toLocaleLowerCase().includes(q))));
-      document.getElementById('collection-count').textContent = '顯示 ' + matches.length + ' / ' + publicCollectionItems.length + ' 筆公開候選收藏';
+      const date = document.getElementById('collection-date').value;
+      const includeAnyDate = document.getElementById('collection-any-date').checked;
+      const matches = publicCollectionItems.filter(x => (!area || x.area === area) && (category === '全部' || (category === '餐廳／小吃' && x.category === '美食餐廳') || (category === '咖啡／甜點' && x.category === '咖啡甜點') || (category === '夜市／市集' && x.category === '景點市集') || (category === '酒吧／夜生活' && x.category === '酒吧夜生活') || (category === '景點／體驗' && x.category === '景點體驗') || (category === '按摩／SPA' && x.category === '按摩 SPA') || (category === '購物伴手禮' && x.category === '購物伴手禮')) && (!priority || x.priority === priority) && (!date || String(x.dates||'不限日期').split(',').includes(date) || (includeAnyDate && (x.dates === '不限日期' || !x.dates))) && (!q || [x.name,x.area,x.category,x.description,x.address].some(v => String(v||'').toLocaleLowerCase().includes(q))));
+      document.getElementById('collection-count').textContent = '顯示 ' + matches.length + ' / ' + publicCollectionItems.length + ' 筆公開收藏';
       document.getElementById('collection-grid').innerHTML = matches.length ? matches.map(x => {
         const query = x.name + ' ' + x.address;
-        const map = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query);
+        const map = /^https:\/\/(?:www\.)?google\.com\/maps\//.test(x.map_url||'') ? x.map_url : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query);
         return '<article class="rounded-2xl border border-amber-400/20 bg-white/[0.035] p-4 flex flex-col gap-2">' +
           '<div class="flex items-start justify-between gap-2"><h3 class="font-bold text-white">' + escapeHtml((collectionCategoryIcons[x.category]||'📍')+' '+x.name) + '</h3><span class="text-xs text-amber-300 shrink-0">' + escapeHtml(x.priority === '未設定' ? x.category : x.priority) + '</span></div>' +
           '<p class="text-xs text-slate-400">' + escapeHtml(x.area) + ' · ' + escapeHtml(x.category) + '</p>' +
           '<p class="text-sm text-slate-200 leading-relaxed">' + escapeHtml(x.description) + '</p>' +
           '<p class="text-xs text-slate-400">🕒 ' + escapeHtml(x.hours) + '</p>' +
           '<p class="text-xs text-slate-400">📍 ' + escapeHtml(x.address) + '</p>' +
-          '<a href="' + escapeHtml(map) + '" target="_blank" rel="noopener noreferrer" class="inline-flex mt-auto pt-2 text-sm text-amber-300 underline">Google Maps 搜尋與導航 ↗</a></article>';
+          '<a href="' + escapeHtml(map) + '" target="_blank" rel="noopener noreferrer" class="inline-flex mt-auto pt-2 text-sm text-amber-300 underline">Google Maps 導航 ↗</a></article>';
       }).join('') : '<p class="text-sm text-slate-400">找不到符合條件的收藏，試試清除篩選條件。</p>';
     }
-    for (const [id,key] of [['collection-area','area'],['collection-priority','priority']]) {
-      const el = document.getElementById(id);
-      [...new Set(publicCollectionItems.map(x=>x[key]))].filter(x=>key!=='priority'||x!=='未設定').sort().forEach(v => {const option=document.createElement('option');option.value=v;option.textContent=v;el.appendChild(option)});
-      el.addEventListener('change',renderCollections);
+    function updateCollectionFilters() {
+      for (const [id,key] of [['collection-area','area'],['collection-priority','priority']]) {
+        const el=document.getElementById(id); const prior=el.value;
+        el.replaceChildren(new Option(key==='area'?'所有區域':'所有優先度',''));
+        [...new Set(publicCollectionItems.map(x=>x[key]))].filter(Boolean).filter(x=>key!=='priority'||x!=='未設定').sort().forEach(v=>el.add(new Option(v,v)));
+        el.value=[...el.options].some(o=>o.value===prior)?prior:'';
+      }
+      const dates=document.getElementById('collection-date'); const prior=dates.value;
+      dates.replaceChildren(new Option('全部日期',''));
+      for(let d=9;d<=17;d++){const day='12/'+String(d).padStart(2,'0');dates.add(new Option(day,day));}
+      dates.value=prior;
+      renderCollections();
     }
+    for(const id of ['collection-area','collection-priority','collection-date','collection-any-date']) document.getElementById(id).addEventListener('change',renderCollections);
+    async function loadCollections() {
+      try {
+        const res=await fetch('./collection.json?t='+Date.now(),{cache:'no-store'});
+        if(!res.ok) throw Error('HTTP '+res.status);
+        const payload=await res.json();
+        if(!Array.isArray(payload.items)) throw Error('收藏資料格式錯誤');
+        collectionItems=payload.items;
+        publicCollectionItems=collectionItems.filter(x=>!(/男士按摩|男性按摩|male massage|men.s massage|gay massage/i.test([x.name,x.description,x.category].join(' '))));
+        document.getElementById('collection-source-note').textContent=payload.source==='preview-snapshot'?'目前顯示 Preview 備份資料；尚待完成正式同步設定。':'資料來源：網站收藏資料 · '+(payload.updated||'');
+        updateCollectionFilters();
+      } catch(err) {
+        document.getElementById('collection-source-note').textContent='收藏資料載入失敗：'+err.message;
+      }
+    }
+    loadCollections();
     document.getElementById('collection-search').addEventListener('input',renderCollections);
     window.activeCollectionCategory='全部';
     document.querySelectorAll('[data-collection-tab]').forEach(btn=>btn.addEventListener('click',()=>{
@@ -1884,6 +1947,49 @@
       renderCollections();
     }));
     renderCollections();
+
+    let shoppingItems=[];
+    const shoppingFilters={search:document.getElementById('shopping-search'),store:document.getElementById('shopping-store'),priority:document.getElementById('shopping-priority'),status:document.getElementById('shopping-status')};
+    function populateShoppingFilter(key,items){
+      const el=shoppingFilters[key];
+      [...new Set(items.map(x=>String(x[key]||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'zh-Hant')).forEach(v=>{
+        const opt=document.createElement('option');opt.value=v;opt.textContent=v;el.appendChild(opt);
+      });
+    }
+    function renderShopping(){
+      const q=shoppingFilters.search.value.trim().toLocaleLowerCase();
+      const filtered=shoppingItems.filter(x=>{
+        if(shoppingFilters.store.value!=='' && x.store!==shoppingFilters.store.value)return false;
+        if(shoppingFilters.priority.value!=='' && x.priority!==shoppingFilters.priority.value)return false;
+        if(shoppingFilters.status.value!=='' && x.status!==shoppingFilters.status.value)return false;
+        return !q||[x.name,x.store,x.priority,x.description,x.price,x.status,x.note].some(v=>String(v||'').toLocaleLowerCase().includes(q));
+      });
+      document.getElementById('shopping-count').textContent='顯示 '+filtered.length+' / '+shoppingItems.length+' 筆購物項目';
+      document.getElementById('shopping-grid').innerHTML=filtered.map(x=>'<article class="rounded-2xl border border-amber-400/20 bg-white/[0.035] p-4">'+
+        '<div class="flex justify-between gap-2"><h3 class="font-bold text-white">'+escapeHtml(x.name||'')+'</h3><span class="text-xs text-amber-300 shrink-0">'+escapeHtml(x.priority||'')+'</span></div>'+
+        '<p class="text-xs text-slate-400 mt-2">📍 '+escapeHtml(x.store||'')+'</p>'+
+        '<p class="text-sm text-slate-300 mt-2">'+escapeHtml(x.description||'')+'</p>'+
+        '<p class="text-xs text-slate-300 mt-2">參考價格：'+escapeHtml(x.price||'待確認')+' · '+escapeHtml(x.status||'未設定')+'</p>'+
+        (x.note?'<p class="text-xs text-slate-400 mt-2">'+escapeHtml(x.note)+'</p>':'')+
+        (/^https:\/\//.test(x.url||'')?'<a class="text-sm text-amber-300 underline" target="_blank" rel="noopener noreferrer" href="'+escapeHtml(x.url)+'">查看來源 ↗</a>':'')+'</article>').join('')||'<p class="text-slate-400">沒有符合條件的購物項目。</p>';
+    }
+    async function loadShopping() {
+      const target=document.getElementById('shopping-grid');
+      const note=document.getElementById('shopping-source-note');
+      try {
+        const res=await fetch('./shopping.json?t='+Date.now(),{cache:'no-store'});
+        if(!res.ok) throw Error('HTTP '+res.status);
+        const data=await res.json();
+        if(!Array.isArray(data.items)) throw Error('購物資料格式錯誤');
+        shoppingItems=data.items;
+        ['store','priority','status'].forEach(key=>populateShoppingFilter(key,shoppingItems));
+        renderShopping();
+        note.textContent=(data.source==='preview-snapshot'?'目前顯示 Preview 的部分購物備份；尚待完成正式同步設定。':'已載入 '+data.items.length+' 筆購物資料 · '+(data.updated||''));
+      }catch(err){target.textContent='購物資料載入失敗：'+err.message;note.textContent='';}
+    }
+    Object.values(shoppingFilters).forEach(el=>el.addEventListener(el.tagName==='INPUT'?'input':'change',renderShopping));
+    document.getElementById('shopping-reset').addEventListener('click',()=>{Object.values(shoppingFilters).forEach(el=>el.value='');renderShopping();});
+    loadShopping();
 
         // Delegated click listener for day pills, sub-tabs, DJ card expand & driver big cards
     document.addEventListener('click', e => {
@@ -2025,7 +2131,7 @@
       const cached=weatherCache[city];
       if(cached && Date.now()-cached.loaded<30*60*1000) return cached;
       const pos=weatherLocations[city];
-      const url=`https://api.open-meteo.com/v1/forecast?latitude=${pos.latitude}&longitude=${pos.longitude}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FBangkok&forecast_days=16`;
+      const url=`https://api.open-meteo.com/v1/forecast?latitude=${pos.latitude}&longitude=${pos.longitude}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weather_code&timezone=Asia%2FBangkok&forecast_days=16`;
       const resp=await fetch(url); if(!resp.ok)throw Error('天氣服務暫時無法連線');
       const data=await resp.json();weatherCache[city]={data,loaded:Date.now()};return weatherCache[city];
     }
@@ -2041,7 +2147,7 @@
             const day=Number(el.dataset.weatherDay);
             const date=itineraryData.find(d=>d.day===day)?.date;
             const ix=data.daily.time.indexOf(date);
-            el.textContent=ix<0?'🌤 預報未開放':`${weatherEmoji(data.current.weather_code)} ${Math.round(data.daily.temperature_2m_max[ix])}°`;
+            el.textContent=ix<0?'🌤 預報未開放':`${weatherEmoji(data.daily.weather_code[ix])} ${Math.round(data.daily.temperature_2m_max[ix])}°`;
           }
         }catch(e){relevant.forEach(el=>el.textContent='🌤 天氣未取得');}
       }
